@@ -19,7 +19,7 @@ trait GuidId
         });
     }
 
-    protected function getIncrementing()
+    public function getIncrementing()
     {
         return false;
     }
