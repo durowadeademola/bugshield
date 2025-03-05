@@ -16,11 +16,19 @@ class Bounty extends Model
 
     protected $fillable = ['bug_report_id', 'researcher_id', 'organization_id', 'amount', 'status'];
 
+    protected function casts(): array
+    {
+        return [
+            'amount' => 'integer',
+            'status' => 'string'
+        ];
+    }
+
     public function bugReport() {
         return $this->belongsTo(BugReport::class);
     }
 
-    public function hacker() {
+    public function researcher() {
         return $this->belongsTo(User::class, 'researcher_id'); 
     }
 

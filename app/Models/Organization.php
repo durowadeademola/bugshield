@@ -16,6 +16,14 @@ class Organization extends Model
 
     protected $fillable = ['user_id', 'name', 'website'];
 
+    protected function casts(): array
+    {
+        return [
+            'name' => 'string',
+            'website' => 'string'
+        ];
+    }
+
     public function user() {
         return $this->belongsTo(User::class, 'user_id');
     }

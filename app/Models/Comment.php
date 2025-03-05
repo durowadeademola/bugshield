@@ -16,6 +16,13 @@ class Comment extends Model
 
     protected $fillable = ['bug_report_id', 'user_id', 'message'];
 
+    protected function casts(): array
+    {
+        return [
+            'message' => 'string'
+        ];
+    }
+
     public function user() {
         return $this->belongsTo(User::class, 'user_id');
     }

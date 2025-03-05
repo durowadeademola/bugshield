@@ -16,6 +16,11 @@ class ReportAttachment extends Model
 
     protected $fillable = ['bug_report_id', 'file_path'];
 
+    protected function casts(): array
+    {
+        return ['file_path' => 'string'];
+    }
+
     public function bugReport() {
         return $this->belongsTo(BugReport::class, 'bug_report_id');
     }

@@ -16,6 +16,14 @@ class Notification extends Model
 
     protected $fillable = ['user_id', 'message', 'read_status'];
 
+    protected function casts(): array
+    {
+        return [
+            'message' => 'string',
+            'read_status' => 'boolean'
+        ];
+    }
+
     public function user() {
         return $this->belongsTo(User::class, 'user_id');
     }

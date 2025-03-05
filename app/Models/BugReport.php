@@ -16,6 +16,15 @@ class BugReport extends Model
 
     protected $fillable = ['user_id', 'title', 'description', 'status'];
 
+    protected function casts(): array
+    {
+        return [
+            'title' => 'string',
+            'description' => 'string',
+            'status' => 'string'
+        ];
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
