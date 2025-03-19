@@ -14,7 +14,7 @@ class Comment extends Model
 
     protected $dates = ['deleted_at'];
 
-    protected $fillable = ['report_id', 'user_id', 'message'];
+    protected $fillable = ['program_id', 'report_id', 'user_id', 'message'];
 
     protected function casts(): array
     {
@@ -29,5 +29,9 @@ class Comment extends Model
 
     public function report() {
         return $this->belongsTo(Report::class, 'report_id');
+    }
+
+    public function program() {
+        return $this->belongsTo(Program::class, 'program_id');
     }
 }

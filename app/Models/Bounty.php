@@ -14,7 +14,7 @@ class Bounty extends Model
 
     protected $dates = ['deleted_at'];
 
-    protected $fillable = ['report_id', 'researcher_id', 'organization_id', 
+    protected $fillable = ['program_id','report_id', 'researcher_id', 'organization_id', 
                             'amount', 'status', 'is_low', 'is_medium', 'is_high', 'is_critical',
                             'is_informational'
                         ];
@@ -33,7 +33,7 @@ class Bounty extends Model
     }
 
     public function report() {
-        return $this->belongsTo(Report::class);
+        return $this->belongsTo(Report::class, 'report_id');
     }
 
     public function researcher() {
@@ -42,6 +42,11 @@ class Bounty extends Model
 
     public function organization() {
         return $this->belongsTo(Organization::class, 'organization_id');
+    }
+
+    public function program()
+    {
+        return $this->belongsTo(Program::class, 'program_id');
     }
 
     public function transactions() {
