@@ -5,7 +5,7 @@ namespace App\Filament\Pages;
 use Filament\Pages\Dashboard as BaseDashboard;
 use Filament\Widgets\AccountWidget;
 use Filament\Widgets\FilamentInfoWidget;
-use App\Filament\Widgets\AStatsOverview;
+use App\Filament\Widgets\AllStatsOverview;
 use App\Filament\Widgets\RecentReports;
 use App\Filament\Widgets\RecentTransactions;
 use App\Filament\Widgets\ReportsChart;
