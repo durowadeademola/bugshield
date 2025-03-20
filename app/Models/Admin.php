@@ -16,7 +16,7 @@ class Admin extends Model
 
     
     protected $fillable = ['user_id','first_name', 'middle_name', 'last_name', 'email',
-        'designation', 'address', 'phone_number', 'is_active',
+        'designation', 'address', 'phone_number','image_name', 'image_path', 'is_active',
     ];
 
     protected function casts(): array
@@ -28,7 +28,9 @@ class Admin extends Model
             'email' => 'string',
             'designation' => 'string',
             'address' => 'string',
-            'phone_number' => 'integer'
+            'phone_number' => 'integer',
+            'image_name' => 'string',
+            'image_path' => 'string'
         ];
     }
 

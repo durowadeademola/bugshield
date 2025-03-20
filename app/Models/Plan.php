@@ -15,7 +15,7 @@ class Plan extends Model
     protected $dates = ['deleted_at'];
 
     protected $fillables = ['title', 'description', 'max_reports', 'is_free', 'is_basic', 'is_pro', 'is_enterprise',
-        'is_life_time', 'is_daily', 'is_weekly', 'is_monthly', 'is_yearly', 'custom_period'
+        'is_life_time', 'is_daily', 'is_weekly', 'is_monthly', 'is_yearly', 'custom_period', 'logo_name', 'logo_path'
     ];
 
     protected function casts(): array
@@ -32,7 +32,9 @@ class Plan extends Model
             'is_daily' => 'boolean',
             'is_weekly' => 'boolean',
             'is_monthly' => 'boolean',
-            'is_yearly' => 'boolean'
+            'is_yearly' => 'boolean',
+            'logo_name' => 'string',
+            'logo_path' => 'string'
         ];
     }
 }
