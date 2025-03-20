@@ -10,6 +10,8 @@ class RecentReports extends Widget
 {
     protected static string $view = 'filament.widgets.recent-reports';
 
+    protected static bool $isLazy = false;
+
     protected static ?string $heading = 'Recent Reports';
 
     protected int $recordsPerPage = 5;

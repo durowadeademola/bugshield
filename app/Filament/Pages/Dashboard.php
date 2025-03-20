@@ -5,7 +5,7 @@ namespace App\Filament\Pages;
 use Filament\Pages\Dashboard as BaseDashboard;
 use Filament\Widgets\AccountWidget;
 use Filament\Widgets\FilamentInfoWidget;
-use App\Filament\Widgets\StatsOverview;
+use App\Filament\Widgets\AStatsOverview;
 use App\Filament\Widgets\RecentReports;
 use App\Filament\Widgets\RecentTransactions;
 use App\Filament\Widgets\ReportsChart;
@@ -18,7 +18,7 @@ class Dashboard extends BaseDashboard
     public function getWidgets(): array
     {
         return [
-            StatsOverview::class,
+            AllStatsOverview::class,
             RecentReports::class,
             RecentTransactions::class,
             ReportsChart::class,

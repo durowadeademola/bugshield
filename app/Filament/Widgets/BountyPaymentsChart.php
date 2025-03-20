@@ -10,6 +10,8 @@ class BountyPaymentsChart extends ChartWidget
 {
     protected static ?string $heading = 'Bounty Payments Overview';
 
+    protected static bool $isLazy = false;
+
     protected function getData(): array
     {
         $payments = Transaction::where('status', 'paid')

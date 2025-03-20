@@ -10,6 +10,8 @@ class ReportsChart extends ChartWidget
 {
     protected static ?string $heading = 'Monthly Reports';
 
+    protected static bool $isLazy = false;
+
     protected function getData(): array
     {
         $reports = Report::selectRaw('MONTH(created_at) as month, COUNT(*) as count')

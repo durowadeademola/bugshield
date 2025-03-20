@@ -15,6 +15,8 @@ class RecentTransactions extends TableWidget
 
     protected static ?string $heading = 'Recent Transactions';
 
+    protected static bool $isLazy = false;
+
     protected int $recordsPerPage = 5;
 
     protected function getTableQuery(): Builder
