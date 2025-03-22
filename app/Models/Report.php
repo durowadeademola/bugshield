@@ -17,8 +17,8 @@ class Report extends Model
     protected $dates = ['deleted_at'];
 
     protected $fillable = ['researcher_id', 'program_id', 'title', 'description', 'status', 'is_low', 'is_medium', 
-                            'is_high', 'is_critical', 'is_informational', 'asset', 'weakness', 'severity',
-                            'attch_name', 'impact'];
+        'is_high', 'is_critical', 'is_informational', 'asset', 'weakness', 'severity', 'attch_name', 'impact'
+    ];
 
     protected function casts(): array
     {

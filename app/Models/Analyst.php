@@ -27,7 +27,7 @@ class Analyst extends Model
             'middle_name' => 'string',
             'last_name' => 'string',
             'email' => 'string',
-            'disposition' => 'string',
+            'designation' => 'string',
             'address' => 'string',
             'designation' => 'string',
             'phone_number' => 'integer',

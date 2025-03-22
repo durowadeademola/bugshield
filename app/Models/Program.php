@@ -16,9 +16,9 @@ class Program extends Model
 
     protected $dates = ['deleted_at'];
 
-    protected $fillables = ['organization_id', 'title', 'description', 'is_public', 
-    'is_private', 'is_active', 'is_vdp', 'is_managed', 'critical_bounty_range', 'high_bounty_range',
-    'medium_bounty_range', 'low_bounty_range', 'asset', 'in_scope', 'out_of_scope', 'logo_name', 'logo_path'];
+    protected $fillables = ['organization_id', 'title', 'description', 'is_public',  'is_private', 'is_active', 'is_vdp', 'is_managed', 
+        'critical_bounty_range', 'high_bounty_range', 'medium_bounty_range', 'low_bounty_range', 'asset', 'in_scope', 'out_of_scope', 'logo_name', 'logo_path'
+    ];
 
     protected function casts(): array
     {

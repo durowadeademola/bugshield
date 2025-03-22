@@ -17,9 +17,8 @@ class Bounty extends Model
     protected $dates = ['deleted_at'];
 
     protected $fillable = ['program_id','report_id', 'researcher_id', 'organization_id', 
-                            'amount', 'status', 'is_low', 'is_medium', 'is_high', 'is_critical',
-                            'is_informational'
-                        ];
+        'amount', 'status', 'is_low', 'is_medium', 'is_high', 'is_critical', 'is_informational'
+    ];
 
     protected function casts(): array
     {

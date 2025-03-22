@@ -17,7 +17,8 @@ class Account extends Model
     protected $dates = ['deleted_at'];
     
     protected $fillable = ['user_id','account_number', 'account_name', 'bank_name', 'bank_code',
-                'account_type', 'currency', 'balance', 'status'];
+        'account_type', 'currency', 'balance', 'status'
+    ];
 
     protected function casts(): array
     {

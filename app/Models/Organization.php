@@ -17,7 +17,8 @@ class Organization extends Model
     protected $dates = ['deleted_at'];
 
     protected $fillable = ['user_id', 'name', 'email', 'website', 'address', 'phone_number', 
-                    'description', 'country', 'state', 'logo_name', 'logo_path', 'is_active'];
+        'description', 'country', 'state', 'logo_name', 'logo_path', 'is_active'
+    ];
 
     protected function casts(): array
     {
