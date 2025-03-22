@@ -10,7 +10,7 @@ use App\Http\Traits\GuidId;
 
 class Account extends Model
 {
-    use HasFactory, Notifiable, SoftDeletes, GuidId;
+    use Notifiable, SoftDeletes, GuidId;
 
     public $table = 'accounts';
 

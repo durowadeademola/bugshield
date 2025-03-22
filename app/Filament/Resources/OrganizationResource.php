@@ -31,13 +31,20 @@ class OrganizationResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('name'),
+                Tables\Columns\TextColumn::make('email'),
+                Tables\Columns\TextColumn::make('website'),
+                Tables\Columns\TextColumn::make('address'),
+                Tables\Columns\TextColumn::make('phone_number'),
+                Tables\Columns\TextColumn::make('description'),
+                Tables\Columns\TextColumn::make('country'),
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

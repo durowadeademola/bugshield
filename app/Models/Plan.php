@@ -10,13 +10,13 @@ use App\Http\Traits\GuidId;
 
 class Plan extends Model
 {
-    use HasFactory, Notifiable, SoftDeletes, GuidId;
+    use Notifiable, SoftDeletes, GuidId;
 
     public $table = 'plans';
 
     protected $dates = ['deleted_at'];
 
-    protected $fillables = ['title', 'description', 'max_reports', 'is_free', 'is_basic', 'is_pro', 'is_enterprise',
+    protected $fillables = ['title', 'description', 'amount', 'max_reports', 'is_free', 'is_basic', 'is_pro', 'is_enterprise',
         'is_life_time', 'is_daily', 'is_weekly', 'is_monthly', 'is_yearly', 'custom_period', 'logo_name', 'logo_path'
     ];
 
@@ -25,6 +25,7 @@ class Plan extends Model
         return [
             'title' => 'string',
             'description' => 'string',
+            'amount' => 'decimal:2',
             'max_reports' => 'integer',
             'is_free' => 'boolean',
             'is_basic' => 'boolean',

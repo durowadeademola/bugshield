@@ -10,7 +10,7 @@ use App\Http\Traits\GuidId;
 
 class Admin extends Model
 {
-    use HasFactory, Notifiable, SoftDeletes, GuidId;
+    use Notifiable, SoftDeletes, GuidId;
 
     public $table = 'admins';
 
@@ -32,7 +32,8 @@ class Admin extends Model
             'address' => 'string',
             'phone_number' => 'integer',
             'image_name' => 'string',
-            'image_path' => 'string'
+            'image_path' => 'string',
+            'is_active' => 'boolean'
         ];
     }
 

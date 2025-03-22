@@ -31,7 +31,10 @@ class PlanResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('title'),
+                Tables\Columns\TextColumn::make('description'),
+                Tables\Columns\TextColumn::make('max_reports'),
+                Tables\Columns\TextColumn::make('amount'),
             ])
             ->filters([
                 //

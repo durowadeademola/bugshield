@@ -31,7 +31,13 @@ class ReportResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('title'),
+                Tables\Columns\TextColumn::make('description'),
+                Tables\Columns\TextColumn::make('status'),
+                Tables\Columns\TextColumn::make('asset'),
+                Tables\Columns\TextColumn::make('weakness'),
+                Tables\Columns\TextColumn::make('severity'),
+                Tables\Columns\TextColumn::make('impact'),
             ])
             ->filters([
                 //

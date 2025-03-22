@@ -31,13 +31,20 @@ class AccountResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('user.name')->label('User'),
+                Tables\Columns\TextColumn::make('account_name'),
+                Tables\Columns\TextColumn::make('account_number'),
+                Tables\Columns\TextColumn::make('bank_name'),
+                Tables\Columns\TextColumn::make('bank_code'),
+                Tables\Columns\TextColumn::make('account_type'),
+                Tables\Columns\TextColumn::make('currency'),
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

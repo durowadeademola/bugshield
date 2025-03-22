@@ -10,14 +10,14 @@ use App\Http\Traits\GuidId;
 
 class Transaction extends Model
 {
-    use HasFactory, Notifiable, SoftDeletes, GuidId;
+    use Notifiable, SoftDeletes, GuidId;
 
     public $table = 'transactions';
 
     protected $dates = ['deleted_at'];
 
     protected $fillables = [
-        'bounty_id', 'researcher_id', 'organization_id', 'amount', 'status',
+        'program_id', 'bounty_id', 'researcher_id', 'organization_id', 'amount', 'status',
         'payment_method', 'transaction_reference'
     ];
 
@@ -38,11 +38,16 @@ class Transaction extends Model
 
     public function researcher()
     {
-        return $this->belongsTo(User::class, 'researcher_id');
+        return $this->belongsTo(Researcher::class, 'researcher_id');
     }
 
     public function organization()
     {
-        return $this->belongsTo(User::class, 'organization_id');
+        return $this->belongsTo(Organization::class, 'organization_id');
+    }
+
+    public function program()
+    {
+        return $this->belongsTo(Program::class, 'program_id');
     }
 }

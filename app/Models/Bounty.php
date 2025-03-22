@@ -10,7 +10,7 @@ use App\Http\Traits\GuidId;
 
 class Bounty extends Model
 {
-    use HasFactory, Notifiable, SoftDeletes, GuidId;
+    use Notifiable, SoftDeletes, GuidId;
 
     public $table = 'bounties';
 
@@ -24,7 +24,7 @@ class Bounty extends Model
     protected function casts(): array
     {
         return [
-            'amount' => 'decimal',
+            'amount' => 'decimal:2',
             'status' => 'string',
             'is_low' => 'boolean',
             'is_medium' => 'boolean',
@@ -39,7 +39,7 @@ class Bounty extends Model
     }
 
     public function researcher() {
-        return $this->belongsTo(User::class, 'researcher_id'); 
+        return $this->belongsTo(Researcher::class, 'researcher_id'); 
     }
 
     public function organization() {

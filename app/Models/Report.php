@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Report extends Model
 {
-    use HasFactory, Notifiable, SoftDeletes, GuidId;
+    use Notifiable, SoftDeletes, GuidId;
 
     public $table = 'reports';
 
@@ -40,7 +40,7 @@ class Report extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'researcher_id');
+        return $this->belongsTo(Researcher::class, 'researcher_id');
     }
 
     public function program()

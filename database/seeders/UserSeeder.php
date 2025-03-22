@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
 
         // admin user
         if (User::where(['name'=>'bugshield-admin', 'email'=>'admin@bugshield.com'])->count() == 0) {
-            User::factory()->create([
+            User::create([
                 'name' => 'bugshield-admin',
                 'email' => 'admin@bugshield.com',
                 'password' => Hash::make(self::$password),
@@ -30,7 +30,7 @@ class UserSeeder extends Seeder
 
         //analyst user
         if (User::where(['name'=>'bugshield-analyst', 'email'=>'analyst@bugshield.com'])->count() == 0) {
-            User::factory()->create([
+            User::create([
                 'name' => 'bugshield-analyst',
                 'email' => 'analyst@bugshield.com',
                 'password' => Hash::make(self::$password),
@@ -40,7 +40,7 @@ class UserSeeder extends Seeder
 
         //researcher user
         if (User::where(['name'=>'bugshield-researcher', 'email'=>'researcher@bugshield.com'])->count() == 0) {
-            User::factory()->create([
+            User::create([
                 'name' => 'bugshield-researcher',
                 'email' => 'researcher@bugshield.com',
                 'password' => Hash::make(self::$password),
@@ -50,7 +50,7 @@ class UserSeeder extends Seeder
 
         //organization user
         if (User::where(['name'=>'bugshield-organization', 'email'=>'organization@bugshield.com'])->count() == 0) {
-            User::factory()->create([
+            User::create([
                 'name' => 'bugshield-organization',
                 'email' => 'organization@bugshield.com',
                 'password' => Hash::make(self::$password),

@@ -10,7 +10,7 @@ use App\Http\Traits\GuidId;
 
 class Attachment extends Model
 {
-    use HasFactory, Notifiable, SoftDeletes, GuidId;
+    use Notifiable, SoftDeletes, GuidId;
 
     public $table = 'attachments';
 
