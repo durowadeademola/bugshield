@@ -11,11 +11,12 @@ use Illuminate\Notifications\Notifiable;
 //use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Filament\Models\Contracts\FilamentUser;
+use Laravel\Fortify\TwoFactorAuthenticatable;
 
 class User extends Authenticatable implements FilamentUser
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use Notifiable, SoftDeletes, GuidId, HasRoles;
+    use Notifiable, TwoFactorAuthenticatable, SoftDeletes, GuidId, HasRoles;
 
     public $incrementing = false;
     protected $keyType = 'string'; 

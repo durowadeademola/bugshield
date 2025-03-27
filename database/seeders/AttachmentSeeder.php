@@ -22,8 +22,10 @@ class AttachmentSeeder extends Seeder
                     'report_id' => $report->id,
                     'file_path' => storage_path('app/public/reports/attachment.jpg')
                 ]);
+                $this->command->info('Attachment created successfully.');
+            } else {
+                $this->command->info('Attachment already exists.');
             }
-            $this->command->info('Attachment created successfully.');
         } else {
             $this->command->info('Report does not exist.');
         }
