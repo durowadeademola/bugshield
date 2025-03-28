@@ -10,7 +10,7 @@ use Illuminate\Database\Seeder;
 class UserSeeder extends Seeder
 {
 
-    protected static string $password = '256ddyu66@190';
+    protected static string $password = 'password';
      /**
      * Seed the application's database.
      */

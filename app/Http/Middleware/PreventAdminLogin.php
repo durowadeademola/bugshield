@@ -15,7 +15,7 @@ class PreventAdminLogin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->check() && auth()->user()->hasRole('admin')) {
+        if ($request->is('login') && auth()->check() && auth()->user()->hasRole('admin')) {
             return redirect('/admin'); // Redirect to Filament admin panel
         }
         return $next($request);

@@ -32,23 +32,6 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Fortify::authenticateUsing(function (Request $request) {
-            $user = User::where('email', $request->email)->first();
-            dd($user);
-    
-            if ($user && \Hash::check($request->password, $user->password)) {
-                // 🚨 Prevent admins from logging in via /login
-                if ($user->hasRole('admin') && $request->is('login')) {
-                    throw ValidationException::withMessages([
-                        'email' => ['Admins must log in via /admin'],
-                    ]);
-                }
-    
-                return $user;
-            }
-    
-            return null;
-        });
         Fortify::createUsersUsing(CreateNewUser::class);
         Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
         Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
