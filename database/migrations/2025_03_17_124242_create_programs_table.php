@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('programs', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('organization_id')->references('id')->on('organizations');
+            $table->foreignUuid('organization_id')->constrained('organizations');
             $table->string('title');
             $table->text('description');
             $table->text('asset');

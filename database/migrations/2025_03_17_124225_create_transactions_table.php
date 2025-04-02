@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('bounty_id')->references('id')->on('bounties');
-            $table->foreignUuid('researcher_id')->references('id')->on('users');
-            $table->foreignUuid('organization_id')->references('id')->on('organizations');
+            $table->foreignUuid('bounty_id')->constrained('bounties');
+            $table->foreignUuid('researcher_id')->constrained('users');
+            $table->foreignUuid('organization_id')->constrained('organizations');
             $table->decimal('amount', 10, 2);
             $table->string('status')->default('pending');
             $table->string('payment_method')->nullable();

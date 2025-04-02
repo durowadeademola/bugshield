@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::table('reports', function (Blueprint $table) {
             $table->renameColumn('user_id', 'researcher_id');
 
-            $table->foreignUUid('program_id')->after('researcher_id')->references('id')->on('programs');
+            $table->foreignUUid('program_id')->after('researcher_id')->constrained('programs');
             $table->string('asset')->after('description');
             $table->string('weakness')->after('asset');
             $table->string('severity')->nullable()->after('weakness');
@@ -25,17 +25,17 @@ return new class extends Migration
 
         //Bounties table
         Schema::table('bounties', function(Blueprint $table) {
-            $table->foreignUuid('program_id')->after('researcher_id')->references('id')->on('programs');
+            $table->foreignUuid('program_id')->after('researcher_id')->constrained('programs');
         });
 
         //Comments table
         Schema::table('comments', function(Blueprint $table) {
-            $table->foreignUuid('program_id')->after('user_id')->references('id')->on('programs');
+            $table->foreignUuid('program_id')->after('user_id')->constrained('programs');
         });
 
         //Transactions table
         Schema::table('transactions', function(Blueprint $table) {
-            $table->foreignUuid('program_id')->after('researcher_id')->references('id')->on('programs');
+            $table->foreignUuid('program_id')->after('researcher_id')->constrained('programs');
         });
     }
 

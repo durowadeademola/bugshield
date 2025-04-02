@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('attachments', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('report_id')->references('id')->on('reports');
+            $table->foreignUuid('report_id')->constrained('reports');
             $table->string('file_path');
             $table->timestamps();
             $table->softDeletes();

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('organizations', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('user_id')->references('id')->on('users');
+            $table->foreignUuid('user_id')->constrained('users');
             $table->string('name');
             $table->string('email')->unique()->nullable();
             $table->text('address')->nullable();

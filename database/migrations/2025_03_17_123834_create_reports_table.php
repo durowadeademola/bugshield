@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('reports', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('user_id')->references('id')->on('users');
+            $table->foreignUuid('user_id')->constrained('users');
             $table->string('title');
             $table->text('description');
             $table->enum('status', ['pending', 'triaged', 'resolved', 'cancelled'])->default('pending');

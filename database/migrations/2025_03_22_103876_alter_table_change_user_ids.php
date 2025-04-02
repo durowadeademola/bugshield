@@ -19,7 +19,7 @@ return new class extends Migration
             }
 
             if (!Schema::hasColumn('reports', 'researcher_id')) {
-                $table->foreignUuid('researcher_id')->after('id')->references('id')->on('researchers');
+                $table->foreignUuid('researcher_id')->after('id')->constrained('researchers');
             }
         });
 
@@ -31,7 +31,7 @@ return new class extends Migration
             }
 
             if(!Schema::hasColumn('bounties', 'researcher_id')) {
-                $table->foreignUuid('researcher_id')->after('report_id')->references('id')->on('researchers');
+                $table->foreignUuid('researcher_id')->after('report_id')->constrained('researchers');
             }
         });
 
@@ -43,7 +43,7 @@ return new class extends Migration
             }
 
             if(!Schema::hasColumn('transactions', 'researcher_id')) {
-                $table->foreignUuid('researcher_id')->after('bounty_id')->references('id')->on('researchers');
+                $table->foreignUuid('researcher_id')->after('bounty_id')->constrained('researchers');
             }
         });
     }

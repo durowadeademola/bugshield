@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('report_id')->references('id')->on('reports');
-            $table->foreignUuid('user_id')->references('id')->on('users');
+            $table->foreignUuid('report_id')->constrained('reports');
+            $table->foreignUuid('user_id')->constrained('users');
             $table->text('message');
             $table->timestamps();
             $table->softDeletes();
