@@ -25,6 +25,10 @@ export default function Login({ status, canResetPassword }) {
         <GuestLayout>
             <Head title="Log in" />
 
+            <div className="text-center text-xl font-semibold text-gray-800 dark:text-white mb-4">
+                Sign in to Bugshield
+            </div>
+
             {status && (
                 <div className="mb-4 text-sm font-medium text-green-600">
                     {status}
@@ -95,6 +99,23 @@ export default function Login({ status, canResetPassword }) {
                     </PrimaryButton>
                 </div>
             </form>
+
+            <div className="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">
+                By signing in, you agree to our
+                <Link 
+                    href={route('terms')} 
+                    className="text-indigo-600 underline hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300 mx-1"
+                >
+                    Terms of Service
+                </Link>
+                and
+                <Link 
+                    href={route('privacy')} 
+                    className="text-indigo-600 underline hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300 mx-1"
+                >
+                    Privacy Policy
+                </Link>.
+            </div>
         </GuestLayout>
     );
 }
