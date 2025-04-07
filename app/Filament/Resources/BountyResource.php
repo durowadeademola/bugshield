@@ -23,7 +23,61 @@ class BountyResource extends Resource
     {
         return $form
             ->schema([
-                //
+            Forms\Components\Select::make('researcher_id')
+                ->label('Researcher')
+                ->getOptionLabelUsing(function ($researcher) {
+                        return $researcher->getFullNameAttribute() ?? '';
+                    })->required()
+                ->searchable(),
+            Forms\Components\Select::make('program_id')
+                ->relationship('program', 'name')
+                ->label('Program')
+                ->required()
+                ->searchable(),
+
+            Forms\Components\Select::make('report_id')
+                ->relationship('report', 'title') 
+                ->label('Report')
+                ->required()
+                ->searchable(),
+
+            Forms\Components\Select::make('organization_id')
+                ->relationship('organization', 'name')
+                ->label('Organization')
+                ->required()
+                ->searchable(),
+
+            Forms\Components\TextInput::make('amount')
+                ->numeric()
+                ->label('Bounty Amount')
+                ->required()
+                ->prefix('₦'),
+
+            Forms\Components\Select::make('status')
+                ->label('Status')
+                ->options([
+                    'pending' => 'Pending',
+                    'approved' => 'Approved',
+                    'rejected' => 'Rejected',
+                    'paid' => 'Paid',
+                ])
+                ->required()
+                ->native(false),
+
+            Forms\Components\Toggle::make('is_low')
+                ->label('Low Severity'),
+
+            Forms\Components\Toggle::make('is_medium')
+                ->label('Medium Severity'),
+
+            Forms\Components\Toggle::make('is_high')
+                ->label('High Severity'),
+
+            Forms\Components\Toggle::make('is_critical')
+                ->label('Critical Severity'),
+
+            Forms\Components\Toggle::make('is_informational')
+                ->label('Informational'),
             ]);
     }
 
@@ -31,8 +85,68 @@ class BountyResource extends Resource
     {
         return $table
             ->columns([
-                //
-            ])
+            Tables\Columns\TextColumn::make('researcher.full_name')
+                ->label('Researcher')
+                ->getStateUsing(function ($record) {
+                    return $record->researcher->getFullNameAttribute() ?? '';
+                })
+            ->searchable(),
+            Tables\Columns\TextColumn::make('program.title')
+                ->label('Program')
+                ->searchable()
+                ->sortable(),
+
+            Tables\Columns\TextColumn::make('report.title')
+                ->label('Report')
+                ->searchable()
+                ->sortable(),
+
+            Tables\Columns\TextColumn::make('organization.name')
+                ->label('Organization')
+                ->searchable()
+                ->sortable(),
+
+            Tables\Columns\TextColumn::make('amount')
+                ->money('NGN')
+                ->label('Amount')
+                ->sortable(),
+
+            Tables\Columns\BadgeColumn::make('status')
+                ->label('Status')
+                ->colors([
+                    'secondary' => 'pending',
+                    'success' => 'approved',
+                    'danger' => 'rejected',
+                    'primary' => 'paid',
+                ])
+                ->sortable(),
+
+            Tables\Columns\IconColumn::make('is_low')
+                ->boolean()
+                ->label('Low'),
+
+            Tables\Columns\IconColumn::make('is_medium')
+                ->boolean()
+                ->label('Medium'),
+
+            Tables\Columns\IconColumn::make('is_high')
+                ->boolean()
+                ->label('High'),
+
+            Tables\Columns\IconColumn::make('is_critical')
+                ->boolean()
+                ->label('Critical'),
+
+            Tables\Columns\IconColumn::make('is_informational')
+                ->boolean()
+                ->label('Informational'),
+
+            Tables\Columns\TextColumn::make('created_at')
+                ->label('Created')
+                ->dateTime()
+                ->sortable(),
+        ])->defaultSort('created_at', 'desc')
+
             ->filters([
                 //
             ])

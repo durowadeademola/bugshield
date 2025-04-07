@@ -23,7 +23,49 @@ class AdminResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\Select::make('user_id')
+                    ->relationship('user', 'name')
+                    ->searchable()
+                    ->required(),
+
+                Forms\Components\TextInput::make('first_name')
+                    ->required()
+                    ->maxLength(50),
+
+                Forms\Components\TextInput::make('middle_name')
+                    ->maxLength(50),
+
+                Forms\Components\TextInput::make('last_name')
+                    ->required()
+                    ->maxLength(50),
+
+                Forms\Components\TextInput::make('email')
+                    ->email()
+                    ->required()
+                    ->maxLength(255),
+
+                Forms\Components\TextInput::make('designation')
+                    ->maxLength(100),
+
+                Forms\Components\Textarea::make('address')
+                    ->rows(2)
+                    ->maxLength(255),
+
+                Forms\Components\TextInput::make('phone_number')
+                    ->tel()
+                    ->maxLength(20),
+
+                Forms\Components\FileUpload::make('image_path')
+                    ->label('Profile Image')
+                    ->image()
+                    ->directory('admin-images'),
+
+                Forms\Components\TextInput::make('image_name')
+                    ->maxLength(100),
+
+                Forms\Components\Toggle::make('is_active')
+                ->label('Active Status')
+                ->default(true),
             ]);
     }
 

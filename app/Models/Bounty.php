@@ -33,15 +33,18 @@ class Bounty extends Model
         ];
     }
 
-    public function report() {
+    public function report() 
+    {
         return $this->belongsTo(Report::class, 'report_id');
     }
 
-    public function researcher() {
+    public function researcher() 
+    {
         return $this->belongsTo(Researcher::class, 'researcher_id'); 
     }
 
-    public function organization() {
+    public function organization() 
+    {
         return $this->belongsTo(Organization::class, 'organization_id');
     }
 
@@ -50,7 +53,8 @@ class Bounty extends Model
         return $this->belongsTo(Program::class, 'program_id');
     }
 
-    public function transactions() {
+    public function transactions() 
+    {
         return $this->hasMany(Transaction::class);
     }
 }

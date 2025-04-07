@@ -23,7 +23,18 @@ class NotificationResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\Select::make('user_id')
+                    ->relationship('user', 'name')
+                    ->required(),
+
+                Forms\Components\Textarea::make('message')
+                    ->required()
+                    ->rows(4),
+
+                Forms\Components\Toggle::make('read_status')
+                    ->required()
+                    ->label('Read Status')
+                    ->default(false),
             ]);
     }
 
@@ -31,7 +42,10 @@ class NotificationResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('user.name')->label('User'),
+                Tables\Columns\TextColumn::make('message')->limit(50),
+                Tables\Columns\BooleanColumn::make('read_status')->label('Read Status'),
+                Tables\Columns\TextColumn::make('created_at')->dateTime()->sortable(),
             ])
             ->filters([
                 //

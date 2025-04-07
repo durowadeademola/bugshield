@@ -23,7 +23,50 @@ class TransactionResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\Select::make('program_id')
+                ->relationship('program', 'title') 
+                ->required(),
+
+            Forms\Components\Select::make('bounty_id')
+                ->relationship('bounty', 'id')
+                ->required(),
+
+            Forms\Components\Select::make('researcher_id')
+                ->label("Researcher")
+                ->getOptionLabelUsing(function ($researcher) {
+                    return $researcher->getFullNameAttribute() ?? '';
+                })
+                ->required(),
+
+            Forms\Components\Select::make('organization_id')
+                ->relationship('organization', 'name')
+                ->required(),
+
+            Forms\Components\TextInput::make('amount')
+                ->numeric()
+                ->required()
+                ->minValue(0),
+
+            Forms\Components\Select::make('status')
+                ->options([
+                    'pending' => 'Pending',
+                    'completed' => 'Completed',
+                    'failed' => 'Failed',
+                ])
+                ->required(),
+
+            Forms\Components\Select::make('payment_method')
+                ->options([
+                    'bank_transfer' => 'Bank Transfer',
+                    'paypal' => 'PayPal',
+                    'credit_card' => 'Credit Card',
+                    'other' => 'Other',
+                ])
+                ->required(),
+
+            Forms\Components\TextInput::make('transaction_reference')
+                ->required()
+                ->maxLength(255),
             ]);
     }
 
@@ -31,7 +74,20 @@ class TransactionResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('researcher.full_name')
+                    ->label('Researcher')
+                    ->getStateUsing(function ($record) {
+                        return $record->researcher->getFullNameAttribute() ?? '';
+                    })
+                ->searchable(),
+                Tables\Columns\TextColumn::make('program.title')->label('Program'),
+                Tables\Columns\TextColumn::make('bounty.id')->label('Bounty'),
+                Tables\Columns\TextColumn::make('organization.name')->label('Organization'),
+                Tables\Columns\TextColumn::make('amount')->money('usd')->sortable(),
+                Tables\Columns\TextColumn::make('status')->sortable(),
+                Tables\Columns\TextColumn::make('payment_method')->sortable(),
+                Tables\Columns\TextColumn::make('transaction_reference')->limit(50),
+                Tables\Columns\TextColumn::make('created_at')->dateTime()->sortable(),
             ])
             ->filters([
                 //

@@ -23,7 +23,73 @@ class ReportResource extends Resource
     {
         return $form
             ->schema([
-                //
+            Forms\Components\Select::make('researcher_id')
+                ->label('Researcher')
+                ->getOptionLabelUsing(function ($researcher) {
+                    return $researcher->getFullNameAttribute() ?? '';
+                })->required(),
+
+            Forms\Components\Select::make('program_id')
+                ->relationship('program', 'title')
+                ->required(),
+
+            Forms\Components\TextInput::make('title')
+                ->required()
+                ->maxLength(255),
+
+            Forms\Components\Textarea::make('description')
+                ->nullable()
+                ->rows(3),
+
+            Forms\Components\Select::make('status')
+                ->options([
+                    'open' => 'Open',
+                    'closed' => 'Closed',
+                    'in_progress' => 'In Progress',
+                ])
+                ->required(),
+
+            Forms\Components\Toggle::make('is_low')
+                ->label('Low Severity')
+                ->default(false),
+
+            Forms\Components\Toggle::make('is_medium')
+                ->label('Medium Severity')
+                ->default(false),
+
+            Forms\Components\Toggle::make('is_high')
+                ->label('High Severity')
+                ->default(false),
+
+            Forms\Components\Toggle::make('is_critical')
+                ->label('Critical Severity')
+                ->default(false),
+
+            Forms\Components\Toggle::make('is_informational')
+                ->label('Informational')
+                ->default(false),
+
+            Forms\Components\Textarea::make('asset')
+                ->nullable()
+                ->rows(3),
+
+            Forms\Components\Textarea::make('weakness')
+                ->nullable()
+                ->rows(3),
+
+            Forms\Components\TextInput::make('severity')
+                ->nullable()
+                ->maxLength(255),
+
+            Forms\Components\FileUpload::make('attch_name')
+                ->image()
+                ->disk('public')
+                ->directory('report_attachments')
+                ->nullable(),
+
+            Forms\Components\Textarea::make('impact')
+                ->nullable()
+                ->rows(3),
             ]);
     }
 
@@ -31,13 +97,23 @@ class ReportResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('title'),
-                Tables\Columns\TextColumn::make('description'),
-                Tables\Columns\TextColumn::make('status'),
-                Tables\Columns\TextColumn::make('asset'),
-                Tables\Columns\TextColumn::make('weakness'),
-                Tables\Columns\TextColumn::make('severity'),
-                Tables\Columns\TextColumn::make('impact'),
+                Tables\Columns\TextColumn::make('researcher.full_name')
+                    ->label('Researcher')
+                    ->getStateUsing(function ($record) {
+                        return $record->researcher->getFullNameAttribute() ?? '';
+                    })
+                ->searchable(),
+                Tables\Columns\TextColumn::make('program.title')->label('Program'),
+                Tables\Columns\TextColumn::make('title')->limit(50),
+                Tables\Columns\TextColumn::make('description')->limit(100),
+                Tables\Columns\BooleanColumn::make('is_low')->label('Low Severity'),
+                Tables\Columns\BooleanColumn::make('is_medium')->label('Medium Severity'),
+                Tables\Columns\BooleanColumn::make('is_high')->label('High Severity'),
+                Tables\Columns\BooleanColumn::make('is_critical')->label('Critical Severity'),
+                Tables\Columns\BooleanColumn::make('is_informational')->label('Informational'),
+                Tables\Columns\TextColumn::make('severity')->limit(50),
+                Tables\Columns\TextColumn::make('attch_name')->limit(50),
+                Tables\Columns\TextColumn::make('created_at')->dateTime()->sortable(),
             ])
             ->filters([
                 //

@@ -38,7 +38,7 @@ class Report extends Model
         ];
     }
 
-    public function user()
+    public function researcher()
     {
         return $this->belongsTo(Researcher::class, 'researcher_id');
     }

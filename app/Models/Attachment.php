@@ -23,7 +23,8 @@ class Attachment extends Model
         return ['file_path' => 'string'];
     }
 
-    public function report() {
+    public function report() 
+    {
         return $this->belongsTo(Report::class, 'report_id');
     }
 }

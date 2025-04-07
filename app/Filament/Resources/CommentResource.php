@@ -23,7 +23,24 @@ class CommentResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\Select::make('program_id')
+                    ->label('Program')
+                    ->relationship('program', 'title')
+                    ->required(),
+
+                Forms\Components\Select::make('report_id')
+                    ->label('Report')
+                    ->relationship('report', 'title')
+                    ->required(),
+
+                Forms\Components\Select::make('user_id')
+                    ->label('User')
+                    ->relationship('user', 'name')
+                    ->required(),
+
+                Forms\Components\Textarea::make('message')
+                    ->required()
+                    ->rows(4),
             ]);
     }
 
@@ -31,7 +48,31 @@ class CommentResource extends Resource
     {
         return $table
             ->columns([
-                //
+            Tables\Columns\TextColumn::make('program_id')
+                ->label('Program')
+                ->sortable()
+                ->searchable(),
+
+            Tables\Columns\TextColumn::make('report_id')
+                ->label('Report')
+                ->sortable()
+                ->searchable(),
+
+            Tables\Columns\TextColumn::make('user_id')
+                ->label('User')
+                ->sortable()
+                ->searchable(),
+
+            Tables\Columns\TextColumn::make('message')
+                ->limit(50)
+                ->wrap()
+                ->label('Message')
+                ->searchable(),
+
+            Tables\Columns\TextColumn::make('created_at')
+                ->label('Created')
+                ->dateTime()
+                ->sortable(),
             ])
             ->filters([
                 //

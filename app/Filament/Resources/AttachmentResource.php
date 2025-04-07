@@ -23,7 +23,20 @@ class AttachmentResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\Select::make('report_id')
+                    ->relationship('report')
+                    ->label('Report')
+                    ->searchable()
+                    ->required(),
+
+                Forms\Components\FileUpload::make('file_path')
+                    ->label('Attachment File')
+                    ->directory('attachments')
+                    ->required()
+                    ->preserveFilenames()
+                    ->downloadable()
+                    ->openable()
+                    ->visibility('public'),
             ]);
     }
 
@@ -31,7 +44,17 @@ class AttachmentResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('id')->label('ID')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('report_id')
+                    ->label('Report ID')
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('file_path')
+                    ->label('File Path')
+                    ->limit(50)
+                    ->copyable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('created_at')->dateTime()->label('Uploaded At')->sortable(),
             ])
             ->filters([
                 //
