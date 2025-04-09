@@ -13,6 +13,8 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
+use App\Models\Researcher;
+
 class ReportResource extends Resource
 {
     protected static ?string $model = Report::class;
@@ -25,9 +27,9 @@ class ReportResource extends Resource
             ->schema([
             Forms\Components\Select::make('researcher_id')
                 ->label('Researcher')
-                ->getOptionLabelUsing(function ($researcher) {
-                    return $researcher->getFullNameAttribute() ?? '';
-                })->required(),
+                ->options(Researcher::all()->pluck('full_name', 'id'))
+                ->searchable()
+                ->required(),
 
             Forms\Components\Select::make('program_id')
                 ->relationship('program', 'title')
@@ -43,9 +45,10 @@ class ReportResource extends Resource
 
             Forms\Components\Select::make('status')
                 ->options([
-                    'open' => 'Open',
-                    'closed' => 'Closed',
-                    'in_progress' => 'In Progress',
+                    'pending' => 'Pending',
+                    'triaged' => 'Triaged',
+                    'resolved' => 'Resolved',
+                    'cancelled' => 'Cancelled'
                 ])
                 ->required(),
 
@@ -71,11 +74,13 @@ class ReportResource extends Resource
 
             Forms\Components\Textarea::make('asset')
                 ->nullable()
-                ->rows(3),
+                ->rows(3)
+                ->required(),
 
             Forms\Components\Textarea::make('weakness')
                 ->nullable()
-                ->rows(3),
+                ->rows(3)
+                ->required(),
 
             Forms\Components\TextInput::make('severity')
                 ->nullable()
@@ -89,7 +94,8 @@ class ReportResource extends Resource
 
             Forms\Components\Textarea::make('impact')
                 ->nullable()
-                ->rows(3),
+                ->rows(3)
+                ->required(),
             ]);
     }
 
@@ -118,6 +124,7 @@ class ReportResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

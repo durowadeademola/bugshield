@@ -13,6 +13,8 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
+use App\Models\Researcher;
+
 class BountyResource extends Resource
 {
     protected static ?string $model = Bounty::class;
@@ -25,10 +27,9 @@ class BountyResource extends Resource
             ->schema([
             Forms\Components\Select::make('researcher_id')
                 ->label('Researcher')
-                ->getOptionLabelUsing(function ($researcher) {
-                        return $researcher->getFullNameAttribute() ?? '';
-                    })->required()
-                ->searchable(),
+                ->options(Researcher::all()->pluck('full_name', 'id'))
+                ->searchable()
+                ->required(),
             Forms\Components\Select::make('program_id')
                 ->relationship('program', 'name')
                 ->label('Program')
@@ -151,6 +152,7 @@ class BountyResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

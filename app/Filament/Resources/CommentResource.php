@@ -48,17 +48,17 @@ class CommentResource extends Resource
     {
         return $table
             ->columns([
-            Tables\Columns\TextColumn::make('program_id')
+            Tables\Columns\TextColumn::make('program.title')
                 ->label('Program')
                 ->sortable()
                 ->searchable(),
 
-            Tables\Columns\TextColumn::make('report_id')
+            Tables\Columns\TextColumn::make('report.title')
                 ->label('Report')
                 ->sortable()
                 ->searchable(),
 
-            Tables\Columns\TextColumn::make('user_id')
+            Tables\Columns\TextColumn::make('user.name')
                 ->label('User')
                 ->sortable()
                 ->searchable(),
@@ -79,6 +79,7 @@ class CommentResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

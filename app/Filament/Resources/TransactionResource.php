@@ -13,6 +13,8 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
+use App\Models\Researcher;
+
 class TransactionResource extends Resource
 {
     protected static ?string $model = Transaction::class;
@@ -32,10 +34,9 @@ class TransactionResource extends Resource
                 ->required(),
 
             Forms\Components\Select::make('researcher_id')
-                ->label("Researcher")
-                ->getOptionLabelUsing(function ($researcher) {
-                    return $researcher->getFullNameAttribute() ?? '';
-                })
+                ->label('Researcher')
+                ->options(Researcher::all()->pluck('full_name', 'id'))
+                ->searchable()
                 ->required(),
 
             Forms\Components\Select::make('organization_id')
@@ -79,9 +80,8 @@ class TransactionResource extends Resource
                     ->getStateUsing(fn ($record) => $record->researcher->getFullNameAttribute() ?? '')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('program.title')->label('Program'),
-                Tables\Columns\TextColumn::make('bounty.id')->label('Bounty'),
                 Tables\Columns\TextColumn::make('organization.name')->label('Organization'),
-                Tables\Columns\TextColumn::make('amount')->money('usd')->sortable(),
+                Tables\Columns\TextColumn::make('amount')->money('NGN')->sortable(),
                 Tables\Columns\TextColumn::make('status')->sortable(),
                 Tables\Columns\TextColumn::make('payment_method')->sortable(),
                 Tables\Columns\TextColumn::make('transaction_reference')->limit(50),
@@ -92,6 +92,7 @@ class TransactionResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
