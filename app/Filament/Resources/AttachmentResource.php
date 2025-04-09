@@ -44,17 +44,15 @@ class AttachmentResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id')->label('ID')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('report_id')
-                    ->label('Report ID')
-                    ->sortable()
-                    ->searchable(),
                 Tables\Columns\TextColumn::make('file_path')
                     ->label('File Path')
                     ->limit(50)
-                    ->copyable()
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('created_at')->dateTime()->label('Uploaded At')->sortable(),
+                    ->copyable(),
+
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime()
+                    ->label('Uploaded At')
+                    ->sortable(),
             ])
             ->filters([
                 //

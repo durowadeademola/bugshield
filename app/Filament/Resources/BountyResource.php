@@ -87,10 +87,9 @@ class BountyResource extends Resource
             ->columns([
             Tables\Columns\TextColumn::make('researcher.full_name')
                 ->label('Researcher')
-                ->getStateUsing(function ($record) {
-                    return $record->researcher->getFullNameAttribute() ?? '';
-                })
-            ->searchable(),
+                ->getStateUsing(fn ($record) => $record->researcher->getFullNameAttribute() ?? '')
+                ->searchable(),
+
             Tables\Columns\TextColumn::make('program.title')
                 ->label('Program')
                 ->searchable()
