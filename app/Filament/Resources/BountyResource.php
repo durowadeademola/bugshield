@@ -27,7 +27,7 @@ class BountyResource extends Resource
             ->schema([
             Forms\Components\Select::make('researcher_id')
                 ->label('Researcher')
-                ->options(Researcher::all()->pluck('full_name', 'id'))
+                ->options(Researcher::where('is_active', true)->pluck('full_name', 'id'))
                 ->searchable()
                 ->required(),
             Forms\Components\Select::make('program_id')
