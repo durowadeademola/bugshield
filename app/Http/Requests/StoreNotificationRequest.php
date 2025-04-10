@@ -11,7 +11,7 @@ use Illuminate\Validation\ValidationException;
 
 use App\Http\Requests\BaseFormRequest;
 
-class ResearcherRequest extends BaseFormRequest
+class StoreNotificationRequest extends BaseFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,6 +28,10 @@ class ResearcherRequest extends BaseFormRequest
      */
     public function rules(): array
     {
-        return [];
+        return [
+            'user_id' => 'required|exists:users,id',
+            'message' => 'required|string|max:1000',
+            'read_status' => 'required|boolean',
+        ];
     }
 }

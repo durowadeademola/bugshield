@@ -11,7 +11,7 @@ use Illuminate\Validation\ValidationException;
 
 use App\Http\Requests\BaseFormRequest;
 
-class CommentRequest extends BaseFormRequest
+class StoreCommentRequest extends BaseFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,6 +28,11 @@ class CommentRequest extends BaseFormRequest
      */
     public function rules(): array
     {
-        return [];
+        return [
+            'program_id' => 'required|exists:programs,id',
+            'report_id' => 'required|exists:reports,id',
+            'user_id' => 'required|exists:users,id',
+            'message' => 'required|string|max:1000',
+        ];
     }
 }

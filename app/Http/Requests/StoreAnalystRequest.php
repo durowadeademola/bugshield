@@ -11,7 +11,7 @@ use Illuminate\Validation\ValidationException;
 
 use App\Http\Requests\BaseFormRequest;
 
-class ReportRequest extends BaseFormRequest
+class StoreAnalystRequest extends BaseFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,6 +28,18 @@ class ReportRequest extends BaseFormRequest
      */
     public function rules(): array
     {
-        return [];
+        return [
+            'user_id' => 'required|exists:users,id',
+            'first_name' => 'required|string|max:255',
+            'middle_name' => 'nullable|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'required|email|unique:admins',
+            'designation' => 'nullable|string|max:255',
+            'address' => 'nullable|string|max:255',
+            'phone_number' => 'nullable|string|max:15',
+            'image_name' => 'nullable|string|max:255',
+            'image_path' => 'nullable|string|max:255',
+            'is_active' => 'required|boolean',
+        ];
     }
 }

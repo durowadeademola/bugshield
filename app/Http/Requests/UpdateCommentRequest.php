@@ -2,16 +2,11 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Auth\Events\Lockout;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\RateLimiter;
-use Illuminate\Support\Str;
-use Illuminate\Validation\ValidationException;
 
 use App\Http\Requests\BaseFormRequest;
 
-class TransactionRequest extends BaseFormRequest
+class UpdateCommentRequest extends BaseFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,6 +23,11 @@ class TransactionRequest extends BaseFormRequest
      */
     public function rules(): array
     {
-        return [];
+        return [
+            'program_id' => 'required|exists:programs,id',
+            'report_id' => 'required|exists:reports,id',
+            'user_id' => 'required|exists:users,id',
+            'message' => 'required|string|max:1000',
+        ];
     }
 }

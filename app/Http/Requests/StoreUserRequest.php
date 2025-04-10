@@ -11,7 +11,7 @@ use Illuminate\Validation\ValidationException;
 
 use App\Http\Requests\BaseFormRequest;
 
-class AdminRequest extends BaseFormRequest
+class StoreUserRequest extends BaseFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,6 +28,10 @@ class AdminRequest extends BaseFormRequest
      */
     public function rules(): array
     {
-        return [];
+        return [
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:8|confirmed',
+        ];
     }
 }

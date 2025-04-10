@@ -2,16 +2,11 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Auth\Events\Lockout;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\RateLimiter;
-use Illuminate\Support\Str;
-use Illuminate\Validation\ValidationException;
 
 use App\Http\Requests\BaseFormRequest;
 
-class ProgramRequest extends BaseFormRequest
+class UpdateAttachmentRequest extends BaseFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,6 +23,9 @@ class ProgramRequest extends BaseFormRequest
      */
     public function rules(): array
     {
-        return [];
+        return [
+            'report_id' => 'required|exists:reports,id',
+            'file_path' => 'required|string|max:255',
+        ];
     }
 }

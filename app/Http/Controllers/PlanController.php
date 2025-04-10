@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Http\Requests\StorePlanRequest;
+use App\Http\Requests\UpdatePlanRequest;
+
 class PlanController extends Controller
 {
     /**
@@ -25,7 +28,7 @@ class PlanController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StorePlanRequest $request)
     {
         //
     }
@@ -49,7 +52,7 @@ class PlanController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdatePlanRequest $request, string $id)
     {
         //
     }

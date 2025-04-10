@@ -11,7 +11,7 @@ use Illuminate\Validation\ValidationException;
 
 use App\Http\Requests\BaseFormRequest;
 
-class PlanRequest extends BaseFormRequest
+class StoreTransactionRequest extends BaseFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,6 +28,15 @@ class PlanRequest extends BaseFormRequest
      */
     public function rules(): array
     {
-        return [];
+        return [
+            'program_id' => 'required|exists:programs,id',
+            'bounty_id' => 'required|exists:bounties,id',
+            'researcher_id' => 'required|exists:users,id',
+            'organization_id' => 'required|exists:organizations,id',
+            'amount' => 'required|numeric',
+            'status' => 'required|string',
+            'payment_method' => 'required|string|max:255',
+            'transaction_reference' => 'required|string|max:255|unique:transactions',
+        ];
     }
 }

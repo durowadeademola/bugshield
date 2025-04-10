@@ -11,7 +11,7 @@ use Illuminate\Validation\ValidationException;
 
 use App\Http\Requests\BaseFormRequest;
 
-class NotificationRequest extends BaseFormRequest
+class StoreAccountRequest extends BaseFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,6 +28,16 @@ class NotificationRequest extends BaseFormRequest
      */
     public function rules(): array
     {
-        return [];
+        return [
+            'user_id' => 'required|exists:users,id',
+            'account_number' => 'required|string|unique:accounts',
+            'account_name' => 'required|string',
+            'bank_name' => 'required|string',
+            'bank_code' => 'required|string',
+            'account_type' => 'required|string',
+            'currency' => 'required|string',
+            'balance' => 'nullable|numeric',
+            'status' => 'required|in:active,inactive',
+        ];
     }
 }

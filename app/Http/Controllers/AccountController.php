@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Http\Requests\StoreAccountRequest;
+use App\Http\Requests\UpdateAccountRequest;
+
 class AccountController extends Controller
 {
     /**
@@ -25,7 +28,7 @@ class AccountController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreAccountRequest $request)
     {
         //
     }
@@ -49,7 +52,7 @@ class AccountController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateAccountRequest $request, string $id)
     {
         //
     }

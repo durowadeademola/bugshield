@@ -11,7 +11,7 @@ use Illuminate\Validation\ValidationException;
 
 use App\Http\Requests\BaseFormRequest;
 
-class AccountRequest extends BaseFormRequest
+class StoreAttachmentRequest extends BaseFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,6 +28,9 @@ class AccountRequest extends BaseFormRequest
      */
     public function rules(): array
     {
-        return [];
+        return [
+            'report_id' => 'required|exists:reports,id',
+            'file_path' => 'required|string|max:255',
+        ];
     }
 }
