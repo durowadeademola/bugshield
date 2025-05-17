@@ -15,11 +15,11 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('researcher_id')->constrained('researchers');
             $table->foreignUUid('program_id')->constrained('programs');
-            $table->string('asset')->after('description');
-            $table->string('weakness')->after('asset');
-            $table->string('severity')->nullable()->after('weakness');
-            $table->string('attch_name')->nullable()->after('severity');
-            $table->text('impact')->after('attch_name');
+            $table->string('asset');
+            $table->string('weakness');
+            $table->string('severity')->nullable();
+            $table->string('attch_name')->nullable();
+            $table->text('impact');
             $table->string('title');
             $table->text('description');
             $table->enum('status', ['pending', 'triaged', 'resolved', 'cancelled'])->default('pending');
