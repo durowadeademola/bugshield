@@ -38,9 +38,9 @@ class Researcher extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function getFullNameAttribute()
+    public function getFullNameAttribute(): ?string
     {
-        return $this->last_name . ' ' . $this->first_name;
+        return "{$this->last_name} {$this->first_name}";
     }
 
 }

@@ -13,8 +13,6 @@ return new class extends Migration
     {
         //Reports table
         Schema::table('reports', function (Blueprint $table) {
-            $table->renameColumn('user_id', 'researcher_id');
-
             $table->foreignUUid('program_id')->after('researcher_id')->constrained('programs');
             $table->string('asset')->after('description');
             $table->string('weakness')->after('asset');
@@ -24,9 +22,9 @@ return new class extends Migration
         });
 
         //Bounties table
-        Schema::table('bounties', function(Blueprint $table) {
-            $table->foreignUuid('program_id')->after('researcher_id')->constrained('programs');
-        });
+        // Schema::table('bounties', function(Blueprint $table) {
+        //     $table->foreignUuid('researcher_id')->after('program_id')->constrained('researchers');
+        // });
 
         //Comments table
         Schema::table('comments', function(Blueprint $table) {

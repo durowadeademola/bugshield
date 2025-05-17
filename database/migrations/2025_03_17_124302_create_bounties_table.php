@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('bounties', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('report_id')->constrained('reports');
-            $table->foreignUuid('researcher_id')->constrained('users');
             $table->foreignUUid('organization_id')->constrained('organizations');
+            $table->foreignUuid('researcher_id')->constrained('researchers');
+            $table->foreignUuid('report_id')->constrained('reports');
+            $table->foreignUuid('program_id')->constrained('programs');
             $table->decimal('amount', 10, 2);
             $table->string('status')->default('pending');
             $table->boolean('is_low')->default(false);

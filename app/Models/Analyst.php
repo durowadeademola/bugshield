@@ -41,9 +41,9 @@ class Analyst extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function getFullNameAttribute()
+    public function getFullNameAttribute(): ?string
     {
-        return $this->first_name . ' ' . $this->last_name;
+        return "{$this->last_name} {$this->first_name}";
     }
 
 }

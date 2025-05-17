@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('bounty_id')->constrained('bounties');
-            $table->foreignUuid('researcher_id')->constrained('users');
+            $table->foreignUuid('researcher_id')->constrained('researchers');
             $table->foreignUuid('organization_id')->constrained('organizations');
             $table->decimal('amount', 10, 2);
             $table->string('status')->default('pending');

@@ -55,7 +55,7 @@ class LoginRequest extends FormRequest
         $user = Auth::user();
 
         if ($user && $user->hasRole('admin')) { auth()->logout(); throw ValidationException::withMessages([
-                'email' => 'User could not be authenticated.',
+                'email' => 'User does not have access to this resource.',
             ]);
         }
     }
