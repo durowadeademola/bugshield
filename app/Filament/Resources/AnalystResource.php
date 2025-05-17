@@ -88,7 +88,10 @@ class AnalystResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->modifyQueryUsing(function (Builder $query) {
+                $query->where('is_active', true);
+            });
     }
 
     public static function getRelations(): array

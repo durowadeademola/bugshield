@@ -21,7 +21,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('country')->nullable();
             $table->string('state')->nullable();
-            $table->boolean('is_active')->default(true);
+            $table->boolean('is_active')->default(false);
             $table->string('website')->nullable();
             $table->string('logo_name')->nullable();
             $table->string('logo_path')->nullable();

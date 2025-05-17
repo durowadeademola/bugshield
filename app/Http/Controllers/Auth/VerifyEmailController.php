@@ -7,6 +7,10 @@ use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\RedirectResponse;
 
+use App\Http\Models\Organization;
+use App\Http\Models\Researcher;
+use App\Http\Models\Analyst;
+
 class VerifyEmailController extends Controller
 {
     /**
@@ -15,13 +19,42 @@ class VerifyEmailController extends Controller
     public function __invoke(EmailVerificationRequest $request): RedirectResponse
     {
         if ($request->user()->hasVerifiedEmail()) {
-            return redirect()->intended(route('dashboard', absolute: false).'?verified=1');
+            return redirect()->intended($this->redirectToBasedOnRole($request->user()) . '?verified=1');
         }
 
-        if ($request->user()->markEmailAsVerified()) {
+        if ($request()->user()->markEmailAsVerified()) {
             event(new Verified($request->user()));
+
+            //update user state to active
+            $this->updateNewUserEntryRole($request->user());
         }
 
-        return redirect()->intended(route('dashboard', absolute: false).'?verified=1');
+        return redirect()->intended($this->redirectToBasedOnRole($request->user()) . '?verified=1');
+    }
+
+    protected function redirectToBasedOnRole($user): string
+    {
+        if ($user->hasRole('organization')) {
+            return route('organization.dashboard', absolute: false);
+        } elseif ($user->hasRole('researcher')) {
+            return route('researcher.dashboard', absolute: false);
+        } elseif ($user->hasRole('analyst')) {
+            return route('analyst.dashboard', absolute: false);
+        }
+
+        // fallback route
+        return route('dashboard', absolute: false);
+    }
+
+    protected function updateNewUserEntryRole($user): void
+    {
+        //update user state to active
+        if ($user->hasRole('organization')) {
+            Organization::where(['user_id' => $user->id])->first()->update(['is_active' => true]);
+        } elseif ($user->hasRole('researcher')) {
+            Researcher::where(['user_id' => $user->id])->first()->update(['is_active' => true]);
+        } elseif ($user->hasRole('analyst')) {
+            Analyst::where(['user_id' => $user->id])->first()->update(['is_active' => true]);
+        }
     }
 }

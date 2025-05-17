@@ -7,6 +7,10 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
+use App\Http\Controllers\OrganizationController;
+use App\Http\Controllers\ResearcherController;
+use App\Http\Controllers\AnalystController;
+
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
@@ -24,6 +28,18 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+Route::middleware(['auth', 'verified', 'role:organization'])->group(function () {
+    Route::get('/org/dashboard', [OrganizationController::class, 'index'])->name('organization.dashboard');
+});
+
+Route::middleware(['auth', 'verified', 'role:analyst'])->group(function () {
+    Route::get('/analyst/dashboard', [AnalystController::class, 'index'])->name('analyst.dashboard');
+});
+
+Route::middleware(['auth', 'verified', 'role:researcher'])->group(function () {
+    Route::get('/researcher/dashboard', [ResearcherController::class, 'index'])->name('researcher.dashboard');
 });
 
 Route::get('/terms', [PageController::class, 'terms'])->name('terms');
