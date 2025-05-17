@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string('state')->nullable();
             $table->boolean('is_active')->default(true);
             $table->string('website')->nullable();
+            $table->string('logo_name')->nullable();
+            $table->string('logo_path')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

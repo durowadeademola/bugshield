@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('designation')->nullable();
             $table->text('address')->nullable();
             $table->string('phone_number')->nullable();
+            $table->string('image_name')->nullable();
+            $table->string('image_path')->nullable();
             $table->boolean('is_active')->default(true);
             $table->timestamps();
             $table->softDeletes();

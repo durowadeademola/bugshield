@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
             User::create([
                 'name' => 'bugshield-admin',
                 'email' => 'admin@bugshield.com',
-                'password' => static::$password ??= Hash::make('password'),
+                'password' => static::$password ??= Hash::make('256ddyu66@190'),
                 'email_verified_at' => $current_timestamp
             ])->assignRole('admin');
         }
@@ -33,7 +33,7 @@ class UserSeeder extends Seeder
             User::create([
                 'name' => 'bugshield-analyst',
                 'email' => 'analyst@bugshield.com',
-                'password' => static::$password ??= Hash::make('password'),
+                'password' => static::$password ??= Hash::make('256ddyu66@190'),
                 'email_verified_at' => $current_timestamp
             ])->assignRole('analyst');
         }
@@ -43,7 +43,7 @@ class UserSeeder extends Seeder
             User::create([
                 'name' => 'bugshield-researcher',
                 'email' => 'researcher@bugshield.com',
-                'password' => static::$password ??= Hash::make('password'),
+                'password' => static::$password ??= Hash::make('256ddyu66@190'),
                 'email_verified_at' => $current_timestamp
             ])->assignRole('researcher');
         }
@@ -53,7 +53,7 @@ class UserSeeder extends Seeder
             User::create([
                 'name' => 'bugshield-organization',
                 'email' => 'organization@bugshield.com',
-                'password' => static::$password ??= Hash::make('password'),
+                'password' => static::$password ??= Hash::make('256ddyu66@190'),
                 'email_verified_at' => $current_timestamp
             ])->assignRole('organization');
         }

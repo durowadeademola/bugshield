@@ -15,6 +15,9 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('title');
             $table->text('description')->nullable();
+            $table->string('logo_name')->nullable();
+            $table->string('logo_path')->nullable();
+            $table->decimal('amount', 10, 2);
             $table->integer('max_reports')->default(0);
             $table->boolean('is_free')->default(true);
             $table->boolean('is_basic')->default(false);

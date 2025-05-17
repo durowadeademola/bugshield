@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('title');
             $table->text('description');
             $table->text('asset');
+            $table->string('logo_name')->nullable();
+            $table->string('logo_path')->nullable();
             $table->text('in_scope');
             $table->text('out_of_scope');
             $table->boolean('is_public')->default(true);

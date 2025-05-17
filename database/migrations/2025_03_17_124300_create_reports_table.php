@@ -14,6 +14,12 @@ return new class extends Migration
         Schema::create('reports', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('researcher_id')->constrained('researchers');
+            $table->foreignUUid('program_id')->constrained('programs');
+            $table->string('asset')->after('description');
+            $table->string('weakness')->after('asset');
+            $table->string('severity')->nullable()->after('weakness');
+            $table->string('attch_name')->nullable()->after('severity');
+            $table->text('impact')->after('attch_name');
             $table->string('title');
             $table->text('description');
             $table->enum('status', ['pending', 'triaged', 'resolved', 'cancelled'])->default('pending');

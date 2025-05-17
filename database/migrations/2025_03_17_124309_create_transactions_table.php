@@ -15,6 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('bounty_id')->constrained('bounties');
             $table->foreignUuid('researcher_id')->constrained('researchers');
+            $table->foreignUuid('program_id')->constrained('programs');
             $table->foreignUuid('organization_id')->constrained('organizations');
             $table->decimal('amount', 10, 2);
             $table->string('status')->default('pending');

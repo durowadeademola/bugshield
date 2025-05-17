@@ -15,6 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('report_id')->constrained('reports');
             $table->foreignUuid('user_id')->constrained('users');
+            $table->foreignUuid('program_id')->constrained('programs');
             $table->text('message');
             $table->timestamps();
             $table->softDeletes();
