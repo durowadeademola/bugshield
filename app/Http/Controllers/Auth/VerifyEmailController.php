@@ -29,10 +29,10 @@ class VerifyEmailController extends Controller
             $this->updateNewUserEntryRole($request->user());
         }
 
-        return redirect()->intended($this->redirectToBasedOnRole($request->user()) . '?verified=1');
+        return redirect()->intended($this->redirectToRouteBasedOnRole($request->user()) . '?verified=1');
     }
 
-    protected function redirectToBasedOnRole($user): string
+    protected function redirectToRouteBasedOnRole($user): string
     {
         if ($user->hasRole('organization')) {
             return route('organization.dashboard', absolute: false);

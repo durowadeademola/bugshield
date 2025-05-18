@@ -63,7 +63,7 @@ class UserController extends Controller
             $user->assignRole($role);
         }
         
-        $this->createEntryRole($role, $user, $request);
+        $this->createNewUserEntryRole($role, $user, $request);
     
         // Dispatch email verification
         event(new Registered($user));
