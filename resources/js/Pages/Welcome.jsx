@@ -34,7 +34,9 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                         alt="Bugshield Logo"
                         className="h-20 w-auto"
                         />
-                        <span className="text-3xl font-bold text-white">Bugshield</span>
+                        <Link href="/">
+                            <span className="text-3xl font-bold text-white cursor-pointer">Bugshield</span>
+                        </Link>
                     </div>
 
                     {/* Navigation */}
@@ -48,11 +50,11 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                             <Link href="/training">Training</Link>
                         </div>
                         </div>
-                        <Link href="/solutions">Solutions</Link>
+                        <Link href="/solution">Solutions</Link>
                         <Link href="/hackers">Hackers</Link>
                         <Link href="/customers">Customers</Link>
                         <Link href="/resources">Resources</Link>
-                        <Link href="/companies">Company</Link>
+                        <Link href="/company">Company</Link>
                     </nav>
 
                     {/* Auth Buttons */}

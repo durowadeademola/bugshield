@@ -2,65 +2,60 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Inertia\Inertia;
+use App\Http\Controllers\Controller;
+
+use Illuminate\Support\Facades\Auth;
 
 class PageController extends Controller
 {
-
-    /**
-     * Display the terms of bugshield.
-     */
     public function terms() 
     {
-        return view('pages.terms');
+        return Inertia::render('Terms', [
+            'user' => Auth::user()
+        ]);
     }
 
-    /**
-     * Display the privacy of bugshield.
-     */
     public function privacy()
     {
-        return view('pages.privacy');
+        return Inertia::render('Privacy', [
+            'user' => Auth::user()
+        ]);
     }
-    
-     /**
-     * Display the solutions of bugshield.
-     */
+
     public function solution()
     {
-        return view('pages.solution');
+        return Inertia::render('Solution', [
+            'user' => Auth::user()
+        ]);
     }
 
-     /**
-     * Display the hackers of bugshield.
-     */
     public function hacker()
     {
-        return view('pages.hacker');
+        return Inertia::render('Hacker', [
+            'user' => Auth::user()
+        ]);
     }
 
-     /**
-     * Display the customers of bugshield.
-     */
     public function customer()
     {
-        return view('pages.customer');
+        return Inertia::render('Customer', [
+            'user' => Auth::user()
+        ]);
     }
 
-     /**
-     * Display the resources of bugshield.
-     */
     public function resource()
     {
-        return view('pages.resource');
+        return Inertia::render('Resource', [
+            'user' => Auth::user()
+        ]);
     }
 
-     /**
-     * Display the privacy of bugshield.
-     */
     public function company()
     {
-        return view('pages.company');
+        return Inertia::render('Company', [
+            'user' => Auth::user()
+        ]);
     }
-
 }
+
