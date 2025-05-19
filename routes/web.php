@@ -44,5 +44,10 @@ Route::middleware(['auth', 'verified', 'role:researcher'])->group(function () {
 
 Route::get('/terms', [PageController::class, 'terms'])->name('terms');
 Route::get('/privacy', [PageController::class, 'privacy'])->name('privacy');
+Route::get('/solution', [PageController::class, 'solution'])->name('solution');
+Route::get('/hacker', [PageController::class, 'hacker'])->name('hacker');
+Route::get('/customer', [PageController::class, 'customer'])->name('customer');
+Route::get('/resource', [PageController::class, 'resource'])->name('resource');
+Route::get('/company', [PageController::class, 'company'])->name('company');
 
 require __DIR__.'/auth.php';

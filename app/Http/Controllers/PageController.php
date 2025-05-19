@@ -22,59 +22,45 @@ class PageController extends Controller
     {
         return view('pages.privacy');
     }
-    /**
-     * Display a listing of the resource.
+    
+     /**
+     * Display the solutions of bugshield.
      */
-    public function index()
+    public function solution()
     {
-        //
+        return view('pages.solution');
     }
 
-    /**
-     * Show the form for creating a new resource.
+     /**
+     * Display the hackers of bugshield.
      */
-    public function create()
+    public function hacker()
     {
-        //
+        return view('pages.hacker');
     }
 
-    /**
-     * Store a newly created resource in storage.
+     /**
+     * Display the customers of bugshield.
      */
-    public function store(Request $request)
+    public function customer()
     {
-        //
+        return view('pages.customer');
     }
 
-    /**
-     * Display the specified resource.
+     /**
+     * Display the resources of bugshield.
      */
-    public function show(string $id)
+    public function resource()
     {
-        //
+        return view('pages.resource');
     }
 
-    /**
-     * Show the form for editing the specified resource.
+     /**
+     * Display the privacy of bugshield.
      */
-    public function edit(string $id)
+    public function company()
     {
-        //
+        return view('pages.company');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }
