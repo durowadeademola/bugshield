@@ -26,13 +26,13 @@ export default function ConfirmPassword() {
                             alt="Bugshield Logo"
                             className="h-12 w-auto"
                         />
-                        <span className="text-2xl md:text-3xl font-extrabold text-white ml-2">
+                        <span className="text-2xl md:text-3xl font-extrabold text-white cursor-pointer">
                             Bugshield
                         </span>
                     </div>
 
                     {/* Card */}
-                    <div className="w-full max-w-md space-y-6">
+                    <div className="w-full max-w-md space-y-6 mt-20">
                         <div>
                             <h2 className="text-4xl font-extrabold mb-2">Confirm Password</h2>
                             <p className="text-base text-gray-400">

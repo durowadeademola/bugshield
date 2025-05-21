@@ -73,6 +73,23 @@ export default function Register({ states = [] }) {
 
 
                         <form className="space-y-5" onSubmit={submit} encType="multipart/form-data">
+                         {/* VISIBLE role select field */}
+                         <div>
+                                <label className="block text-sm mb-1">You are registering as</label>
+                                <select
+                                    name="role"
+                                    value={data.role}
+                                    onChange={handleChange}
+                                    className="w-full px-4 py-3 rounded-md bg-gray-800 border border-gray-700"
+                                    required
+                                >
+                                    <option value="">Select user</option>
+                                    <option value="Organization">Organization</option>
+                                    <option value="Researcher">Researcher</option>
+                                </select>
+                                {errors.role && <div className="text-red-500 text-sm mt-1">{errors.role}</div>}
+                            </div>
+
                             <div>
                                 <label className="block text-sm mb-1">Email</label>
                                 <input
@@ -120,23 +137,6 @@ export default function Register({ states = [] }) {
                                     className="block w-full text-sm text-gray-400"
                                 />
                                 {errors.image && <div className="text-red-500 text-sm mt-1">{errors.image}</div>}
-                            </div>
-
-                            {/* VISIBLE role select field */}
-                            <div>
-                                <label className="block text-sm mb-1">You are Registering As</label>
-                                <select
-                                    name="role"
-                                    value={data.role}
-                                    onChange={handleChange}
-                                    className="w-full px-4 py-3 rounded-md bg-gray-800 border border-gray-700"
-                                    required
-                                >
-                                    <option value="">Select user</option>
-                                    <option value="Organization">Organization</option>
-                                    <option value="Researcher">Researcher</option>
-                                </select>
-                                {errors.role && <div className="text-red-500 text-sm mt-1">{errors.role}</div>}
                             </div>
 
                             {/* ORGANIZATION FIELDS */}

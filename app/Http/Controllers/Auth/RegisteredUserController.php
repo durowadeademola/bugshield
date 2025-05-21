@@ -152,7 +152,6 @@ class RegisteredUserController extends BaseController
 
         if ($role && $role === "organization") {
             $validator = Validator::make($request->all(), [
-                'user_id' => 'required|exists:users,id',
                 'name' => 'required|string|max:255',
                 'email' => 'required|email|unique:organizations',
                 'website' => 'required|url',
