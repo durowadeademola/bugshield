@@ -39,7 +39,7 @@ export default function Login({ status, canResetPassword }) {
                 </div>
 
                 {/* Login Form */}
-                <div className="w-full max-w-md space-y-6">
+                <div className="w-full max-w-md space-y-6 mt-20">
                     <div>
                         <h2 className="text-4xl font-extrabold mb-2">Welcome Back,</h2>
                         <p className="text-base text-gray-400">

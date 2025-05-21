@@ -55,7 +55,7 @@ class RegisteredUserController extends BaseController
         ])->exists()) {return redirect()->back()->withErrors(['The researcher already exists.'])->withInput();}
 
 
-        $validator = $this->validateRole($role, $request);
+        $validator = $this->validateBasedOnRole($role, $request);
 
         if ($validator && $validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
@@ -71,7 +71,7 @@ class RegisteredUserController extends BaseController
             $user->assignRole($role);
         }
 
-        $this->createNewUserEntryRole($role, $user, $request);
+        $this->createBasedOnRole($role, $user, $request);
 
         //Dispatch email verification
         event(new Registered($user));
@@ -83,7 +83,7 @@ class RegisteredUserController extends BaseController
         //return redirect(route('dashboard', absolute: false));
     }
 
-    protected function createNewUserEntryRole(string $role, $user, Request $request)
+    protected function createBasedOnRole(string $role, $user, Request $request)
     {
         if ($user && $user->hasRole('organization') && strtolower($role) === "organization") {
             if (Organization::where([
@@ -146,34 +146,37 @@ class RegisteredUserController extends BaseController
         }
     }
 
-    private function validateRole(string $role, Request $request)
+    private function validateBasedOnRole(string $role, Request $request)
     {
         $validator = null;
 
         if ($role && $role === "organization") {
             $validator = Validator::make($request->all(), [
+                'user_id' => 'required|exists:users,id',
                 'name' => 'required|string|max:255',
+                'email' => 'required|email|unique:organizations',
+                'website' => 'required|url',
+                'address' => 'required|string|max:255',
+                'phone_number' => 'required|string|max:15',
+                'description' => 'nullable|string',
+                'country' => 'required|string|max:100',
+                'state' => 'required|string|max:100',
+                'logo_name' => 'nullable|string|max:255',
+                'logo_path' => 'nullable|string|max:255',
                 'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
                 'password' => ['required', 'confirmed', Rules\Password::defaults()],
-                'address' => 'required',
-                'phone_number' => 'required',
-                'website' => 'required',
-                'address' => 'required',
-                'description' => 'required',
-                'country' => 'required',
-                'state' => 'required'
             ]);
 
         } else if($role && $role === "researcher") {
             $validator = Validator::make($request->all(),[
-                'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
-                'password' => ['required', 'confirmed', Rules\Password::defaults()],
                 'first_name' => 'required|string|max:255',
                 'middle_name' => 'nullable|string|max:255',
                 'last_name' => 'required|string|max:255',
                 'designation' => 'nullable',
                 'address' => 'nullable',
-                'phone_number' => 'nullable'
+                'phone_number' => 'nullable',
+                'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
+                'password' => ['required', 'confirmed', Rules\Password::defaults()],
             ]);
         }
 
