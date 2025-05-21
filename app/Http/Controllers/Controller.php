@@ -93,7 +93,7 @@ abstract class Controller
     public static function statesList()
     {
         return [
-            "Abuja FCT", "Anambra", "Enugu", "Akwa Ibom", "Adamawa", "Abia", "Bauchi","Bayelsa",
+            "Abuja (Federal Capital Territory)", "Anambra", "Enugu", "Akwa Ibom", "Adamawa", "Abia", "Bauchi","Bayelsa",
             "Benue", "Borno", "Cross River", "Delta", "Ebonyi", "Edo", "Ekiti", "Gombe", "Imo",
             "Jigawa", "Kaduna", "Kano", "Katsina", "Kebbi", "Kogi", "Kwara", "Lagos", "Nasarawa",
             "Niger", "Ogun", "Ondo", "Osun", "Oyo", "Plateau", "Rivers", "Sokoto", "Taraba",
