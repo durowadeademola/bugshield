@@ -26,7 +26,7 @@ class VerifyEmailController extends Controller
             event(new Verified($request->user()));
 
             //update user state to active
-            $this->updateNewUserEntryRole($request->user());
+            $this->updateBasedOnRole($request->user());
         }
 
         return redirect()->intended($this->redirectToRouteBasedOnRole($request->user()) . '?verified=1');
@@ -46,7 +46,7 @@ class VerifyEmailController extends Controller
         return route('dashboard', absolute: false);
     }
 
-    protected function updateNewUserEntryRole($user): void
+    protected function updateBasedOnRole($user): void
     {
         //update user state to active
         if ($user->hasRole('organization')) {
