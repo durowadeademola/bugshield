@@ -29,7 +29,6 @@ class Analyst extends Model
             'email' => 'string',
             'designation' => 'string',
             'address' => 'string',
-            'designation' => 'string',
             'phone_number' => 'integer',
             'image_name' => 'string',
             'image_path' => 'string'

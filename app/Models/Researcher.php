@@ -16,7 +16,7 @@ class Researcher extends Model
 
     protected $dates = ['deleted_at'];
 
-    protected $fillables = ['user_id','first_name', 'middle_name', 'last_name', 'email',
+    protected $fillable = ['user_id','first_name', 'middle_name', 'last_name', 'email',
         'designation', 'address', 'phone_number', 'is_active',
     ];
 

@@ -16,7 +16,7 @@ class Plan extends Model
 
     protected $dates = ['deleted_at'];
 
-    protected $fillables = ['title', 'description', 'amount', 'max_reports', 'is_free', 'is_basic', 'is_pro', 'is_enterprise',
+    protected $fillable = ['title', 'description', 'amount', 'max_reports', 'is_free', 'is_basic', 'is_pro', 'is_enterprise',
         'is_life_time', 'is_daily', 'is_weekly', 'is_monthly', 'is_yearly', 'custom_period', 'logo_name', 'logo_path'
     ];
 

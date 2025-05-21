@@ -16,7 +16,7 @@ class Transaction extends Model
 
     protected $dates = ['deleted_at'];
 
-    protected $fillables = [
+    protected $fillable = [
         'program_id', 'bounty_id', 'researcher_id', 'organization_id', 'amount', 'status',
         'payment_method', 'transaction_reference'
     ];
