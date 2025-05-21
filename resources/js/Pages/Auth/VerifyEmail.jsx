@@ -1,5 +1,3 @@
-import PrimaryButton from '@/Components/PrimaryButton';
-import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 
 export default function VerifyEmail({ status }) {
@@ -7,44 +5,83 @@ export default function VerifyEmail({ status }) {
 
     const submit = (e) => {
         e.preventDefault();
-
         post(route('verification.send'));
     };
 
     return (
-        <GuestLayout>
+        <>
             <Head title="Email Verification" />
+            <div className="min-h-screen flex">
+                {/* Left Panel */}
+                <div className="w-full md:w-1/2 bg-[#1A1C2C] text-white flex items-center justify-center p-8 relative">
 
-            <div className="mb-4 text-sm text-gray-600 dark:text-gray-400">
-                Thanks for signing up! Before getting started, could you verify
-                your email address by clicking on the link we just emailed to
-                you? If you didn't receive the email, we will gladly send you
-                another.
+                    {/* Logo */}
+                    <div className="absolute top-6 left-6 flex items-center">
+                        <img
+                            src="/images/bugshield-logo.png"
+                            alt="Bugshield Logo"
+                            className="h-12 w-auto"
+                        />
+                        <span className="text-2xl md:text-3xl font-extrabold text-white ml-2">
+                            Bugshield
+                        </span>
+                    </div>
+
+                    {/* Card */}
+                    <div className="w-full max-w-md space-y-6">
+                        <div>
+                            <h2 className="text-4xl font-extrabold mb-2">Verify Your Email</h2>
+                            <p className="text-base text-gray-400">
+                                Before getting started, please verify your email address by clicking the link we just sent.
+                                If you didn’t receive the email, we’ll send another.
+                            </p>
+                        </div>
+
+                        {status === 'verification-link-sent' && (
+                            <div className="text-green-500 text-sm font-medium">
+                                A new verification link has been sent to your email.
+                            </div>
+                        )}
+
+                        <form className="space-y-5" onSubmit={submit}>
+                            <button
+                                type="submit"
+                                disabled={processing}
+                                className="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 text-lg rounded-md font-bold transition"
+                            >
+                                {processing ? 'Sending...' : 'Resend Verification Email'}
+                            </button>
+                        </form>
+
+                        <div className="flex justify-between items-center text-sm text-gray-400">
+                            <Link
+                                href={route('logout')}
+                                method="post"
+                                as="button"
+                                className="hover:underline hover:text-white"
+                            >
+                                Log Out
+                            </Link>
+
+                            <Link
+                                href={route('login')}
+                                className="hover:underline hover:text-white"
+                            >
+                                Go back to Login
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Right Panel */}
+                <div className="hidden md:flex w-1/2 bg-[#263178] items-center justify-center p-10">
+                    <img
+                        src="/images/illustration-dashboard.png"
+                        alt="BugShield Illustration"
+                        className="max-w-full h-auto rounded-xl shadow-2xl"
+                    />
+                </div>
             </div>
-
-            {status === 'verification-link-sent' && (
-                <div className="mb-4 text-sm font-medium text-green-600 dark:text-green-400">
-                    A new verification link has been sent to the email address
-                    you provided during registration.
-                </div>
-            )}
-
-            <form onSubmit={submit}>
-                <div className="mt-4 flex items-center justify-between">
-                    <PrimaryButton disabled={processing}>
-                        Resend Verification Email
-                    </PrimaryButton>
-
-                    <Link
-                        href={route('logout')}
-                        method="post"
-                        as="button"
-                        className="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:text-gray-100 dark:focus:ring-offset-gray-800"
-                    >
-                        Log Out
-                    </Link>
-                </div>
-            </form>
-        </GuestLayout>
+        </>
     );
 }

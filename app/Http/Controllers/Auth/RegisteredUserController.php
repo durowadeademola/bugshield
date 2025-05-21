@@ -62,7 +62,7 @@ class RegisteredUserController extends BaseController
         }
 
         $user = User::create([
-            'name' => $role === "organization" ? $request->user : $request->first_name . " " . $request->last_name,
+            'name' => $role === "organization" ? $request->name : $request->first_name . " " . $request->last_name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
