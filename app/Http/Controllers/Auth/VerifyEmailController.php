@@ -43,7 +43,7 @@ class VerifyEmailController extends Controller
         }
 
         // fallback route
-        return route('dashboard', absolute: false);
+        return route('home', absolute: false);
     }
 
     protected function updateBasedOnRole($user): void

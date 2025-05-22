@@ -23,8 +23,8 @@ export default function Sidebar({ user }) {
         navItems = [
             { name: 'Home', icon: <Home />, href: '/organization/dashboard' },
             { name: 'Bug Bounty', icon: <Activity />, href: '/organization/bug-bounty' },
-            { name: 'Vulnerability Disclosure', icon: <Activity />, href: '/organization/v-disclosure' },
-            { name: 'Penetration Testing', icon: <CreditCard />, href: '/organization/p-test' },
+            { name: 'Vulnerability Disclosure', icon: <Activity />, href: '/organization/vuln-disclosure' },
+            { name: 'Penetration Testing', icon: <CreditCard />, href: '/organization/pen-test' },
             { name: 'AI and Automation', icon: <Users />, href: '/organization/ai-auto' },
             { name: 'Teams', icon: <Users />, href: '/organization/teams' },
             { name: 'Settings', icon: <Settings />, href: '/organization/settings' },
@@ -36,6 +36,7 @@ export default function Sidebar({ user }) {
             { name: 'Bug Bounty Programs', icon: <Activity />, href: '/researcher/programs' },
             { name: 'My Reports', icon: <FileText />, href: '/researcher/reports' },
             { name: 'Rewards', icon: <CreditCard />, href: '/researcher/rewards' },
+            { name: 'Leaderboards', icon: <CreditCard />, href: '/researcher/leaderboards' },
             { name: 'Settings', icon: <Settings />, href: '/researcher/settings' },
         ];
     } else if (isAnalyst) {

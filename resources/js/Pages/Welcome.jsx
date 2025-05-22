@@ -15,7 +15,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
     return (
         <>
            <Head>
-            <title>Simple, Beautiful Yet Powerful</title>
+            <title>Protect Your Business</title>
             <img
                 src="/images/bugshield-logo.png"
                 alt="Bugshield Logo"

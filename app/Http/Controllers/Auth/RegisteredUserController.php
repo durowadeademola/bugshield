@@ -166,7 +166,7 @@ class RegisteredUserController extends BaseController
                 'password' => ['required', 'confirmed', Rules\Password::defaults()],
             ]);
 
-        } else if($role && $role === "researcher") {
+        } else if($role && $role === "researcher" || $role === "analyst") {
             $validator = Validator::make($request->all(),[
                 'first_name' => 'required|string|max:255',
                 'middle_name' => 'nullable|string|max:255',

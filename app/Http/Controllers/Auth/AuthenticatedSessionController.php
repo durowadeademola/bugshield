@@ -61,6 +61,6 @@ class AuthenticatedSessionController extends Controller
         }
         
         // fallback route
-        return route('dashboard', absolute: false);
+        return route('home', absolute: false);
     }
 }
