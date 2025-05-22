@@ -15,7 +15,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
     return (
         <>
            <Head>
-            <title>Nigeria's First Bug Bounty Platform</title>
+            <title>Simple, Beautiful Yet Powerful</title>
             <img
                 src="/images/bugshield-logo.png"
                 alt="Bugshield Logo"

@@ -26,6 +26,7 @@ class ProgramSeeder extends Seeder
                     'organization_id' => $organization->id,
                     'title' => 'Bugshield',
                     'description' => 'Bugshield bug bounty program.',
+                    'platform' => 'web',
                     'is_public' => true,
                     'is_private' => false,
                     'is_active' => true,

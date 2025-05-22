@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignUuid('organization_id')->constrained('organizations');
             $table->string('title');
             $table->text('description');
+            $table->string('platform')->nullable();
             $table->text('asset');
             $table->string('logo_name')->nullable();
             $table->string('logo_path')->nullable();
