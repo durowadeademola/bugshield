@@ -1,7 +1,7 @@
 import { Head } from '@inertiajs/react';
-import DashboardCard from '@/components/DashboardCard';
-import FeatureGridItem from '@/components/FeatureGridItem';
-import DashboardLayout from '@/layouts/DashboardLayout';
+import DashboardCard from '@/Components/DashboardCard';
+import FeatureGridItem from '@/Components/FeatureGridItem';
+import DashboardLayout from '@/Layouts/DashboardLayout';
 import { Gift, Bitcoin, FileText, Server, Star } from 'lucide-react';
 
 export default function Dashboard({ user }) {
