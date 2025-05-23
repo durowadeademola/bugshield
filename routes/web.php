@@ -22,7 +22,7 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+    return abort(404);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
