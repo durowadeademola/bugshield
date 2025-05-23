@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
+
+use Inertia\Inertia;
 
 use App\Http\Requests\StoreAnalystRequest;
 use App\Http\Requests\UpdateAnalystRequest;
@@ -15,7 +18,9 @@ class AnalystController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('Analyst/Dashboard',[
+            'user' => Auth::user()
+        ]);
     }
 
     /**

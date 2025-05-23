@@ -85,8 +85,8 @@ export default function ConfirmPassword() {
                 <div className="hidden md:flex w-1/2 bg-[#263178] items-center justify-center p-10">
                     <img
                         src="/images/illustration-dashboard.png"
-                        alt="BugShield Illustration"
-                        className="max-w-full h-auto rounded-xl shadow-2xl"
+                        alt="Bugshield Illustration"
+                        className="max-w-full h-[500px] md:h-[600px] lg:h-[700px] object-contain rounded-xl shadow-2xl"
                     />
                 </div>
             </div>

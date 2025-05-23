@@ -84,12 +84,47 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                     </div>
                 </header>
 
-                <main className="mt-6">
-                    {/* Main content here */}
-                    <div className="grid gap-6 lg:grid-cols-2 lg:gap-8">
+                <main className="pt-32 bg-black text-white min-h-screen">
+                    <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 px-6 items-center">
+                        
+                        {/* Left Content */}
+                        <div>
+                            <p className="text-blue-400 uppercase font-semibold tracking-wide mb-2">
+                                A Comprehensive Cybersecurity Solution
+                            </p>
+                            <h1 className="text-4xl lg:text-5xl font-extrabold mb-6 leading-tight">
+                                Protects Data from cyber <span className="text-green-400">security</span> <span className="text-yellow-400">threats</span> to the world
+                            </h1>
+                            <p className="text-white/80 mb-6">
+                                Threat intelligence provides information about current and emerging cyber threats, allowing organizations to stay ahead of potential attacks.
+                            </p>
+                            <div className="flex space-x-4">
+                                <Link
+                                    href="/about"
+                                    className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded text-white font-semibold"
+                                >
+                                    Get Started
+                                </Link>
+                                <Link
+                                    href="/quote"
+                                    className="bg-transparent border border-white hover:bg-white hover:text-[#0b1e4e] px-6 py-3 rounded text-white font-semibold"
+                                >
+                                    Get A Quote
+                                </Link>
+                            </div>
+                        </div>
 
+                        {/* Right Image Content */}
+                        <div className="flex justify-center items-center h-full">
+                            <img
+                                src="/images/illustration-dashboard.png"
+                                alt="Cybersecurity Illustration"
+                                className="object-contain w-full max-w-lg h-[500px]"
+                            />
+                        </div>
                     </div>
                 </main>
+
 
                 <footer className="py-16 text-center text-sm text-white/70">
                     {/* Footer content */}

@@ -1,54 +1,56 @@
-import { Moon, Sun, ChevronDown, LogOut, User } from 'lucide-react';
-import { useState, useRef, useEffect } from 'react';
+import { Bell, Moon, Sun, ChevronDown, LogOut, User } from 'lucide-react';
 import { Link } from '@inertiajs/react';
+import { useState, useRef, useEffect } from 'react';
 
 export default function Navbar({ darkMode, toggleDarkMode, user }) {
     const [dropdownOpen, setDropdownOpen] = useState(false);
-    const [greeting, setGreeting] = useState('')
+    const [greeting, setGreeting] = useState('');
     const dropdownRef = useRef(null);
 
-    // Handle clicks outside dropdown
+    useEffect(() => {
+        const hour = new Date().getHours();
+        if (hour < 12) setGreeting('Good Morning');
+        else if (hour < 18) setGreeting('Good Afternoon');
+        else setGreeting('Good Evening');
+    }, []);
+
     useEffect(() => {
         function handleClickOutside(event) {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
                 setDropdownOpen(false);
             }
         }
-
         document.addEventListener('mousedown', handleClickOutside);
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, []);
 
-    useEffect(() => {
-        const hour = new Date().getHours();
-
-        if (hour < 12) {
-            setGreeting('Good Morning');
-        } else if (hour < 18) {
-            setGreeting('Good Afternoon');
-        } else {
-            setGreeting('Good Evening');
-        }
-    }, []);
-
     return (
         <div className="flex justify-between items-center py-4 px-6 bg-white dark:bg-gray-900 shadow relative">
-            <div className="text-xl font-bold dark:text-white mt-4">
-                {greeting},
-            </div>
+            <div className="text-xl font-bold dark:text-white mt-4">{greeting},</div>
 
             <div className="flex items-center space-x-4 relative">
                 {/* Dark Mode Toggle */}
                 <button
                     onClick={toggleDarkMode}
-                    className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700"
+                    className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none focus:ring-0"
                 >
                     {darkMode ? <Sun className="text-yellow-400" /> : <Moon className="text-gray-800" />}
                 </button>
 
-                {/* Profile Avatar + Dropdown */}
+                {/* Notifications */}
+                <Link
+                    href="/notifications"
+                    className="relative p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none focus:ring-0"
+                >
+                    <Bell className="text-gray-700 dark:text-gray-300" />
+                    {user?.unreadNotifications > 0 && (
+                        <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-600 rounded-full" />
+                    )}
+                </Link>
+
+                {/* Profile Dropdown */}
                 <div className="relative" ref={dropdownRef}>
                     <button
                         onClick={() => setDropdownOpen(!dropdownOpen)}

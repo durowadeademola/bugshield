@@ -10,6 +10,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\ResearcherController;
 use App\Http\Controllers\AnalystController;
+use App\Http\Controllers\NotificationController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -42,6 +43,7 @@ Route::middleware(['auth', 'verified', 'role:researcher'])->group(function () {
     Route::get('/researcher/dashboard', [ResearcherController::class, 'index'])->name('researcher.dashboard');
 });
 
+Route::get('/notifications', [NotificationController::class, 'index'])->name('notification');
 Route::get('/terms', [PageController::class, 'terms'])->name('terms');
 Route::get('/privacy', [PageController::class, 'privacy'])->name('privacy');
 Route::get('/solution', [PageController::class, 'solution'])->name('solution');
