@@ -11,6 +11,7 @@ export default function Sidebar({ user }) {
   const isOrganization = roles.includes('organization');
   const isAnalyst = roles.includes('analyst');
   const isResearcher = roles.includes('researcher');
+  const isTeam = roles.includes('team');
 
   const [expanded, setExpanded] = useState(null);
   const toggleExpand = (name) => {
@@ -21,21 +22,21 @@ export default function Sidebar({ user }) {
 
   if (isOrganization) {
     navItems = [
-      { name: 'Home', icon: <Home />, href: '/organization/dashboard' },
+      { name: 'Home', icon: <Home />, href: '/org/dashboard' },
       {
         name: 'Programs',
         icon: <Activity />,
         children: [
-          { name: 'Bug Bounty', href: '/organization/bug-bounty' },
-          { name: 'Vulnerability Disclosure', href: '/organization/vuln-disclosure' },
-          { name: 'Penetration Testing', href: '/organization/pen-test' },
+          { name: 'Bug Bounty', href: '/org/bug-bounty' },
+          { name: 'Vulnerability Disclosure', href: '/org/vuln-disclosure' },
+          { name: 'Penetration Testing', href: '/org/pen-test' },
         ],
       },
-      { name: 'AI and Automation', icon: <Users />, href: '/organization/ai-auto' },
-      { name: 'Teams', icon: <Users />, href: '/organization/teams' },
-      { name: 'Subscriptions', icon: <CreditCard />, href: '/organization/subscriptions' },
-      { name: 'Settings', icon: <Settings />, href: '/organization/settings' },
-      { name: 'Help & Support', icon: <HelpCircle />, href: '/organization/support' },
+      { name: 'AI and Automation', icon: <Users />, href: '/org/ai-auto' },
+      { name: 'Teams', icon: <Users />, href: '/org/teams' },
+      { name: 'Subscriptions', icon: <CreditCard />, href: '/org/subscriptions' },
+      { name: 'Settings', icon: <Settings />, href: '/org/settings' },
+      { name: 'Help & Support', icon: <HelpCircle />, href: '/org/support' },
     ];
   } else if (isResearcher) {
     navItems = [
@@ -55,6 +56,10 @@ export default function Sidebar({ user }) {
       { name: 'Settings', icon: <Settings />, href: '/analyst/settings' },
       { name: 'Help & Support', icon: <HelpCircle />, href: '/organization/support' },
     ];
+  } else if (isTeam) {
+    navItems = [
+      { name: 'Home', icon: <Home />, href: '/team/dashboard' },
+    ]
   }
 
   return (

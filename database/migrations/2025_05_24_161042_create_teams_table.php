@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('researchers', function (Blueprint $table) {
+        Schema::create('teams', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('user_id')->constrained('users');
+            $table->foreignUuid('organization_id')->constrained('organizations');
             $table->string('first_name');
             $table->string('middle_name')->nullable();
             $table->string('last_name');
@@ -24,7 +25,6 @@ return new class extends Migration
             $table->string('image_name')->nullable();
             $table->string('image_path')->nullable();
             $table->boolean('is_active')->default(false);
-            $table->integer('rank')->default(0);
             $table->softDeletes();
             $table->timestamps();
         });
@@ -35,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('researchers');
+        Schema::dropIfExists('teams');
     }
 };

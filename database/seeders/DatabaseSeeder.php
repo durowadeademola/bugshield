@@ -28,6 +28,9 @@ class DatabaseSeeder extends Seeder
             NotificationSeeder::class,
             TransactionSeeder::class,
             PlanSeeder::class,
+            TeamSeeder::class,
+            SupportSeeder::class,
+            SubscriptionSeeder::class
         ];
      
         foreach ($seeders as $seeder) 

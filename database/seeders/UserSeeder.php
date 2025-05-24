@@ -57,5 +57,15 @@ class UserSeeder extends Seeder
                 'email_verified_at' => $current_timestamp
             ])->assignRole('organization');
         }
+
+        //Team user
+        if (User::where(['name' => 'bugshield-team', 'email' => 'team@bugshield.com'])->count() == 0) {
+            User::create([
+                'name' => 'bugshield-team',
+                'email' => 'team@bugshield.com',
+                'password' => static::$password ??= Hash::make('256ddyu66@190'),
+                'email_verified_at' => $current_timestamp
+            ])->assignRole('team');
+        }
     }
 }

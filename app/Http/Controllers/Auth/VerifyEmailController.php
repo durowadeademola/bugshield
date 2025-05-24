@@ -10,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use App\Models\Organization;
 use App\Models\Researcher;
 use App\Models\Analyst;
+use App\Models\Team;
 
 class VerifyEmailController extends Controller
 {
@@ -40,6 +41,8 @@ class VerifyEmailController extends Controller
             return route('researcher.dashboard', absolute: false);
         } elseif ($user->hasRole('analyst')) {
             return route('analyst.dashboard', absolute: false);
+        } elseif ($user->hasRole('team')) {
+            return route('team.dashboard', absolute: false);
         }
 
         // fallback route
@@ -55,6 +58,8 @@ class VerifyEmailController extends Controller
             Researcher::where(['user_id' => $user->id])->first()->update(['is_active' => true]);
         } elseif ($user->hasRole('analyst')) {
             Analyst::where(['user_id' => $user->id])->first()->update(['is_active' => true]);
+        } elseif ($user->hasRole('team')) {
+            Team::where(['user_id' => $user->id])->first()->update(['is_active' => true]);
         }
     }
 }

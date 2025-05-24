@@ -43,6 +43,10 @@ Route::middleware(['auth', 'verified', 'role:researcher'])->group(function () {
     Route::get('/researcher/dashboard', [ResearcherController::class, 'index'])->name('researcher.dashboard');
 });
 
+Route::middleware(['auth', 'verified', 'role:team'])->group(function () {
+    Route::get('/team/dashboard', [TeamController::class, 'index'])->name('team.dashboard');
+});
+
 Route::get('/notifications', [NotificationController::class, 'index'])->name('notification');
 Route::get('/terms', [PageController::class, 'terms'])->name('terms');
 Route::get('/privacy', [PageController::class, 'privacy'])->name('privacy');

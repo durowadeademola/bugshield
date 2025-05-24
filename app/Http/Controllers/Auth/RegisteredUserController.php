@@ -17,6 +17,7 @@ use Validator;
 use App\Models\Analyst;
 use App\Models\Researcher;
 use App\Models\Organization;
+use App\Models\Team;
 
 class RegisteredUserController extends BaseController
 {
@@ -39,7 +40,7 @@ class RegisteredUserController extends BaseController
     {
         $role = strtolower($request->role);
 
-        if (!in_array($role, ['organization', 'researcher', 'analyst'])) {
+        if (!in_array($role, ['organization', 'researcher', 'analyst', 'team'])) {
             return redirect()->back()->withErrors(['Invalid user'])->withInput();
         }
 
@@ -53,6 +54,12 @@ class RegisteredUserController extends BaseController
             'last_name' => $request->last_name,
             'email' => $request->email
         ])->exists()) {return redirect()->back()->withErrors(['The researcher already exists.'])->withInput();}
+
+        else if ($role === 'team' && Team::where([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'email' => $request->email
+        ])->exists()) {return redirect()->back()->withError(['The team already exists'])->withInput();}
 
 
         $validator = $this->validateBasedOnRole($role, $request);
@@ -143,6 +150,34 @@ class RegisteredUserController extends BaseController
                 'phone_number' => $request->phone_number,
                 'is_active' => false
             ]);
+        } elseif ($user && $user->hasRole('team') && strtolower($role) === "team") {
+            if (Team::where([
+                'user_id' => $user->id,
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'email' => $request->email
+            ])->exists()) {return redirect()->back()->withErrors(['The team already exists.'])->withInput();}
+
+            $current_org = auth()->user();
+
+            $org = Organization::where([
+                'user_id' => optional($current_org)->id
+            ])->first();
+
+            if (!empty($org)) {
+                Team::create([
+                    'user_id' => $user->id,
+                    'organization_id' => $org->id,
+                    'first_name' => $request->first_name,
+                    'middle_name' => $request->middle_name,
+                    'last_name' => $request->last_name,
+                    'email' => $request->email,
+                    'designation' => $request->designation,
+                    'address' => $request->address,
+                    'phone_number' => $request->phone_number,
+                    'is_active' => false
+                ]);
+            }
         }
     }
 
@@ -166,7 +201,7 @@ class RegisteredUserController extends BaseController
                 'password' => ['required', 'confirmed', Rules\Password::defaults()],
             ]);
 
-        } else if($role && $role === "researcher" || $role === "analyst") {
+        } else if($role && $role === "researcher" || $role === "analyst" || $role === "team") {
             $validator = Validator::make($request->all(),[
                 'first_name' => 'required|string|max:255',
                 'middle_name' => 'nullable|string|max:255',

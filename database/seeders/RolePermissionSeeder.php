@@ -19,7 +19,8 @@ class RolePermissionSeeder extends Seeder
             'admin',
             'researcher',
             'organization',
-            'analyst'
+            'analyst',
+            'team'
         ];
 
         $permissions = [
@@ -32,6 +33,7 @@ class RolePermissionSeeder extends Seeder
             'approve reports',
             'create reports',
             'view reports',
+            'manage organization'
         ];
 
         foreach ($roles as $role)
@@ -58,6 +60,10 @@ class RolePermissionSeeder extends Seeder
 
         Role::findByName('analyst')->givePermissionTo([
             'view analytics', 'approve reports',
+        ]);
+
+        Role::findByName('team')->givePermissionTo([
+            'manage organization'
         ]);
 
         $this->command->info('Roles and permissions seeded successfully.');
