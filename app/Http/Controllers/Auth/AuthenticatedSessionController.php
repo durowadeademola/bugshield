@@ -59,7 +59,7 @@ class AuthenticatedSessionController extends Controller
         } elseif ($user->hasRole('analyst')) {
             return route('analyst.dashboard', absolute: false);
         } elseif ($user->hasRole('team')) {
-            return route('team.dashboard', absolute: false)
+            return route('team.dashboard', absolute: false);
         }
         
         // fallback route

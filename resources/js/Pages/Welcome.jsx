@@ -1,6 +1,25 @@
 import { Head, Link } from '@inertiajs/react';
 
 export default function Welcome({ auth, laravelVersion, phpVersion }) {
+    const roles = auth.user?.roles || [];
+    const isOrganization = roles.includes('organization');
+    const isAnalyst = roles.includes('analyst');
+    const isResearcher = roles.includes('researcher');
+    const isTeam = roles.includes('team');
+    var dashboard;
+
+    if(isOrganization) {
+        dashboard = route('organization.dashboard');
+    } else if(isAnalyst) {
+        dashboard = route('analyst.dashboard');
+    } else if (isResearcher) {
+        dashboard = route('researcher.dashboard');
+    } else if (isTeam) {
+        dashboard = route('team.dashboard');
+    } else {
+        dashboard = route('home');
+    }
+
     const handleImageError = () => {
         document
             .getElementById('screenshot-container')
@@ -61,10 +80,10 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                     <div className="space-x-4 flex-shrink-0">
                         {auth.user ? (
                         <Link
-                            href={route('dashboard')}
+                            href={dashboard}
                             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
                         >
-                            Dashboard
+                            Go to Dashboard
                         </Link>
                         ) : (
                         <>
