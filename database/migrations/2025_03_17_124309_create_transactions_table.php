@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->string('txn_id')->nullable();
             $table->foreignUuid('bounty_id')->constrained('bounties');
             $table->foreignUuid('researcher_id')->constrained('researchers');
             $table->foreignUuid('program_id')->constrained('programs');

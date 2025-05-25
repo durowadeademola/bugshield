@@ -97,7 +97,7 @@ export default function Login({ status, canResetPassword }) {
                             disabled={processing}
                             className="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 text-lg rounded-md font-bold transition"
                         >
-                            {processing ? 'Logging in...' : 'Login'}
+                            {processing ? 'Please wait...' : 'Login'}
                         </button>
                     </form>
 

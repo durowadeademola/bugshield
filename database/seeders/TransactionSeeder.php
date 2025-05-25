@@ -43,6 +43,7 @@ class TransactionSeeder extends Seeder
         if ($program && $researcher && $organization && $bounty) {
             if (Transaction::where(['program_id' => $program->id, 'researcher_id' => $researcher->id, 'organization_id' => $organization->id, 'bounty_id' => $bounty->id])->count() == 0) {
                 Transaction::create([
+                    'txn_id' => 'fea228hhd829320uhhf3842e822e772c',
                     'program_id' => $program->id,
                     'researcher_id' => $researcher->id,
                     'organization_id' => $organization->id,

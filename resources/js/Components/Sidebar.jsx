@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from '@inertiajs/react';
 import {
   Home, Activity, CreditCard, Users, Settings,
-  HelpCircle, Shield, FileText, ChevronDown, ChevronRight,
+  HelpCircle, FileText, ChevronDown, ChevronRight, Shield, Lock, Key
 } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 
@@ -33,8 +33,26 @@ export default function Sidebar({ user }) {
         ],
       },
       { name: 'AI and Automation', icon: <Users />, href: '/org/ai-auto' },
-      { name: 'Teams', icon: <Users />, href: '/org/teams' },
-      { name: 'Subscriptions', icon: <CreditCard />, href: '/org/subscriptions' },
+      { name: 'Teams', 
+        icon: <Users />, 
+        children: [
+          {name: 'Manage', icon: <Settings />, href: '/org/manage/teams'}
+        ]
+      },
+      { name: 'Subscriptions', 
+        icon: <CreditCard />,
+        children: [
+          {name: 'Manage', icon: <Settings />, href: '/org/manage/subscriptions'},
+        ]
+      },
+      { 
+        name: 'Security', 
+        icon: <Lock />,
+        children: [
+          { name: 'Password', icon: <Key />, href: '/org/password'},
+          { name: '2FA', icon: <Shield />, href: '/org/2fa'}
+        ]
+      },
       { name: 'Settings', icon: <Settings />, href: '/org/settings' },
       { name: 'Help & Support', icon: <HelpCircle />, href: '/org/support' },
     ];
@@ -45,20 +63,47 @@ export default function Sidebar({ user }) {
       { name: 'My Reports', icon: <FileText />, href: '/researcher/reports' },
       { name: 'Rewards', icon: <CreditCard />, href: '/researcher/rewards' },
       { name: 'Leaderboards', icon: <CreditCard />, href: '/researcher/leaderboards' },
+      { 
+        name: 'Security', 
+        icon: <Settings />,
+        children: [
+          { name: 'Password', icon: <Key />, href: '/researcher/password'},
+          { name: '2FA', icon: <Shield />, href: '/researcher/2fa'}
+        ]
+      },
       { name: 'Settings', icon: <Settings />, href: '/researcher/settings' },
-      { name: 'Help & Support', icon: <HelpCircle />, href: '/organization/support' },
+      { name: 'Help & Support', icon: <HelpCircle />, href: '/researcher/support' },
     ];
   } else if (isAnalyst) {
     navItems = [
       { name: 'Home', icon: <Home />, href: '/analyst/dashboard' },
       { name: 'Programs', icon: <Activity />, href: '/analyst/programs' },
       { name: 'Reports', icon: <FileText />, href: '/analyst/reports' },
+      { 
+        name: 'Security', 
+        icon: <Settings />,
+        children: [
+          { name: 'Password', icon: <Key />, href: '/analyst/password'},
+          { name: '2FA', icon: <Shield />, href: '/analyst/2fa'}
+        ]
+      },
       { name: 'Settings', icon: <Settings />, href: '/analyst/settings' },
-      { name: 'Help & Support', icon: <HelpCircle />, href: '/organization/support' },
+      { name: 'Help & Support', icon: <HelpCircle />, href: '/analyst/support' },
     ];
   } else if (isTeam) {
     navItems = [
       { name: 'Home', icon: <Home />, href: '/team/dashboard' },
+      { 
+        name: 'Security', 
+        icon: <Settings />,
+        children: [
+          { name: 'Password', icon: <Key />, href: '/team/password'},
+          { name: '2FA', icon: <Shield />, href: '/team/2fa'}
+
+        ]
+      },
+      { name: 'Settings', icon: <Settings />, href: '/team/settings' },
+      { name: 'Help & Support', icon: <HelpCircle />, href: '/team/support' },
     ]
   }
 
@@ -97,19 +142,20 @@ export default function Sidebar({ user }) {
                         animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ duration: 0.3 }}
-                        className="pl-12 space-y-3 mt-2 overflow-hidden"
-                        >
+                        className="pl-8 space-y-3 mt-2 overflow-hidden"
+                      >
                         {item.children.map((child, cidx) => (
-                            <li key={cidx}>
+                          <li key={cidx}>
                             <Link
-                                href={child.href}
-                                className="block text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors py-1"
+                              href={child.href}
+                              className="flex items-center space-x-2 whitespace-nowrap text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors py-1"
                             >
-                                {child.name}
+                              <span className="text-lg flex-shrink-0">{child.icon}</span>
+                              <span>{child.name}</span>
                             </Link>
-                            </li>
+                          </li>
                         ))}
-                        </motion.ul>
+                      </motion.ul>
                     )}
                 </AnimatePresence>
 

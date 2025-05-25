@@ -16,7 +16,7 @@ class Setting extends Model
 
     protected $dates = ['deleted_at'];
     
-    protected $fillable = ['key', 'value', 'type', 'group'];
+    protected $fillable = ['user_id', 'key', 'value', 'type', 'group'];
 
     protected function casts(): array
     {
@@ -26,6 +26,11 @@ class Setting extends Model
             'type' => 'string',
             'group' => 'string'
         ];
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public static function get($key, $default = null)

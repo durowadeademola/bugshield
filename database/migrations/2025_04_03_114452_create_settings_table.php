@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->foreignUuid('user_id')->nullable()->constrained('users');
             $table->string('key')->unique();
             $table->text('value')->nullable();
             $table->string('type')->default('string');

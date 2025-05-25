@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignUuid('organization_id')->constrained('organizations');
             $table->foreignUuid('plan_id')->constrained('plans');
             $table->string('status')->nullable();
-            $table->boolean('is_active')->default(true);
+            $table->boolean('is_active')->default(false);
             $table->softDeletes();
             $table->timestamps();
         });
