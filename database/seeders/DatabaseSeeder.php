@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
             AttachmentSeeder::class,
             BountySeeder::class,
             CommentSeeder::class,
-            NotificationSeeder::class,
+            //NotificationSeeder::class,
             TransactionSeeder::class,
             PlanSeeder::class,
             TeamSeeder::class,

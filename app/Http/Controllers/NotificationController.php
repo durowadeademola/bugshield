@@ -53,9 +53,11 @@ class NotificationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateNotificationRequest $request, string $id)
+    public function update(Request $request, string $id)
     {
-        //
+        $request->user()->unreadNotifications->markAsRead();
+
+        return back()->with('success', 'All notifications marked as read.');
     }
 
     /**

@@ -18,7 +18,7 @@ class OrganizationController extends Controller
     public function index()
     {
         return Inertia::render('Organization/Dashboard',[
-            'user' => Auth::user()
+            'user' => Auth::user()->load('notifications')
         ]);
     }
 

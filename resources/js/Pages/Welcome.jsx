@@ -6,18 +6,18 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
     const isAnalyst = roles.includes('analyst');
     const isResearcher = roles.includes('researcher');
     const isTeam = roles.includes('team');
-    var dashboard;
+    var href;
 
     if(isOrganization) {
-        dashboard = route('organization.dashboard');
+        href = route('organization.dashboard');
     } else if(isAnalyst) {
-        dashboard = route('analyst.dashboard');
+        href = route('analyst.dashboard');
     } else if (isResearcher) {
-        dashboard = route('researcher.dashboard');
+        href = route('researcher.dashboard');
     } else if (isTeam) {
-        dashboard = route('team.dashboard');
+        href = route('team.dashboard');
     } else {
-        dashboard = route('home');
+        href = route('home');
     }
 
     const handleImageError = () => {
@@ -80,7 +80,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                     <div className="space-x-4 flex-shrink-0">
                         {auth.user ? (
                         <Link
-                            href={dashboard}
+                            href={href}
                             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
                         >
                             Go to Dashboard

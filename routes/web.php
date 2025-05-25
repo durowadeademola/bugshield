@@ -30,6 +30,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/notifications', [NotificationController::class, 'index'])->name('notification');
+    Route::post('/notifications/update', [NotificationController::class, 'update'])->name('notifications.update');
 });
 
 Route::middleware(['auth', 'verified', 'role:organization'])->group(function () {
@@ -48,7 +50,6 @@ Route::middleware(['auth', 'verified', 'role:team'])->group(function () {
     Route::get('/team/dashboard', [TeamController::class, 'index'])->name('team.dashboard');
 });
 
-Route::get('/notifications', [NotificationController::class, 'index'])->name('notification');
 Route::get('/terms', [PageController::class, 'terms'])->name('terms');
 Route::get('/privacy', [PageController::class, 'privacy'])->name('privacy');
 Route::get('/solution', [PageController::class, 'solution'])->name('solution');

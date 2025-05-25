@@ -1,33 +1,35 @@
 <?php
-
 namespace App\Models;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Http\Traits\GuidId;
+use Illuminate\Notifications\DatabaseNotification as BaseNotification;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
-class Notification extends Model
+class Notification extends BaseNotification
 {
-    use Notifiable, SoftDeletes, GuidId;
+    protected $table = 'notifications';
 
-    public $table = 'notifications';
+    protected $casts = [
+        'data' => 'array',
+        'read_at' => 'datetime',
+    ];
 
-    protected $dates = ['deleted_at'];
-
-    protected $fillable = ['user_id', 'message', 'read_status'];
-
-    protected function casts(): array
+    // Optional: Custom accessor for short message, etc.
+    public function shortMessage(): Attribute
     {
-        return [
-            'message' => 'string',
-            'read_status' => 'boolean'
-        ];
+        return Attribute::make(
+            get: fn () => $this->data['message'] ?? null
+        );
     }
 
-    public function user() 
+    // Example: scope to get only unread
+    public function scopeUnread($query)
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $query->whereNull('read_at');
+    }
+
+    // Example: Mark as read
+    public function markAsRead()
+    {
+        $this->update(['read_at' => now()]);
     }
 }

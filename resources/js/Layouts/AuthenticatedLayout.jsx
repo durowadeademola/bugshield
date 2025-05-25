@@ -7,6 +7,30 @@ import { useState } from 'react';
 
 export default function AuthenticatedLayout({ header, children }) {
     const user = usePage().props.auth.user;
+    const roles = user?.roles || [];
+    const isOrganization = roles.includes('organization');
+    const isAnalyst = roles.includes('analyst');
+    const isResearcher = roles.includes('researcher');
+    const isTeam = roles.includes('team');
+    var href;
+    var active;
+
+    if(isOrganization) {
+        href = route('organization.dashboard');
+        active = route().current('organization.dashboard');
+    } else if(isAnalyst) {
+        href = route('analyst.dashboard');
+        active = route().current('analyst.dashboard');
+    } else if (isResearcher) {
+        href = route('researcher.dashboard');
+        active = route().current('researcher.dashboard');
+    } else if (isTeam) {
+        href = route('team.dashboard');
+        active = route().current('team.dashboard');
+    } else {
+        href = route('home');
+        active = route().current('home');
+    }
 
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
@@ -19,8 +43,8 @@ export default function AuthenticatedLayout({ header, children }) {
                         <div className="flex">
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink
-                                    href={route('dashboard')}
-                                    active={route().current('dashboard')}
+                                    href={href}
+                                    active={active}
                                 >
                                     Dashboard
                                 </NavLink>
@@ -123,8 +147,8 @@ export default function AuthenticatedLayout({ header, children }) {
                 >
                     <div className="space-y-1 pb-3 pt-2">
                         <ResponsiveNavLink
-                            href={route('dashboard')}
-                            active={route().current('dashboard')}
+                            href={href}
+                            active={active}
                         >
                             Dashboard
                         </ResponsiveNavLink>

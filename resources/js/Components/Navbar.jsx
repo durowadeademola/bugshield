@@ -5,18 +5,22 @@ import {
     ChevronDown,
     LogOut,
     User,
-    AlertTriangle,
+    AlertTriangle
 } from 'lucide-react';
 import { Link } from '@inertiajs/react';
 import { useState, useRef, useEffect } from 'react';
 import { router } from '@inertiajs/react';
 import Dialogue from '@/Components/Dialogue';
+import NotificationCard from '@/Components/NotificationCard';
+import { route } from 'ziggy-js';
 
 export default function Navbar({ darkMode, toggleDarkMode, user }) {
     const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [notificationsOpen, setNotificationsOpen] = useState(false);
     const [logoutDialogueOpen, setLogoutDialogueOpen] = useState(false);
     const [greeting, setGreeting] = useState('');
     const dropdownRef = useRef(null);
+    const notificationsRef = useRef(null);
 
     useEffect(() => {
         const hour = new Date().getHours();
@@ -27,10 +31,20 @@ export default function Navbar({ darkMode, toggleDarkMode, user }) {
 
     useEffect(() => {
         function handleClickOutside(event) {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+            if (
+                dropdownRef.current &&
+                !dropdownRef.current.contains(event.target)
+            ) {
                 setDropdownOpen(false);
             }
+            if (
+                notificationsRef.current &&
+                !notificationsRef.current.contains(event.target)
+            ) {
+                setNotificationsOpen(false);
+            }
         }
+
         document.addEventListener('mousedown', handleClickOutside);
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
@@ -51,7 +65,7 @@ export default function Navbar({ darkMode, toggleDarkMode, user }) {
                     {/* Dark Mode Toggle */}
                     <button
                         onClick={toggleDarkMode}
-                        className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none focus:ring-0"
+                        className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none"
                     >
                         {darkMode ? (
                             <Sun className="text-yellow-400" />
@@ -61,15 +75,41 @@ export default function Navbar({ darkMode, toggleDarkMode, user }) {
                     </button>
 
                     {/* Notifications */}
-                    <Link
-                        href="/notifications"
-                        className="relative p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none focus:ring-0"
-                    >
-                        <Bell className="text-gray-700 dark:text-gray-300" />
-                        {user?.unreadNotifications > 0 && (
-                            <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-600 rounded-full" />
+                    <div className="relative" ref={notificationsRef}>
+                        <button
+                            onClick={() => setNotificationsOpen(!notificationsOpen)}
+                            className="relative p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none"
+                        >
+                            <Bell className="text-gray-700 dark:text-gray-300" />
+                            {user?.unreadNotifications > 0 && (
+                                <span className="absolute top-1 right-1 w-2 h-2 bg-red-600 rounded-full" />
+                            )}
+                        </button>
+
+                        {notificationsOpen && (
+                            <div className="absolute right-0 mt-2 w-[350px] max-h-[500px] overflow-y-auto bg-white dark:bg-gray-900 shadow-lg rounded-xl z-50 p-4 space-y-3">
+                                <div className="flex justify-between items-center mb-2">
+                                    <h2 className="text-lg font-bold dark:text-white">Notifications</h2>
+                                    <button
+                                        onClick={() => {
+                                            router.post(route('notifications.update'));
+                                            setNotificationsOpen(false);
+                                        }}
+                                        className="text-sm text-blue-500 hover:underline"
+                                    >
+                                        Mark all as read
+                                    </button>
+                                </div>
+                                {user?.notifications?.length > 0 ? (
+                                    user.notifications.map((notification) => (
+                                        <NotificationCard key={notification.id} notification={notification} />
+                                    ))
+                                ) : (
+                                    <p className="text-sm text-gray-500 dark:text-gray-400">No notifications found.</p>
+                                )}
+                            </div>
                         )}
-                    </Link>
+                    </div>
 
                     {/* Profile Dropdown */}
                     <div className="relative" ref={dropdownRef}>
