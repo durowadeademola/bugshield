@@ -11,6 +11,7 @@ use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\ResearcherController;
 use App\Http\Controllers\AnalystController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\TeamController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [

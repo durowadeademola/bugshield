@@ -1,7 +1,7 @@
 import { X } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-export default function Modal({
+export default function Dialogue({
     isOpen,
     onClose,
     type = 'confirm',
