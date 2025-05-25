@@ -50,7 +50,7 @@ export default function Sidebar({ user }) {
         icon: <Lock />,
         children: [
           { name: 'Password', icon: <Key />, href: '/org/password'},
-          { name: '2FA', icon: <Shield />, href: '/org/2fa'}
+          { name: '2-Factor Auth', icon: <Shield />, href: '/org/2fa'}
         ]
       },
       { name: 'Settings', icon: <Settings />, href: '/org/settings' },
@@ -68,7 +68,7 @@ export default function Sidebar({ user }) {
         icon: <Settings />,
         children: [
           { name: 'Password', icon: <Key />, href: '/researcher/password'},
-          { name: '2FA', icon: <Shield />, href: '/researcher/2fa'}
+          { name: '2-Factor Auth', icon: <Shield />, href: '/researcher/2fa'}
         ]
       },
       { name: 'Settings', icon: <Settings />, href: '/researcher/settings' },
@@ -84,7 +84,7 @@ export default function Sidebar({ user }) {
         icon: <Settings />,
         children: [
           { name: 'Password', icon: <Key />, href: '/analyst/password'},
-          { name: '2FA', icon: <Shield />, href: '/analyst/2fa'}
+          { name: '2-Factor Auth', icon: <Shield />, href: '/analyst/2fa'}
         ]
       },
       { name: 'Settings', icon: <Settings />, href: '/analyst/settings' },
@@ -98,7 +98,7 @@ export default function Sidebar({ user }) {
         icon: <Settings />,
         children: [
           { name: 'Password', icon: <Key />, href: '/team/password'},
-          { name: '2FA', icon: <Shield />, href: '/team/2fa'}
+          { name: '2-Factor Auth', icon: <Shield />, href: '/team/2fa'}
 
         ]
       },
@@ -142,7 +142,7 @@ export default function Sidebar({ user }) {
                         animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ duration: 0.3 }}
-                        className="pl-8 space-y-3 mt-2 overflow-hidden"
+                        className="pl-6 space-y-3 mt-2 overflow-hidden"
                       >
                         {item.children.map((child, cidx) => (
                           <li key={cidx}>

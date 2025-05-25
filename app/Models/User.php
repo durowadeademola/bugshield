@@ -60,11 +60,6 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
         ];
     }
 
-    public function notifications()
-    {
-        return $this->hasMany(Notification::class);
-    }
-
     public function canAccessPanel(\Filament\Panel $panel): bool
     {
         return str_ends_with($this->email, '@bugshield.com') && $this->hasVerifiedEmail() && $this->hasRole('admin');

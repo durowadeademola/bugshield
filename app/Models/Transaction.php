@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,7 +9,7 @@ use App\Http\Traits\GuidId;
 
 class Transaction extends Model
 {
-    use Notifiable, SoftDeletes, GuidId;
+    use SoftDeletes, GuidId;
 
     public $table = 'transactions';
 
@@ -24,6 +23,7 @@ class Transaction extends Model
     protected function casts(): array
     {
         return [
+            'txn_id' => 'string',
             'amount' => 'integer',
             'status' => 'string',
             'payment_method' => 'string',

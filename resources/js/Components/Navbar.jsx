@@ -13,12 +13,15 @@ import { router } from '@inertiajs/react';
 import Dialogue from '@/Components/Dialogue';
 import NotificationCard from '@/Components/NotificationCard';
 import { route } from 'ziggy-js';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Navbar({ darkMode, toggleDarkMode, user }) {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [notificationsOpen, setNotificationsOpen] = useState(false);
     const [logoutDialogueOpen, setLogoutDialogueOpen] = useState(false);
     const [greeting, setGreeting] = useState('');
+    const [shakeBell, setShakeBell] = useState(false);
+
     const dropdownRef = useRef(null);
     const notificationsRef = useRef(null);
 
@@ -77,38 +80,57 @@ export default function Navbar({ darkMode, toggleDarkMode, user }) {
                     {/* Notifications */}
                     <div className="relative" ref={notificationsRef}>
                         <button
-                            onClick={() => setNotificationsOpen(!notificationsOpen)}
+                            onClick={() => {
+                                setNotificationsOpen(!notificationsOpen);
+                                setShakeBell(prev => !prev);
+                            }}
                             className="relative p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none"
                         >
-                            <Bell className="text-gray-700 dark:text-gray-300" />
+                            <motion.div
+                                key={shakeBell} // retriggers animation
+                                animate={{
+                                    rotate: [0, -15, 15, -10, 10, -5, 5, 0],
+                                }}
+                                transition={{ duration: 0.5 }}
+                            >
+                                <Bell className="text-gray-700 dark:text-gray-300" />
+                            </motion.div>
                             {user?.unreadNotifications > 0 && (
                                 <span className="absolute top-1 right-1 w-2 h-2 bg-red-600 rounded-full" />
                             )}
                         </button>
 
-                        {notificationsOpen && (
-                            <div className="absolute right-0 mt-2 w-[350px] max-h-[500px] overflow-y-auto bg-white dark:bg-gray-900 shadow-lg rounded-xl z-50 p-4 space-y-3">
-                                <div className="flex justify-between items-center mb-2">
-                                    <h2 className="text-lg font-bold dark:text-white">Notifications</h2>
-                                    <button
-                                        onClick={() => {
-                                            router.post(route('notifications.update'));
-                                            setNotificationsOpen(false);
-                                        }}
-                                        className="text-sm text-blue-500 hover:underline"
-                                    >
-                                        Mark all as read
-                                    </button>
-                                </div>
-                                {user?.notifications?.length > 0 ? (
-                                    user.notifications.map((notification) => (
-                                        <NotificationCard key={notification.id} notification={notification} />
-                                    ))
-                                ) : (
-                                    <p className="text-sm text-gray-500 dark:text-gray-400">No notifications found.</p>
-                                )}
-                            </div>
-                        )}
+                        <AnimatePresence>
+                            {notificationsOpen && (
+                                <motion.div
+                                    initial={{ opacity: 0, y: -10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -10 }}
+                                    transition={{ duration: 0.2 }}
+                                    className="absolute right-0 mt-2 w-[350px] max-h-[500px] overflow-y-auto bg-white dark:bg-gray-900 shadow-lg rounded-xl z-50 p-4 space-y-3"
+                                >
+                                    <div className="flex justify-between items-center mb-2">
+                                        <h2 className="text-lg font-bold dark:text-white">Notifications</h2>
+                                        <button
+                                            onClick={() => {
+                                                router.post(route('notifications.update'));
+                                                setNotificationsOpen(false);
+                                            }}
+                                            className="text-sm text-blue-500 hover:underline"
+                                        >
+                                            Mark all as read
+                                        </button>
+                                    </div>
+                                    {user?.notifications?.length > 0 ? (
+                                        user.notifications.map((notification) => (
+                                            <NotificationCard key={notification.id} notification={notification} />
+                                        ))
+                                    ) : (
+                                        <p className="text-sm text-gray-500 dark:text-gray-400">No notifications found.</p>
+                                    )}
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
                     </div>
 
                     {/* Profile Dropdown */}
@@ -121,22 +143,30 @@ export default function Navbar({ darkMode, toggleDarkMode, user }) {
                             <ChevronDown className="w-4 h-4 text-gray-600 dark:text-gray-300" />
                         </button>
 
-                        {dropdownOpen && (
-                            <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 shadow-lg rounded-md overflow-hidden z-50">
-                                <Link
-                                    href="/organization/profile"
-                                    className="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                        <AnimatePresence>
+                            {dropdownOpen && (
+                                <motion.div
+                                    initial={{ opacity: 0, y: -10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -10 }}
+                                    transition={{ duration: 0.2 }}
+                                    className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 shadow-lg rounded-md overflow-hidden z-50"
                                 >
-                                    <User className="w-4 h-4 mr-2" /> View Profile
-                                </Link>
-                                <button
-                                    onClick={() => setLogoutDialogueOpen(true)}
-                                    className="flex items-center w-full px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700"
-                                >
-                                    <LogOut className="w-4 h-4 mr-2" /> Log Out
-                                </button>
-                            </div>
-                        )}
+                                    <Link
+                                        href="/profile"
+                                        className="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                                    >
+                                        <User className="w-4 h-4 mr-2" /> View Profile
+                                    </Link>
+                                    <button
+                                        onClick={() => setLogoutDialogueOpen(true)}
+                                        className="flex items-center w-full px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700"
+                                    >
+                                        <LogOut className="w-4 h-4 mr-2" /> Log Out
+                                    </button>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
                     </div>
                 </div>
             </div>

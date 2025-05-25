@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,7 +9,7 @@ use App\Http\Traits\GuidId;
 
 class Program extends Model
 {
-    use Notifiable, SoftDeletes, GuidId;
+    use SoftDeletes, GuidId;
 
     public $table = 'programs';
 
