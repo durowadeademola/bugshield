@@ -11,7 +11,7 @@ abstract class Controller
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public static function createJSONResponse($status,$message,$response,$status_code)
+    public static function getJSONResponse($status,$message,$response,$status_code)
     {
         return response()->json([
             'status'=>"{$status}",
@@ -47,19 +47,19 @@ abstract class Controller
     }
 
 
-    public function sendResponse($result, $message)
+    public function getResponse($result, $message)
     {
         return Response::json(self::makeResponse($message, $result));
     }
 
 
-    public function sendError($error, $code = 404)
+    public function getError($error, $code = 404)
     {
         return Response::json(self::makeError($error), $code);
     }
 
     
-    public function sendSuccess($message)
+    public function getSuccess($message)
     {
         return Response::json([
             'success' => true,
@@ -67,7 +67,7 @@ abstract class Controller
         ], 200);
     }
 
-    public static function makeResponse($message, $data)
+    public static function setResponse($message, $data)
     {
         return [
             'success' => true,
@@ -76,7 +76,7 @@ abstract class Controller
         ];
     }
 
-    public static function makeError($message, array $data = [])
+    public static function setError($message, array $data = [])
     {
         $res = [
             'success' => false,
@@ -90,18 +90,18 @@ abstract class Controller
         return $res;
     }
 
-    public static function statesList()
+    public static function getStatesList()
     {
         return [
-            "Abuja (Federal Capital Territory)", "Anambra", "Enugu", "Akwa Ibom", "Adamawa", "Abia", "Bauchi","Bayelsa",
-            "Benue", "Borno", "Cross River", "Delta", "Ebonyi", "Edo", "Ekiti", "Gombe", "Imo",
-            "Jigawa", "Kaduna", "Kano", "Katsina", "Kebbi", "Kogi", "Kwara", "Lagos", "Nasarawa",
-            "Niger", "Ogun", "Ondo", "Osun", "Oyo", "Plateau", "Rivers", "Sokoto", "Taraba",
+            "Abia", "Abuja (Federal Capital Territory)", "Adamawa", "Akwa Ibom", "Anambra", "Bauchi",
+            "Bayelsa", "Benue", "Borno", "Cross River", "Delta", "Ebonyi", "Edo", "Ekiti","Enugu",  
+            "Gombe", "Imo", "Jigawa", "Kaduna", "Kano", "Katsina", "Kebbi", "Kogi", "Kwara", "Lagos", 
+            "Nasarawa", "Niger", "Ogun", "Ondo", "Osun", "Oyo", "Plateau", "Rivers", "Sokoto", "Taraba",
             "Yobe", "Zamfara"
         ];
     }
 
-    public static function monthsList()
+    public static function getMonthsList()
     {
         return [
           "January", "February", "March", "April", "May", "June",
@@ -109,7 +109,7 @@ abstract class Controller
         ];
     }
 
-    public static function daysList()
+    public static function getDaysList()
     {
         return [
             "Monday", "Tuesday", "Wednesday", "Thursday", "Friday",

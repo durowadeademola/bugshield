@@ -55,9 +55,13 @@ class NotificationController extends Controller
      */
     public function update(Request $request)
     {
-        $request->user()->unreadNotifications->markAsRead();
+        $notifications = $request->user()->unreadNotifications;
 
-        return back()->with('success', 'All notifications marked as read.');
+        if ($notifications->isNotEmpty()) {
+            $notifications->markAsRead();
+        }
+    
+        return redirect()->back();
     }
 
     /**

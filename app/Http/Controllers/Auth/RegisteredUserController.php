@@ -27,7 +27,7 @@ class RegisteredUserController extends BaseController
     public function create(): Response
     {
         return Inertia::render('Auth/Register',[
-            'states' => BaseController::statesList()
+            'states' => BaseController::getStatesList()
         ]);
     }
 
@@ -158,10 +158,8 @@ class RegisteredUserController extends BaseController
                 'email' => $request->email
             ])->exists()) {return redirect()->back()->withErrors(['The team already exists.'])->withInput();}
 
-            $current_org = auth()->user();
-
             $org = Organization::where([
-                'user_id' => optional($current_org)->id
+                'user_id' => optional($request->user())->id
             ])->first();
 
             if (!empty($org)) {

@@ -119,7 +119,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                             </p>
                             <div className="flex space-x-4">
                                 <Link
-                                    href="/about"
+                                    href="/register"
                                     className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded text-white font-semibold"
                                 >
                                     Get Started
@@ -136,7 +136,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                         {/* Right Image Content */}
                         <div className="flex justify-center items-center h-full">
                             <img
-                                src="/images/illustration-dashboard.png"
+                                src="/images/bugshield-illustration.png"
                                 alt="Cybersecurity Illustration"
                                 className="object-contain w-full max-w-lg h-[500px]"
                             />

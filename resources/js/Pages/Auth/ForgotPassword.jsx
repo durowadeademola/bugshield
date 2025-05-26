@@ -86,7 +86,7 @@ export default function ForgotPassword({ status }) {
                  {/* Right Panel */}
                 <div className="hidden md:flex w-1/2 bg-[#263178] items-center justify-center p-10">
                     <img
-                        src="/images/illustration-dashboard.png"
+                        src="/images/bugshield-illustration.png"
                         alt="Bugshield Illustration"
                         className="max-w-full h-[500px] md:h-[600px] lg:h-[700px] object-contain rounded-xl shadow-2xl"
                     />

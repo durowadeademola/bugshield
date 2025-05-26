@@ -87,7 +87,7 @@ export default function Navbar({ darkMode, toggleDarkMode, user }) {
                             className="relative p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none"
                         >
                             <motion.div
-                                key={shakeBell} // retriggers animation
+                                key={shakeBell}
                                 animate={{
                                     rotate: [0, -15, 15, -10, 10, -5, 5, 0],
                                 }}
