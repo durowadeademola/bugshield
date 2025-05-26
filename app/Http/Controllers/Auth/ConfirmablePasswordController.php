@@ -38,20 +38,4 @@ class ConfirmablePasswordController extends Controller
 
         return redirect()->intended($this->redirectToRouteBasedOnRole($request->user()));
     }
-
-    protected function redirectToRouteBasedOnRole($user): string
-    {
-        if ($user->hasRole('organization')) {
-            return route('organization.dashboard', absolute: false);
-        } elseif ($user->hasRole('researcher')) {
-            return route('researcher.dashboard', absolute: false);
-        } elseif ($user->hasRole('analyst')) {
-            return route('analyst.dashboard', absolute: false);
-        } elseif ($user->hasRole('team')) {
-            return route('team.dashboard', absolute: false);
-        }
-
-        // fallback route
-        return route('home', absolute: false);
-    }
 }
