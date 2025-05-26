@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\EmailTwoFactorController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -33,6 +35,15 @@ Route::middleware('guest')->group(function () {
 
     Route::post('reset-password', [NewPasswordController::class, 'store'])
         ->name('password.store');
+
+    Route::get('/2fa/email', [EmailTwoFactorController::class, 'show'])
+        ->name('2fa.email');
+
+    Route::post('/2fa/email', [EmailTwoFactorController::class, 'verify'])
+        ->name('2fa.email.verify');
+
+    Route::post('/2fa/email/resend', [EmailTwoFactorController::class, 'resend'])
+        ->name('2fa.email.resend');
 });
 
 Route::middleware('auth')->group(function () {
@@ -53,6 +64,8 @@ Route::middleware('auth')->group(function () {
     Route::post('confirm-password', [ConfirmablePasswordController::class, 'store']);
 
     Route::put('password', [PasswordController::class, 'update'])->name('password.update');
+
+    Route::put('/user/2fa-method', [UserController::class, 'updateEmail2FA'])->name('user.email-2fa');
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');

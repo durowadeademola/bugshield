@@ -73,4 +73,18 @@ class UserController extends Controller
     {
         //
     }
+
+    public function updateEmail2FA(Request $request)
+    {
+        $request->validate([
+            'email_two_factor_enabled' => ['boolean'],
+        ]);
+    
+        $request->user()->update([
+            'email_two_factor_enabled' => $request->email_two_factor_enabled,
+        ]);
+    
+        return back()->with('status', 'Email 2FA preference updated.');
+    }
+
 }

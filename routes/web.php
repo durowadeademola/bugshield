@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\EmailTwoFactorController;
 use App\Http\Middleware\PreventAdminLogin;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PageController;

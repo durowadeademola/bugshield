@@ -12,6 +12,8 @@ use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Filament\Models\Contracts\FilamentUser;
 use Laravel\Fortify\TwoFactorAuthenticatable;
+use App\Mail\TwoFactorCodeMail; 
+use Illuminate\Support\Facades\Mail;
 
 class User extends Authenticatable implements FilamentUser, MustVerifyEmail
 {
@@ -56,8 +58,26 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
     {
         return [
             'email_verified_at' => 'datetime',
+            'two_factor_expires_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function generateEmailTwoFactorCode()
+    {
+        $this->two_factor_code = rand(100000, 999999);
+        $this->two_factor_expires_at = now()->addMinutes(10);
+        $this->save();
+
+        // $this->notify(new \App\Notifications\TwoFactorCode());
+        Mail::to($this->email)->send(new TwoFactorCodeMail($this));
+    }
+
+    public function resetEmailTwoFactorCode()
+    {
+        $this->two_factor_code = null;
+        $this->two_factor_expires_at = null;
+        $this->save();
     }
 
     public function canAccessPanel(\Filament\Panel $panel): bool
