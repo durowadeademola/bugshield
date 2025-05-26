@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -11,7 +12,7 @@ use Inertia\Response;
 
 class EmailTwoFactorController extends Controller
 {
-    public function show(): Response
+    public function show(): RedirectResponse|Response
     {
         if (!session()->has('2fa:user:id')) {
             return redirect()->route('login');
@@ -20,7 +21,20 @@ class EmailTwoFactorController extends Controller
         return Inertia::render('Auth/EmailTwoFactorChallenge');
     }
 
-    public function verify(Request $request)
+    public function update(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'email_two_factor_enabled' => ['boolean'],
+        ]);
+    
+        $request->user()->update([
+            'email_two_factor_enabled' => $request->email_two_factor_enabled,
+        ]);
+    
+        return back()->with('status', 'Email 2FA updated.');
+    }
+
+    public function verify(Request $request): RedirectResponse
     {
         $request->validate([
             'code' => 'required|numeric',
@@ -33,7 +47,7 @@ class EmailTwoFactorController extends Controller
             $user->two_factor_code !== $request->code ||
             $user->two_factor_expires_at->lt(now())
         ) {
-            return back()->withErrors(['code' => 'Invalid or expired code']);
+            return back()->withErrors(['code' => 'The code is invalid or expired.']);
         }
 
         Auth::login($user);
@@ -44,7 +58,7 @@ class EmailTwoFactorController extends Controller
         return redirect()->intended($this->redirectToRouteBasedOnRole($request->user()));
     }
 
-    public function resend()    
+    public function resend(): RedirectResponse
     {
         $user = User::find(session('2fa:user:id'));
 

@@ -30,7 +30,7 @@ class TwoFactorCodeMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Bugshield Two-Factor Authentication Code',
+            subject: 'Bugshield Two Factor',
         );
     }
 

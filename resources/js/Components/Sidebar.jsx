@@ -50,7 +50,7 @@ export default function Sidebar({ user }) {
         icon: <Lock />,
         children: [
           { name: 'Password', icon: <Key />, href: '/org/password'},
-          { name: '2-Factor Auth', icon: <Shield />, href: '/org/2fa'}
+          { name: 'Two Factor Auth', icon: <Shield />, href: '/org/2fa'}
         ]
       },
       { name: 'Settings', icon: <Settings />, href: '/org/settings' },
@@ -68,7 +68,7 @@ export default function Sidebar({ user }) {
         icon: <Settings />,
         children: [
           { name: 'Password', icon: <Key />, href: '/researcher/password'},
-          { name: '2-Factor Auth', icon: <Shield />, href: '/researcher/2fa'}
+          { name: 'Two Factor Auth', icon: <Shield />, href: '/researcher/2fa'}
         ]
       },
       { name: 'Settings', icon: <Settings />, href: '/researcher/settings' },
@@ -84,7 +84,7 @@ export default function Sidebar({ user }) {
         icon: <Settings />,
         children: [
           { name: 'Password', icon: <Key />, href: '/analyst/password'},
-          { name: '2-Factor Auth', icon: <Shield />, href: '/analyst/2fa'}
+          { name: 'Two Factor Auth', icon: <Shield />, href: '/analyst/2fa'}
         ]
       },
       { name: 'Settings', icon: <Settings />, href: '/analyst/settings' },
@@ -98,7 +98,7 @@ export default function Sidebar({ user }) {
         icon: <Settings />,
         children: [
           { name: 'Password', icon: <Key />, href: '/team/password'},
-          { name: '2-Factor Auth', icon: <Shield />, href: '/team/2fa'}
+          { name: 'Two Factor Auth', icon: <Shield />, href: '/team/2fa'}
 
         ]
       },

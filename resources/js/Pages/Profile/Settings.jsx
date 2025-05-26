@@ -7,7 +7,7 @@ export default function Settings({ user }) {
 
     const submit = (e) => {
         e.preventDefault();
-        patch(route('user.email-2fa'));
+        patch(route('email-2fa'));
     };
 
     return (

@@ -51,12 +51,12 @@ export default function Login({ status, canResetPassword }) {
                         <div>
                             <label className="block text-sm mb-2">Email Address</label>
                             <input
-                            type="email"
-                            name="email"
-                            value={data.email}
-                            onChange={e => setData('email', e.target.value)}
-                            placeholder="you@example.com"
-                            className="w-full px-4 py-4 text-lg rounded-md bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-600"
+                                type="email"
+                                name="email"
+                                value={data.email}
+                                onChange={e => setData('email', e.target.value)}
+                                placeholder="you@example.com"
+                                className="w-full px-4 py-4 text-lg rounded-md bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-600"
                             />
                             {errors.email && <div className="text-red-500 text-sm mt-1">{errors.email}</div>}
                         </div>
@@ -64,12 +64,12 @@ export default function Login({ status, canResetPassword }) {
                         <div>
                             <label className="block text-sm mb-2">Password</label>
                             <input
-                            type={showPassword ? "text" : "password"}
-                            name="password"
-                            value={data.password}
-                            onChange={e => setData('password', e.target.value)}
-                            placeholder="••••••••"
-                            className="w-full px-4 py-4 text-lg rounded-md bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-600"
+                                type={showPassword ? "text" : "password"}
+                                name="password"
+                                value={data.password}
+                                onChange={e => setData('password', e.target.value)}
+                                placeholder="••••••••"
+                                className="w-full px-4 py-4 text-lg rounded-md bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-600"
                             />
                             {errors.password && <div className="text-red-500 text-sm mt-1">{errors.password}</div>}
                         </div>

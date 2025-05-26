@@ -65,7 +65,7 @@ Route::middleware('auth')->group(function () {
 
     Route::put('password', [PasswordController::class, 'update'])->name('password.update');
 
-    Route::put('/user/2fa-method', [UserController::class, 'updateEmail2FA'])->name('user.email-2fa');
+    Route::put('/email-2fa', [EmailTwoFactorController::class, 'update'])->name('email-2fa');
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');

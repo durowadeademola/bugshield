@@ -2,10 +2,10 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Two-Factor Code</title>
+    <title>Bugshield Two Factor</title>
 </head>
 <body>
-    <h2>Hello {{ $user->name ?? 'User' }},</h2>
+    <h2>Hello,</h2>
 
     <p>Your Two-Factor Authentication code is:</p>
 
