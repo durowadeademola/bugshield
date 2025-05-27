@@ -10,14 +10,16 @@ use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
 
-use Illuminate\Http\Exceptions\HttpResponseExecution;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class EmailTwoFactorController extends Controller
 {
-    public function show(): RedirectResponse|Response
+    public function show(Request $request): RedirectResponse|Response
     {
-        if (!session()->has('2fa:user:id')) {
-            throw new HttpResponseException(redirect()->route('login'));
+        if (! $request->session()->has('email-2fa:user:id')) {
+            throw new HttpResponseException(
+                redirect()->route('login')
+            );
         }
 
         return Inertia::render('Auth/EmailTwoFactorChallenge');
@@ -43,7 +45,7 @@ class EmailTwoFactorController extends Controller
             'code' => 'required|numeric',
         ]);
 
-        $user = User::find(session('2fa:user:id'));
+        $user = User::find(session('email-2fa:user:id'));
 
         if (!$user) {
             return back()->withErrors(['code' => 'The user was not found.']);
@@ -58,9 +60,10 @@ class EmailTwoFactorController extends Controller
         Auth::login($user);
 
         $user->resetEmailTwoFactorCode();
-        session()->forget('2fa:user:id');
 
+        $request->session()->forget('email-2fa:user:id');
         $request->session()->regenerate();
+        $request->session()->regenerateToken();
 
         return redirect()->intended($this->redirectToRouteBasedOnRole($request->user()));
     }

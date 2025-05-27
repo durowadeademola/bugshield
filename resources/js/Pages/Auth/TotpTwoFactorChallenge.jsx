@@ -10,7 +10,7 @@ export default function TwoFactorChallenge() {
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('2fa.email.verify'));
+        post(route('2fa.totp.verify'));
     };
 
     return (

@@ -10,11 +10,14 @@ use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
 
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Validation\ValidationException;
+
 use Laravel\Fortify\Actions\EnableTwoFactorAuthentication;
 use Laravel\Fortify\Actions\DisableTwoFactorAuthentication;
 
 use Laravel\Fortify\Http\Requests\TwoFactorLoginRequest;
-use Illuminate\Http\Exceptions\HttpResponseExecution;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 use App\Http\Requests\Auth\TotpTwoFactorChallengeRequest;
 
@@ -31,22 +34,25 @@ class TotpTwoFactorController extends Controller
 
         if ($request->session()->get('newlyEnabled')) {
             $qrCode = $user->twoFactorQrCodeSvg();
-            $recoveryCode = $user->recoveryCodes();
+            $recoveryCodes = $user->recoveryCodes();
         }
 
         return Inertia::render('Profile/TotpTwoFactorSetting', [
             'totpTwoFactorEnabled' => $totpTwoFactorEnabled,
             'qrCode' => $qrCode,
-            'recoveryCode' => $recoveryCodes
+            'recoveryCodes' => $recoveryCodes
         ]);
     }
 
     public function show(TotpTwoFactorChallengeRequest $request): RedirectResponse|Response
     {
-        if (! $request->hasChallengedUser()) {
-            throw new HttpResponseException(redirect()->route('login'));
+        if (! $request->hasChallengedUser() || 
+            ! $request->session()->has('totp-2fa:user:id')) {
+            throw new HttpResponseException(
+                redirect()->route('login')
+            );
         }
-
+        
         return Inertia::render('Auth/TotpTwoFactorChallenge');
     }
 
@@ -54,26 +60,67 @@ class TotpTwoFactorController extends Controller
     {
         $user = $request->challengedUser();
 
-        if ($request->recovery_code != $request->validRecoveryCode()) {
-            $user->replaceRecoveryCode($recovery_code_used);
+        if(! $user->totpTwoFactorEnabled() && ! $request->hasChallengedUser()) {
+            throw new HttpResponseException(
+                redirect()->route('login')
+            );
+        } 
+        
+        // Throttle attempts to prevent brute-force
+        $this->ensureIsNotRateLimited($request);
 
-            event(new RecoveryCodeReplaced($user, $request->recovery_code));
-        } else if(!$request->hasValidCode()) {
-            //if 5 failed attempts then get user to login again
-            if($request->session()->increment("failed.token") >= 5) {
-                $this->removeSessionKeys($request);
-            }
+        $request->validate([
+            'code' => 'nullable|string',
+            'recovery_code' => 'nullable|string',
+        ]);
 
-            return redirect()->back()->withErrors([
-                'code' => 'Invalid authetication token'
+        if (!$request->filled('code') && !$request->filled('recovery_code')) {
+            throw ValidationException::withMessages([
+                'code' => 'Please enter either the authentication code or a recovery code.',
             ]);
         }
 
-        $this->removeSessionKeys($request);
+        if ($request->filled('code') && $request->filled('recovery_code')) {
+            throw ValidationException::withMessages([
+                'code' => 'Please enter only one: either the authentication code or the recovery code, not both.',
+            ]);
+        }
+
+        if ($request->filled('recovery_code')) {
+            if ( !in_array($request->input('recovery_code'), $user->two_factor_recovery_codes ?? [])) {
+                RateLimiter::hit($this->throttleKey($request));
+                throw ValidationException::withMessages([
+                    'recovery_code' => 'The provided recovery code is invalid.',
+                ]);
+            }
+
+            // Invalidate used recovery code
+            $user->forceFill([
+                'recovery_codes' => array_values(array_diff($user->two_factor_recovery_codes ?? [], [$request->input('recovery_code')])),
+            ])->save();
+
+            $request->challengedUser()->replaceRecoveryCode($request->input('recovery_code'));
+            
+            event(new RecoveryCodeReplaced($user, $request->input('recovery_code')));
+        }
+        
+        if ($request->filled('code')) {
+            //$this->isValidTotpCode($user, $request->input('code')
+            if(! $request->hasValidCode()) {
+                RateLimiter::hit($this->throttleKey($request));
+                throw ValidationException::withMessages([
+                    'code' => 'The provided authentication code is invalid.',
+                ]);
+            }
+        }
 
         Auth::login($user);
 
+        RateLimiter::clear($this->throttleKey($request));
+
+        $request->session()->forget(['failed.token', 'totp-2fa:user:id']);
         $request->session()->regenerate();
+        $request->session()->regenerateToken();
 
         return redirect()->intended($this->redirectToRouteBasedOnRole($request->user()));
     }
@@ -103,9 +150,28 @@ class TotpTwoFactorController extends Controller
         return redirect()->back();
     }
 
-    private function removeSessionKeys($request)
+    protected function throttleKey(Request $request)
     {
-        $request->session()->remove('failed.token');
-        $request->session()->remove('login.id');
+        return strtolower($request->ip()) . '|2fa';
     }
+
+    protected function ensureIsNotRateLimited(Request $request)
+    {
+        if (!RateLimiter::tooManyAttempts($this->throttleKey($request), 5)) {
+            return;
+        }
+
+        throw ValidationException::withMessages([
+            'code' => 'Too many attempts. Please try again later.',
+        ]);
+    }
+
+    protected function isValidTotpCode($user, $code)
+    {
+        // You must implement this based on your 2FA setup.
+        // For example, using Google2FA:
+        return app(\Pragmarx\Google2FA\Google2FA::class)
+            ->verifyKey($user->two_factor_secret, $code);
+    }
+
 }

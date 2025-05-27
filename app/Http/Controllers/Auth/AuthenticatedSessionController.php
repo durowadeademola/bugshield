@@ -38,12 +38,13 @@ class AuthenticatedSessionController extends Controller
             
             $request->user()->generateEmailTwoFactorCode();
 
-            session(['2fa:user:id' => $request->user()->id ?? null]);
+            session(['email-2fa:user:id' => $request->user()->id ?? null]);
 
             Auth::logout();
 
             return redirect()->route('2fa.email');
         } else if ($request->user()->totpTwoFactorEnabled()) {
+            session(['totp-2fa:user:id' => $request->user()->id ?? null]);
 
             Auth::logout();
 
