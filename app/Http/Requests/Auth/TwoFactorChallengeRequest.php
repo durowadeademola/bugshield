@@ -7,7 +7,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Laravel\Fortify\Http\Requests\TwoFactorLoginRequest;
 use Laravel\Fortify\Contracts\FailedTwoFactorLoginRequest;
 
-class TotpTwoFactorChallengeRequest extends TwoFactorLoginRequest
+class TwoFactorChallengeRequest extends TwoFactorLoginRequest
 {
     protected $challengedUser;
 
@@ -24,7 +24,12 @@ class TotpTwoFactorChallengeRequest extends TwoFactorLoginRequest
                 throw new HttpResponseException(
                     app(FailedTwoFactorLoginResponse::class)->toResponse($this)
                 );
-            }
+            } else if(!$this->session()->has('email-2fa:user:id') ||
+                !$user = $model::find($this->session()->get('email-2fa:user:id'))) {
+                    throw new HttpResponseException(
+                        app(FailedTwoFactorLoginResponse::class)->toResponse($this)
+                    );
+                }
         return $this->challengedUser = $user;
     }
 }

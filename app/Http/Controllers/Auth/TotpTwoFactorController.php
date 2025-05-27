@@ -19,7 +19,7 @@ use Laravel\Fortify\Actions\DisableTwoFactorAuthentication;
 use Laravel\Fortify\Http\Requests\TwoFactorLoginRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-use App\Http\Requests\Auth\TotpTwoFactorChallengeRequest;
+use App\Http\Requests\Auth\TwoFactorChallengeRequest;
 
 class TotpTwoFactorController extends Controller
 {
@@ -44,7 +44,7 @@ class TotpTwoFactorController extends Controller
         ]);
     }
 
-    public function show(TotpTwoFactorChallengeRequest $request): RedirectResponse|Response
+    public function show(TwoFactorChallengeRequest $request): RedirectResponse|Response
     {
         if (! $request->hasChallengedUser() || 
             ! $request->session()->has('totp-2fa:user:id')) {
@@ -56,7 +56,7 @@ class TotpTwoFactorController extends Controller
         return Inertia::render('Auth/TotpTwoFactorChallenge');
     }
 
-    public function verify(TotpTwoFactorChallengeRequest $request)
+    public function verify(TwoFactorChallengeRequest $request): RedirectResponse
     {
         $user = $request->challengedUser();
 
