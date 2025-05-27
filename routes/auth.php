@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\EmailTwoFactorController;
+use App\Http\Controllers\Auth\TotpTwoFactorController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
@@ -39,7 +40,13 @@ Route::middleware('guest')->group(function () {
     Route::get('/2fa/email', [EmailTwoFactorController::class, 'show'])
         ->name('2fa.email');
 
-    Route::post('/2fa/email', [EmailTwoFactorController::class, 'verify'])
+    Route::get('/2fa/totp', [TotpTwoFactorController::class, 'show'])
+        ->name('2fa.totp');
+
+    Route::post('/2fa/totp/verify', [TotpTwoFactorController::class, 'verify'])
+        ->name('2fa.totp.verify');
+
+    Route::post('/2fa/email/verify', [EmailTwoFactorController::class, 'verify'])
         ->name('2fa.email.verify');
 
     Route::post('/2fa/email/resend', [EmailTwoFactorController::class, 'resend'])
@@ -59,13 +66,11 @@ Route::middleware('auth')->group(function () {
         ->name('verification.send');
 
     Route::get('confirm-password', [ConfirmablePasswordController::class, 'show'])
-        ->name('password.confirm');
+        ->name('user.password.confirm');
 
     Route::post('confirm-password', [ConfirmablePasswordController::class, 'store']);
 
     Route::put('password', [PasswordController::class, 'update'])->name('password.update');
-
-    Route::put('/email-2fa', [EmailTwoFactorController::class, 'update'])->name('email-2fa');
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');

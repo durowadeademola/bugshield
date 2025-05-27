@@ -37,13 +37,20 @@ class VerifyEmailController extends Controller
     {
         //update user state to active
         if ($user->hasRole('organization')) {
-            Organization::where(['user_id' => $user->id])->first()->update(['is_active' => true]);
+            Organization::where(['user_id' => $user->id])->first()
+                        ->update(['is_active' => true]);
+
         } elseif ($user->hasRole('researcher')) {
-            Researcher::where(['user_id' => $user->id])->first()->update(['is_active' => true]);
+            Researcher::where(['user_id' => $user->id])->first()
+                      ->update(['is_active' => true]);
+
         } elseif ($user->hasRole('analyst')) {
-            Analyst::where(['user_id' => $user->id])->first()->update(['is_active' => true]);
+            Analyst::where(['user_id' => $user->id])->first()
+                    ->update(['is_active' => true]);
+
         } elseif ($user->hasRole('team')) {
-            Team::where(['user_id' => $user->id])->first()->update(['is_active' => true]);
+            Team::where(['user_id' => $user->id])->first()
+                ->update(['is_active' => true]);
         }
     }
 }

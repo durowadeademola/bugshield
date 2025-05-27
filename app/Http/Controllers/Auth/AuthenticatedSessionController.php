@@ -33,22 +33,21 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        if ($request->user()->email_two_factor_enabled) {
-            // Generate + send code
+        //handle user with enabled 2FA
+        if ($request->user()->emailTwoFactorEnabled()) {
+            
             $request->user()->generateEmailTwoFactorCode();
 
-            // Store user temporarily
             session(['2fa:user:id' => $request->user()->id ?? null]);
 
-            //Temporarily log user out
             Auth::logout();
 
             return redirect()->route('2fa.email');
+        } else if ($request->user()->totpTwoFactorEnabled()) {
 
-            // Force frontend to handle 2FA challenge screen
-            // throw ValidationException::withMessages([
-            //     'two_factor' => 'Email verification required.',
-            // ])->status(423); // 423 = Locked
+            Auth::logout();
+
+            return redirect()->route('2fa.totp');
         }
 
         return redirect()->intended($this->redirectToRouteBasedOnRole($request->user()));

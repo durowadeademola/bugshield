@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\EmailTwoFactorController;
+use App\Http\Controllers\Auth\TotpTwoFactorController;
 use App\Http\Middleware\PreventAdminLogin;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PageController;
@@ -31,6 +32,9 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::put('/profile/email-2fa', [EmailTwoFactorController::class, 'update'])->name('email-2fa');
+    Route::get('/profile/totp-2fa/enable', [TotpTwoFactorController::class, 'enable'])->name('totp-2fa-enable');
+    Route::post('/profile/totp-2fa/disable', [TotpTwoFactorController::class, 'disable'])->name('totp-2fa-disable');
     Route::get('/notifications', [NotificationController::class, 'index'])->name('notification');
     Route::post('/notifications/update', [NotificationController::class, 'update'])->name('notifications.update');
 });

@@ -7,7 +7,7 @@ export default function ConfirmPassword() {
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('password.confirm'), {
+        post(route('user.password.confirm'), {
             onFinish: () => reset('password'),
         });
     };

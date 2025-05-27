@@ -1,6 +1,6 @@
 import { useForm } from '@inertiajs/react';
 
-export default function Settings({ user }) {
+export default function EmailTwoFactorSetting({ user }) {
     const { data, setData, patch, processing } = useForm({
         email_two_factor_enabled: user.email_two_factor_enabled || false,
     });
