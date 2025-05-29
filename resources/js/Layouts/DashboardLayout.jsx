@@ -8,6 +8,8 @@ export default function DashboardLayout({ children }) {
         return localStorage.getItem('theme') === 'dark';
     });
 
+    const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+
     useEffect(() => {
         document.documentElement.classList.toggle('dark', darkMode);
         localStorage.setItem('theme', darkMode ? 'dark' : 'light');
@@ -17,11 +19,26 @@ export default function DashboardLayout({ children }) {
     const user = auth?.user;
 
     return (
-        <div className="flex">
-            <Sidebar user={user} />
-            <div className="flex-1 min-h-screen bg-gray-100 dark:bg-gray-800">
-                <Navbar darkMode={darkMode} toggleDarkMode={() => setDarkMode(!darkMode)} />
-                <main className="p-6">{children}</main>
+        <div className="flex h-screen overflow-hidden">
+            {/* Sidebar */}
+            <Sidebar
+                user={user}
+                isCollapsed={isSidebarCollapsed}
+                setIsCollapsed={setIsSidebarCollapsed}
+            />
+
+            {/* Main Content Area */}
+            <div className="flex flex-col flex-1 overflow-hidden bg-gray-100 dark:bg-gray-800 transition-all duration-300 ease-in-out">
+                {/* Navbar */}
+                <Navbar
+                    darkMode={darkMode}
+                    toggleDarkMode={() => setDarkMode(!darkMode)}
+                />
+
+                {/* Scrollable main content */}
+                <main className="flex-1 overflow-y-auto p-6">
+                    {children}
+                </main>
             </div>
         </div>
     );

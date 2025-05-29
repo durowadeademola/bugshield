@@ -1,39 +1,50 @@
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head } from '@inertiajs/react';
+import { Head, usePage } from '@inertiajs/react';
+import DashboardLayout from '@/Layouts/DashboardLayout';
 import DeleteUserForm from './Partials/DeleteUserForm';
 import UpdatePasswordForm from './Partials/UpdatePasswordForm';
 import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm';
 
 export default function Edit({ mustVerifyEmail, status }) {
-    return (
-        <AuthenticatedLayout
-            header={
-                <h2 className="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-                    Profile
-                </h2>
-            }
-        >
-            <Head title="Profile" />
+    const { auth } = usePage().props;
+    const user = auth?.user;
 
-            <div className="py-12">
-                <div className="mx-auto max-w-7xl space-y-6 sm:px-6 lg:px-8">
-                    <div className="bg-white p-4 shadow sm:rounded-lg sm:p-8 dark:bg-gray-800">
+    return (
+        <>
+            <Head title="Profile Settings" />
+            <DashboardLayout>
+                <div className="space-y-6">
+                    {/* Profile Header Card */}
+                    <div className="bg-white dark:bg-gray-900 dark:text-white text-gray-900 p-6 rounded-xl shadow">
+                        <h2 className="text-2xl font-bold mb-4">Profile</h2>
+
+                        <div className="flex items-center gap-4 mb-6">
+                            <div className="w-20 h-20 rounded-full bg-yellow-200 flex items-center justify-center text-3xl font-bold text-blue-900">
+                                {user?.name?.charAt(0)}
+                            </div>
+                            <div className="text-xl font-semibold">
+                                {user?.name?.toUpperCase()}
+                            </div>
+                        </div>
+
                         <UpdateProfileInformationForm
                             mustVerifyEmail={mustVerifyEmail}
                             status={status}
-                            className="max-w-xl"
+                            className="max-w-2xl"
                         />
                     </div>
 
-                    <div className="bg-white p-4 shadow sm:rounded-lg sm:p-8 dark:bg-gray-800">
-                        <UpdatePasswordForm className="max-w-xl" />
+                    {/* Password Update Section */}
+                    <div className="bg-white dark:bg-gray-900 dark:text-white text-gray-900 p-6 rounded-xl shadow">
+                        <UpdatePasswordForm className="max-w-2xl" />
                     </div>
 
-                    <div className="bg-white p-4 shadow sm:rounded-lg sm:p-8 dark:bg-gray-800">
-                        <DeleteUserForm className="max-w-xl" />
+                    {/* Delete Account Section */}
+                    <div className="bg-white dark:bg-gray-900 dark:text-white text-gray-900 p-6 rounded-xl shadow">
+                        <DeleteUserForm className="max-w-2xl" />
                     </div>
                 </div>
-            </div>
-        </AuthenticatedLayout>
+            </DashboardLayout>
+        </>
     );
 }
+

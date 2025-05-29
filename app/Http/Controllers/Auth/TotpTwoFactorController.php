@@ -58,7 +58,7 @@ class TotpTwoFactorController extends Controller
 
     public function verify(TwoFactorChallengeRequest $request): RedirectResponse
     {
-        $user = $request->challengedUser();
+        $user = $request->getChallengedUser();
 
         if(! $user->totpTwoFactorEnabled() && ! $request->hasChallengedUser()) {
             throw new HttpResponseException(
@@ -96,10 +96,10 @@ class TotpTwoFactorController extends Controller
 
             // Invalidate used recovery code
             $user->forceFill([
-                'recovery_codes' => array_values(array_diff($user->two_factor_recovery_codes ?? [], [$request->input('recovery_code')])),
+                'two_factor_recovery_codes' => array_values(array_diff($user->two_factor_recovery_codes ?? [], [$request->input('recovery_code')])),
             ])->save();
 
-            $request->challengedUser()->replaceRecoveryCode($request->input('recovery_code'));
+            $request->getChallengedUser()->replaceRecoveryCode($request->input('recovery_code'));
             
             event(new RecoveryCodeReplaced($user, $request->input('recovery_code')));
         }

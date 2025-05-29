@@ -47,4 +47,14 @@ class Organization extends Model
         return $this->hasMany(Report::class);
     }
 
+    public function subscriptions()
+    {
+        return $this->hasMany(Subscription::class);
+    }
+
+    public function teams()
+    {
+        return $this->hasMany(Team::class);
+    }
+
 }

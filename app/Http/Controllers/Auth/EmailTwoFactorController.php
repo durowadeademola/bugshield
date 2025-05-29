@@ -43,11 +43,17 @@ class EmailTwoFactorController extends Controller
 
     public function verify(TwoFactorChallengeRequest $request): RedirectResponse
     {
+        $user = $request->getChallengedUser();
+
+        if(! $user->emailTwoFactorEnabled()) {
+            throw new HttpResponseException(
+                redirect()->route('login')
+            );
+        } 
+
         $request->validate([
             'code' => 'required|numeric',
         ]);
-
-        $user = $request->challengedUser(); 
 
         if (!$user) {
             throw ValidationException::withMessages([
@@ -78,8 +84,8 @@ class EmailTwoFactorController extends Controller
 
     public function resend(TwoFactorChallengeRequest $request): RedirectResponse
     {
-        $user = $request->challengedUser();
-
+        $user = $request->getChallengedUser();
+        
         if ($user) {
             $user->generateEmailTwoFactorCode();
         }

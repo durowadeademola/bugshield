@@ -137,9 +137,12 @@ export default function Navbar({ darkMode, toggleDarkMode, user }) {
                     <div className="relative" ref={dropdownRef}>
                         <button
                             onClick={() => setDropdownOpen(!dropdownOpen)}
-                            className="flex items-center space-x-2 bg-gray-200 dark:bg-gray-700 rounded-full px-3 py-1 hover:bg-gray-300 dark:hover:bg-gray-600 transition"
+                            className="flex items-center space-x-2 bg-gray-100 dark:bg-gray-800 rounded-full px-3 py-1 shadow-sm hover:bg-gray-200 dark:hover:bg-gray-700 transition"
                         >
-                            <div className="w-8 h-8 rounded-full bg-gray-500" />
+                            <div className="w-8 h-8 rounded-full bg-yellow-500 flex items-center justify-center text-white font-bold text-sm">
+                                {/* Replace with profile image if needed */}
+                                U
+                            </div>
                             <ChevronDown className="w-4 h-4 text-gray-600 dark:text-gray-300" />
                         </button>
 
@@ -150,24 +153,37 @@ export default function Navbar({ darkMode, toggleDarkMode, user }) {
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, y: -10 }}
                                     transition={{ duration: 0.2 }}
-                                    className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 shadow-lg rounded-md overflow-hidden z-50"
+                                    className="absolute right-0 mt-2 w-56 bg-white dark:bg-gray-900 shadow-xl rounded-2xl z-50 py-2"
                                 >
                                     <Link
                                         href="/profile"
-                                        className="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                                        className="flex items-center px-5 py-3 space-x-3 hover:bg-gray-100 dark:hover:bg-gray-800 transition"
                                     >
-                                        <User className="w-4 h-4 mr-2" /> View Profile
+                                        <div className="bg-yellow-400 rounded-full p-2">
+                                            <User className="w-4 h-4 text-white" />
+                                        </div>
+                                        <div>
+                                            <p className="text-sm font-semibold text-gray-900 dark:text-white">Profile</p>
+                                            <p className="text-xs text-gray-500 dark:text-gray-400">View and edit my profile</p>
+                                        </div>
                                     </Link>
                                     <button
                                         onClick={() => setLogoutDialogueOpen(true)}
-                                        className="flex items-center w-full px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700"
+                                        className="flex items-center w-full px-5 py-3 space-x-3 hover:bg-gray-100 dark:hover:bg-gray-800 transition"
                                     >
-                                        <LogOut className="w-4 h-4 mr-2" /> Log Out
+                                        <div className="bg-pink-500 rounded-full p-2">
+                                            <LogOut className="w-4 h-4 text-white" />
+                                        </div>
+                                        <div className='text-left'>
+                                            <p className="text-sm font-semibold text-red-600 dark:text-red-400">Log Out</p>
+                                            <p className="text-xs text-gray-500 dark:text-gray-400">Logout of your account</p>
+                                        </div>
                                     </button>
                                 </motion.div>
                             )}
                         </AnimatePresence>
                     </div>
+
                 </div>
             </div>
 

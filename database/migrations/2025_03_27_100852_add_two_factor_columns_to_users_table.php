@@ -25,6 +25,7 @@ return new class extends Migration
                 ->after('two_factor_recovery_codes')
                 ->nullable();
 
+            //enable totp two factor
             $table->boolean('totp_two_factor_enabled')
                 ->after('two_factor_confirmed_at')
                 ->default(false);
@@ -38,7 +39,7 @@ return new class extends Migration
                 ->after('two_factor_code')
                 ->nullable();
 
-            //enable two factor
+            //enable email two factor
             $table->boolean('email_two_factor_enabled')
                 ->after('two_factor_expires_at')
                 ->default(false);
