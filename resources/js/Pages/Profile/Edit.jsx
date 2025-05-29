@@ -3,6 +3,8 @@ import DashboardLayout from '@/Layouts/DashboardLayout';
 import DeleteUserForm from './Partials/DeleteUserForm';
 import UpdatePasswordForm from './Partials/UpdatePasswordForm';
 import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm';
+import EmailTwoFactorSetting from './Partials/EmailTwoFactorSetting';
+import TotpTwoFactorSetting from './Partials/TotpTwoFactorSetting';
 
 export default function Edit({ mustVerifyEmail, status }) {
     const { auth } = usePage().props;
@@ -33,9 +35,22 @@ export default function Edit({ mustVerifyEmail, status }) {
                         />
                     </div>
 
-                    {/* Password Update Section */}
+                    {/* Password Management Section */}
                     <div className="bg-white dark:bg-gray-900 dark:text-white text-gray-900 p-6 rounded-xl shadow">
                         <UpdatePasswordForm className="max-w-2xl" />
+                    </div>
+
+                     {/* Two Factor Authentication Section */}
+                    <div className="bg-white dark:bg-gray-900 dark:text-white text-gray-900 p-6 rounded-xl shadow space-y-6">
+                        <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">Two-Factor Authentication</h2>
+
+                        <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
+                            <EmailTwoFactorSetting user={user} />
+                        </div>
+
+                        <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
+                            <TotpTwoFactorSetting />
+                        </div>
                     </div>
 
                     {/* Delete Account Section */}

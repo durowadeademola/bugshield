@@ -47,7 +47,7 @@ export default function Sidebar({ user, isCollapsed, setIsCollapsed }) {
           { name: 'Manage', icon: <Settings />, href: '/org/manage/subscriptions' },
         ],
       },
-      { name: 'Settings', icon: <Settings />, href: '/org/settings' },
+      { name: 'Settings', icon: <Settings />, href: '/profile' },
       { name: 'Help & Support', icon: <HelpCircle />, href: '/org/support' },
     ];
   } else if (isResearcher) {
@@ -57,7 +57,7 @@ export default function Sidebar({ user, isCollapsed, setIsCollapsed }) {
       { name: 'My Reports', icon: <FileText />, href: '/researcher/reports' },
       { name: 'Rewards', icon: <CreditCard />, href: '/researcher/rewards' },
       { name: 'Leaderboards', icon: <CreditCard />, href: '/researcher/leaderboards' },
-      { name: 'Settings', icon: <Settings />, href: '/researcher/settings' },
+      { name: 'Settings', icon: <Settings />, href: '/profile' },
       { name: 'Help & Support', icon: <HelpCircle />, href: '/researcher/support' },
     ];
   } else if (isAnalyst) {
@@ -65,13 +65,13 @@ export default function Sidebar({ user, isCollapsed, setIsCollapsed }) {
       { name: 'Home', icon: <Home />, href: '/analyst/dashboard' },
       { name: 'Programs', icon: <Activity />, href: '/analyst/programs' },
       { name: 'Reports', icon: <FileText />, href: '/analyst/reports' },
-      { name: 'Settings', icon: <Settings />, href: '/analyst/settings' },
+      { name: 'Settings', icon: <Settings />, href: '/profile' },
       { name: 'Help & Support', icon: <HelpCircle />, href: '/analyst/support' },
     ];
   } else if (isTeam) {
     navItems = [
       { name: 'Home', icon: <Home />, href: '/team/dashboard' },
-      { name: 'Settings', icon: <Settings />, href: '/team/settings' },
+      { name: 'Settings', icon: <Settings />, href: '/profile' },
       { name: 'Help & Support', icon: <HelpCircle />, href: '/team/support' },
     ];
   }

@@ -30,6 +30,8 @@
         "vite": "^6.0.11"
     },
     "dependencies": {
+        "@heroicons/react": "^2.2.0",
+        "@inertiajs/inertia": "^0.11.1",
         "framer-motion": "^12.12.1",
         "lucide-react": "^0.511.0",
         "ziggy-js": "^2.5.3"

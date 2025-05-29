@@ -33,8 +33,8 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::put('/profile/email-2fa', [EmailTwoFactorController::class, 'update'])->name('email-2fa');
-    Route::get('/profile/totp-2fa/enable', [TotpTwoFactorController::class, 'enable'])->name('totp-2fa-enable');
-    Route::post('/profile/totp-2fa/disable', [TotpTwoFactorController::class, 'disable'])->name('totp-2fa-disable');
+    Route::post('/profile/totp-2fa/enable', [TotpTwoFactorController::class, 'enable'])->name('totp-2fa-enable');
+    Route::delete('/profile/totp-2fa/disable', [TotpTwoFactorController::class, 'disable'])->name('totp-2fa-disable');
     Route::get('/notifications', [NotificationController::class, 'index'])->name('notification');
     Route::post('/notifications/update', [NotificationController::class, 'update'])->name('notifications.update');
 });

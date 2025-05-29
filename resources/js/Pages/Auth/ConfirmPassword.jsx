@@ -65,7 +65,7 @@ export default function ConfirmPassword() {
                                 disabled={processing}
                                 className="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 text-lg rounded-md font-bold transition"
                             >
-                                {processing ? 'Confirming...' : 'Confirm Password'}
+                                {processing ? 'Verifying...' : 'Confirm Password'}
                             </button>
                         </form>
 

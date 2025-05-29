@@ -7,6 +7,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Laravel\Fortify\Http\Requests\TwoFactorLoginRequest;
 use Laravel\Fortify\Contracts\FailedTwoFactorLoginRequest;
 use Illuminate\Validation\ValidationException;
+use Laravel\Fortify\TwoFactorAuthenticationProvider;
 
 class TwoFactorChallengeRequest extends TwoFactorLoginRequest
 {
@@ -36,5 +37,15 @@ class TwoFactorChallengeRequest extends TwoFactorLoginRequest
 
         throw ValidationException::withMessages(['code' => ['Two-factor authentication failed.']]);
     }
+
+    public function hasValidCode()
+    {
+        $user = $this->user();
+        $code = $this->input('code');
+
+        return app(TwoFactorAuthenticationProvider::class)
+            ->verify($user->two_factor_secret, $code);
+    }
+
 
 }
