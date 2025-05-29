@@ -8,6 +8,7 @@ export default function Dialogue({
     title,
     message,
     onConfirm,
+    confirmText = 'Confirm',
 }) {
     if (!isOpen) return null;
 
@@ -56,7 +57,7 @@ export default function Dialogue({
                                     onClick={onConfirm}
                                     className="w-36 py-2.5 rounded-lg bg-red-600 hover:bg-red-700 transition"
                                 >
-                                    Log Out
+                                    {confirmText}
                                 </button>
                             </>
                         ) : (
@@ -73,3 +74,4 @@ export default function Dialogue({
         </div>
     );
 }
+

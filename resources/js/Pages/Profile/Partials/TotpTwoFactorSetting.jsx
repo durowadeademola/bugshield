@@ -165,6 +165,9 @@ export default function TotpTwoFactorSetting() {
                 <>
                     <div>
                         <h4 className="font-semibold text-lg">Authenticator QR Code</h4>
+                        <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                            Always scan Authenticator QR Code in light mode.
+                        </p>
                         {qrCode ? (
                             <div dangerouslySetInnerHTML={{ __html: qrCode }} className="my-4" />
                         ) : (
@@ -174,6 +177,9 @@ export default function TotpTwoFactorSetting() {
 
                     <div>
                         <h4 className="font-semibold text-lg">Recovery Codes</h4>
+                        <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                            Save Recovery Codes for next Login.
+                        </p>
                         {recoveryCodes.length > 0 ? (
                             <ul className="mt-2 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white p-4 rounded space-y-1 text-sm">
                                 {recoveryCodes.map((code, idx) => (

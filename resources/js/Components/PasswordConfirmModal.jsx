@@ -49,7 +49,7 @@ export default function PasswordConfirmModal({
                 <div className="space-y-4 text-center">
                     <h2 className="text-2xl font-bold">Confirm Password</h2>
                     <p className="text-gray-400">
-                        Please enter your password to continue.
+                        Please enter your password to continue with 2FA.
                     </p>
 
                     <input
