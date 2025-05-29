@@ -1,8 +1,8 @@
 import { usePage } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import PasswordConfirmModal from '@/components/PasswordConfirmModal';
-import Dialogue from '@/components/Dialogue';
+import PasswordConfirmModal from '@/Components/PasswordConfirmModal';
+import Dialogue from '@/Components/Dialogue';
 
 export default function TotpTwoFactorSetting() {
     const user = usePage().props.auth.user;
