@@ -32,13 +32,27 @@ class Setting extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public static function get($key, $default = null)
+    public static function get(string $user_id, string $key, mixed $default = null): mixed
     {
-        return self::where('key', $key)->value('value') ?? $default;
+        return self::where([
+            'user_id' => $user_id, 
+            'key' => $value
+        ])->value('value') ?? $default;
+    }
+    
+    public static function set(string $user_id, string $key, mixed $value): self
+    {
+        return self::updateOrCreate(
+            ['user_id' => $user_id], ['key' => $key],
+            ['value' => $value]
+        );
     }
 
-    public static function set($key, $value)
+    public static function verify(string $user_id, string $key, string $value): bool
     {
-        return self::updateOrCreate(['key' => $key], ['value' => $value]);
+        return self::where([
+            'user_id' => $user_id, 'key' => $key,
+            'value' => $value
+        ])->exists();
     }
 }

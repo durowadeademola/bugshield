@@ -92,6 +92,21 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
         $this->save();
     }
 
+    public function isKYCSubmitted(): bool
+    {
+        return $this->getKYCStatus($this->id, 'is_kyc_submitted', '1') ?? false;
+    }
+
+    public function isKYCApproved(): bool
+    {
+        return $this->getKYCStatus($this->id, 'is_kyc_approved', '1') ?? false;
+    }
+
+    public function getKYCStatus(string $user_id, string $key, string $value): bool
+    {
+        return Setting::verify($user_id, $key, $value);
+    }
+
     public function canAccessPanel(\Filament\Panel $panel): bool
     {
         return str_ends_with($this->email, '@bugshield.com') && $this->hasVerifiedEmail() && $this->hasRole('admin');

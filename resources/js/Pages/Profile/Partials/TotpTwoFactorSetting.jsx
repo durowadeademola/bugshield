@@ -100,7 +100,22 @@ export default function TotpTwoFactorSetting() {
     };
 
     const regenerateCodes = () => {
-        axios.post(route('two-factor.recovery-codes')).then((res) => setRecoveryCodes(res.data));
+        setIsLoading(true);
+        axios
+        .post(route('two-factor.recovery-codes'))
+        .then((res) => {
+            setRecoveryCodes(res.data);
+            location.reload(true);
+        })
+        .catch((error) => {
+            setDialogue({
+                isOpen: true,
+                type: 'error',
+                title: 'Error!',
+                message: error.response?.data?.message || 'Failed to regenerate recovery codes.',
+            });
+        })
+        .finally(() => setIsLoading(false));
     };
 
     // On mount, if 2FA enabled, fetch info but do NOT require password confirmation to view

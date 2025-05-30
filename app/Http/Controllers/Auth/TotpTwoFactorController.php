@@ -49,9 +49,7 @@ class TotpTwoFactorController extends Controller
     public function show(TwoFactorChallengeRequest $request): RedirectResponse|Response
     {
         if (! $request->session()->has('totp-2fa:user:id')) {
-            throw new HttpResponseException(
-                redirect()->route('login')
-            );
+            throw new HttpResponseException(redirect()->route('login'));
         }
         
         return Inertia::render('Auth/TotpTwoFactorChallenge');
@@ -62,9 +60,7 @@ class TotpTwoFactorController extends Controller
         $user = $request->getChallengedUser();
 
         if(! $user->isTotpTwoFactorEnabled()) {
-            throw new HttpResponseException(
-                redirect()->route('login')
-            );
+            throw new HttpResponseException(redirect()->route('login'));
         } 
         
         // Throttle attempts to prevent brute-force
@@ -75,7 +71,7 @@ class TotpTwoFactorController extends Controller
             'recovery_code' => 'nullable|string',
         ]);
 
-        if (!$request->filled('code') && !$request->filled('recovery_code')) {
+        if (! $request->filled('code') && ! $request->filled('recovery_code')) {
             throw ValidationException::withMessages([
                 'code' => 'Please enter either the authentication code or a recovery code.',
             ]);
@@ -93,9 +89,7 @@ class TotpTwoFactorController extends Controller
         
             if (!in_array($request->input('recovery_code'), $recoveryCodes)) {
                 RateLimiter::hit($this->throttleKey($request));
-                throw ValidationException::withMessages([
-                    'recovery_code' => 'The provided recovery code is invalid.',
-                ]);
+                throw ValidationException::withMessages(['recovery_code' => 'The provided recovery code is invalid.',]);
             }
         
             // Invalidate the used recovery code
@@ -115,9 +109,7 @@ class TotpTwoFactorController extends Controller
         if ($request->filled('code')) {
             if(! $request->hasValidCode() && ! $this->isValidTotpCode($user, $request->input('code'))) {
                 RateLimiter::hit($this->throttleKey($request));
-                throw ValidationException::withMessages([
-                    'code' => 'The provided authentication code is invalid.',
-                ]);
+                throw ValidationException::withMessages(['code' => 'The provided authentication code is invalid.']);
             }
         }
 

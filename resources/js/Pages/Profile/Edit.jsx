@@ -5,6 +5,7 @@ import UpdatePasswordForm from './Partials/UpdatePasswordForm';
 import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm';
 import EmailTwoFactorSetting from './Partials/EmailTwoFactorSetting';
 import TotpTwoFactorSetting from './Partials/TotpTwoFactorSetting';
+import KYCForm from './Partials/KYCForm';
 
 export default function Edit({ mustVerifyEmail, status }) {
     const { auth } = usePage().props;
@@ -52,6 +53,12 @@ export default function Edit({ mustVerifyEmail, status }) {
                             <TotpTwoFactorSetting />
                         </div>
                     </div>
+
+                    {/* KYC Form Information */}
+                    <div className='bg-white dark:bg-gray-900 dark:text-white text-gray-900 p-6 rounded-xl shadow space-y-6'>
+                        <KYCForm className="max-w-2xl" />
+                    </div>
+
 
                     {/* Delete Account Section */}
                     <div className="bg-white dark:bg-gray-900 dark:text-white text-gray-900 p-6 rounded-xl shadow">

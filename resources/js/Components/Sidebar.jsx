@@ -48,7 +48,17 @@ export default function Sidebar({ user, isCollapsed, setIsCollapsed }) {
         ],
       },
       { name: 'Settings', icon: <Settings />, href: '/profile' },
-      { name: 'Help & Support', icon: <HelpCircle />, href: '/org/support' },
+      { 
+        name: 'Help & Support', 
+        icon: <HelpCircle />, 
+        children: [
+          { name: 'Contact Us', href: '/org/contact' },
+          { name: 'Chat with us', href: '/org/chat' },
+          { name: 'Report a Bug', href: '/org/bug' },
+          { name: 'FAQs', href: '/faqs' },
+          { name: 'Terms & Conditions', href: '/terms' },
+        ],
+      },
     ];
   } else if (isResearcher) {
     navItems = [
@@ -58,7 +68,17 @@ export default function Sidebar({ user, isCollapsed, setIsCollapsed }) {
       { name: 'Rewards', icon: <CreditCard />, href: '/researcher/rewards' },
       { name: 'Leaderboards', icon: <CreditCard />, href: '/researcher/leaderboards' },
       { name: 'Settings', icon: <Settings />, href: '/profile' },
-      { name: 'Help & Support', icon: <HelpCircle />, href: '/researcher/support' },
+      { 
+        name: 'Help & Support', 
+        icon: <HelpCircle />, 
+        children: [
+          { name: 'Contact Us', href: '/researcher/contact' },
+          { name: 'Chat with us', href: '/researcher/chat' },
+          { name: 'Report a Bug', href: '/researcher/bug' },
+          { name: 'FAQs', href: '/faqs' },
+          { name: 'Terms & Conditions', href: '/terms' },
+        ],
+      },
     ];
   } else if (isAnalyst) {
     navItems = [
@@ -66,13 +86,33 @@ export default function Sidebar({ user, isCollapsed, setIsCollapsed }) {
       { name: 'Programs', icon: <Activity />, href: '/analyst/programs' },
       { name: 'Reports', icon: <FileText />, href: '/analyst/reports' },
       { name: 'Settings', icon: <Settings />, href: '/profile' },
-      { name: 'Help & Support', icon: <HelpCircle />, href: '/analyst/support' },
+      { 
+        name: 'Help & Support', 
+        icon: <HelpCircle />, 
+        children: [
+          { name: 'Contact Us', href: '/analyst/contact' },
+          { name: 'Chat with us', href: '/analyst/chat' },
+          { name: 'Report a Bug', href: '/analyst/bug' },
+          { name: 'FAQs', href: '/faqs' },
+          { name: 'Terms & Conditions', href: '/terms' },
+        ],
+      },
     ];
   } else if (isTeam) {
     navItems = [
       { name: 'Home', icon: <Home />, href: '/team/dashboard' },
       { name: 'Settings', icon: <Settings />, href: '/profile' },
-      { name: 'Help & Support', icon: <HelpCircle />, href: '/team/support' },
+      { 
+        name: 'Help & Support', 
+        icon: <HelpCircle />, 
+        children: [
+          { name: 'Contact Us', href: '/team/contact' },
+          { name: 'Chat with us', href: '/team/chat' },
+          { name: 'Report a Bug', href: '/team/bug' },
+          { name: 'FAQs', href: '/faqs' },
+          { name: 'Terms & Conditions', href: '/terms' },
+        ],
+      },
     ];
   }
 
@@ -81,7 +121,6 @@ export default function Sidebar({ user, isCollapsed, setIsCollapsed }) {
       className={`flex flex-col h-screen bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700 transition-all duration-300 ease-in-out
         ${isCollapsed ? 'w-20' : 'w-64'}`}
     >
-      {/* Header: Logo + Title + Hamburger */}
       <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
         {!isCollapsed && (
           <div className="flex items-center space-x-2">
@@ -115,7 +154,7 @@ export default function Sidebar({ user, isCollapsed, setIsCollapsed }) {
       {/* Scrollable Navigation */}
       <div
         className="flex-1 overflow-y-auto mt-6 pr-1 pt-2 pb-4"
-        style={{ overscrollBehavior: 'contain' }} // Helps avoid scroll bleed
+        style={{ overscrollBehavior: 'contain' }}
       >
         <ul className="space-y-6">
           {navItems.map((item, idx) => (
@@ -129,7 +168,7 @@ export default function Sidebar({ user, isCollapsed, setIsCollapsed }) {
                       text-gray-800 dark:text-gray-200 font-medium
                       py-3 px-4 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors
                       `}
-                    style={{ fontSize: '1.125rem' /* text-lg */ }}
+                    style={{ fontSize: '1.125rem' }}
                   >
                     <div
                       className={`flex items-center space-x-3 ${

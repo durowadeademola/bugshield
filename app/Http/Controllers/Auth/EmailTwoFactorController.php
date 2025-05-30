@@ -19,9 +19,7 @@ class EmailTwoFactorController extends Controller
     public function show(Request $request): RedirectResponse|Response
     {
         if (! $request->session()->has('email-2fa:user:id')) {
-            throw new HttpResponseException(
-                redirect()->route('login')
-            );
+            throw new HttpResponseException(redirect()->route('login'));
         }
 
         return Inertia::render('Auth/EmailTwoFactorChallenge');
@@ -46,9 +44,7 @@ class EmailTwoFactorController extends Controller
         $user = $request->getChallengedUser();
 
         if(! $user->isEmailTwoFactorEnabled()) {
-            throw new HttpResponseException(
-                redirect()->route('login')
-            );
+            throw new HttpResponseException(redirect()->route('login'));
         } 
 
         $request->validate([
@@ -56,19 +52,13 @@ class EmailTwoFactorController extends Controller
         ]);
 
         if (!$user) {
-            throw ValidationException::withMessages([
-                'code' => 'The user was not found.'
-            ]);
+            throw ValidationException::withMessages(['code' => 'The user was not found.']);
 
         } else if($user->two_factor_code !== $request->code) {
-            throw ValidationException::withMessages([
-                'code' => 'The code is invalid. Please try again.'
-            ]);
+            throw ValidationException::withMessages(['code' => 'The code is invalid. Please try again.']);
             
         } else if ($user->two_factor_expires_at->lt(now())) {
-            throw ValidationException::withMessages([
-                'code' => 'The code has expired, Please resend another.'
-            ]);
+            throw ValidationException::withMessages(['code' => 'The code has expired, Please resend another.']);
         }
 
         Auth::login($user);

@@ -23,6 +23,7 @@ class RolePermissionSeeder extends Seeder
             'team'
         ];
 
+        // available permissions
         $permissions = [
             'manage users',
             'manage payments',

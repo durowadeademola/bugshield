@@ -27,7 +27,9 @@ class SubscriptionSeeder extends Seeder
             if (Subscription::where(['organization_id' => $organization->id, 'plan_id' => $plan->id])->count() == 0) {
                 Subscription::create([
                     'organization_id' => $organization->id,
-                    'plan_id' => $plan->id
+                    'plan_id' => $plan->id,
+                    'status' => 'paid',
+                    'is_active' => true
                 ]);
                 $this->command->info('Subscription created successfully.');
             } else {
