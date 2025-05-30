@@ -34,7 +34,7 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
 
         //handle user with enabled 2FA
-        if ($request->user()->emailTwoFactorEnabled()) {
+        if ($request->user()->isEmailTwoFactorEnabled()) {
 
             $request->user()->generateEmailTwoFactorCode();
 
@@ -44,7 +44,7 @@ class AuthenticatedSessionController extends Controller
 
             return redirect()->route('2fa.email');
             
-        } else if ($request->user()->totpTwoFactorEnabled()) {
+        } else if ($request->user()->isTotpTwoFactorEnabled()) {
 
             session(['totp-2fa:user:id' => $request->user()->id ?? null]);
 

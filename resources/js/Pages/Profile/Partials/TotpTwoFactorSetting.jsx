@@ -150,7 +150,7 @@ export default function TotpTwoFactorSetting() {
 
             {!user?.totp_two_factor_enabled ? (
                 <div>
-                    <p className="text-gray-600 dark:text-gray-300 mb-2">
+                    <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">
                         You have not enabled authenticator-based two-factor authentication.
                     </p>
                     <button

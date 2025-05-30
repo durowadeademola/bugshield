@@ -40,11 +40,9 @@ class TwoFactorChallengeRequest extends TwoFactorLoginRequest
 
     public function hasValidCode()
     {
-        $user = $this->getChallengedUser();
-        $code = $this->input('code');
-
         return app(TwoFactorAuthenticationProvider::class)
-            ->verify(decrypt($user->two_factor_secret), $code);
+            ->verify(decrypt($this->getChallengedUser()
+            ->two_factor_secret), $this->input('code'));
     }
 
 

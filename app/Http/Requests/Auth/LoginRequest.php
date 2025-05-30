@@ -58,7 +58,7 @@ class LoginRequest extends FormRequest
             Auth::logout(); 
             
             throw ValidationException::withMessages([
-                'email' => 'User does not have access to view this resource.',
+                'email' => 'User does not have access to this resource.',
             ]);
         }
     }

@@ -62,12 +62,12 @@ export default function DeleteUserForm({ className = '' }) {
                 isOpen={showConfirmModal}
                 onClose={closeModal}
                 onConfirm={deleteUser}
-                confirmText="Delete Account" // ✅ This updates the button
+                confirmText="Delete Account"
                 type="confirm"
                 title="Are you sure you want to delete your account?"
                 message={
                     <>
-                        Once your account is deleted, all resources and data will be lost. <br />
+                        Once your account is deleted, all resources and data will be lost. Bugshield would not recover your account. <br />
                         Please enter your password to confirm.
                         <div className="mt-6 text-left">
                             <input

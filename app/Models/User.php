@@ -65,12 +65,12 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
         ];
     }
 
-    public function totpTwoFactorEnabled()
+    public function isTotpTwoFactorEnabled()
     {
         return $this->two_factor_recovery_codes != null && $this->totp_two_factor_enabled == true;
     }
 
-    public function emailTwoFactorEnabled()
+    public function isEmailTwoFactorEnabled()
     {
         return $this->email_two_factor_enabled == true;
     }

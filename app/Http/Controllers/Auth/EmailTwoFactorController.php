@@ -45,7 +45,7 @@ class EmailTwoFactorController extends Controller
     {
         $user = $request->getChallengedUser();
 
-        if(! $user->emailTwoFactorEnabled()) {
+        if(! $user->isEmailTwoFactorEnabled()) {
             throw new HttpResponseException(
                 redirect()->route('login')
             );

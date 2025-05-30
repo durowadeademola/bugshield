@@ -29,7 +29,7 @@ class TotpTwoFactorController extends Controller
     {
         $user = Auth::user();
 
-        $totpTwoFactorEnabled = $user->totpTwoFactorEnabled();
+        $totpTwoFactorEnabled = $user->isTotpTwoFactorEnabled();
 
         $qrCode = null;
         $recoveryCodes = null;
@@ -61,7 +61,7 @@ class TotpTwoFactorController extends Controller
     {
         $user = $request->getChallengedUser();
 
-        if(! $user->totpTwoFactorEnabled()) {
+        if(! $user->isTotpTwoFactorEnabled()) {
             throw new HttpResponseException(
                 redirect()->route('login')
             );
@@ -113,7 +113,7 @@ class TotpTwoFactorController extends Controller
         
         
         if ($request->filled('code')) {
-            if(! $request->hasValidCode()) {
+            if(! $request->hasValidCode() && ! $this->isValidTotpCode($user, $request->input('code'))) {
                 RateLimiter::hit($this->throttleKey($request));
                 throw ValidationException::withMessages([
                     'code' => 'The provided authentication code is invalid.',
@@ -159,7 +159,7 @@ class TotpTwoFactorController extends Controller
 
     protected function throttleKey(Request $request)
     {
-        return strtolower($request->ip()) . '|2fa';
+        return strtolower($request->ip()) . '|totp-2fa';
     }
 
     protected function ensureIsNotRateLimited(Request $request)
@@ -175,10 +175,8 @@ class TotpTwoFactorController extends Controller
 
     protected function isValidTotpCode($user, $code)
     {
-        // You must implement this based on your 2FA setup.
-        // For example, using Google2FA:
         return app(\Pragmarx\Google2FA\Google2FA::class)
-            ->verifyKey($user->two_factor_secret, $code);
+            ->verifyKey(decrypt($user->two_factor_secret), $code);
     }
 
 }
