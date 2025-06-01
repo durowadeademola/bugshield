@@ -12,7 +12,7 @@ export default function Sidebar({ user, isCollapsed, setIsCollapsed }) {
   const isAnalyst = roles.includes('analyst');
   const isResearcher = roles.includes('researcher');
   const isTeam = roles.includes('team');
-
+  
   const [expanded, setExpanded] = useState(null);
   const toggleExpand = (name) => {
     setExpanded((prev) => (prev === name ? null : name));

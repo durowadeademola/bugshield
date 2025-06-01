@@ -20,7 +20,14 @@ export default function Navbar({ darkMode, toggleDarkMode, user }) {
     const [notificationsOpen, setNotificationsOpen] = useState(false);
     const [logoutDialogueOpen, setLogoutDialogueOpen] = useState(false);
     const [greeting, setGreeting] = useState('');
+    const [name, setName] = useState('');
     const [shakeBell, setShakeBell] = useState(false);
+    const roles = user?.roles || [];
+    
+    const isOrganization = roles.includes('organization');
+    const isAnalyst = roles.includes('analyst');
+    const isResearcher = roles.includes('researcher');
+    const isTeam = roles.includes('team');
 
     const dropdownRef = useRef(null);
     const notificationsRef = useRef(null);
@@ -30,6 +37,14 @@ export default function Navbar({ darkMode, toggleDarkMode, user }) {
         if (hour < 12) setGreeting('Good Morning');
         else if (hour < 18) setGreeting('Good Afternoon');
         else setGreeting('Good Evening');
+    }, []);
+
+    useEffect(() => {
+        if (isOrganization) setName(user?.organization.name);
+        else if (isAnalyst) setName(user?.analyst.first_name);
+        else if (isResearcher) setName(user?.researcher.first_name);
+        else if (isTeam) setName(user?.team.first_name);
+        else setName(user?.admin.first_name)
     }, []);
 
     useEffect(() => {
@@ -62,7 +77,7 @@ export default function Navbar({ darkMode, toggleDarkMode, user }) {
     return (
         <>
             <div className="flex justify-between items-center py-4 px-6 bg-white dark:bg-gray-900 shadow relative">
-                <div className="text-xl font-bold dark:text-white mt-4">{greeting},</div>
+                <div className="text-xl font-bold dark:text-white mt-4">{greeting}, {name}</div>
 
                 <div className="flex items-center space-x-4 relative">
                     {/* Dark Mode Toggle */}

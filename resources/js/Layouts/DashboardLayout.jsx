@@ -31,6 +31,7 @@ export default function DashboardLayout({ children }) {
             <div className="flex flex-col flex-1 overflow-hidden bg-gray-100 dark:bg-gray-800 transition-all duration-300 ease-in-out">
                 {/* Navbar */}
                 <Navbar
+                    user={user}
                     darkMode={darkMode}
                     toggleDarkMode={() => setDarkMode(!darkMode)}
                 />

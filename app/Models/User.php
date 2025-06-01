@@ -102,9 +102,39 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
         return $this->getKYCStatus($this->id, 'is_kyc_approved', '1') ?? false;
     }
 
+    public function isKYCRejected(): bool
+    {
+        return $this->getKYCStatus($this->id, 'is_kyc_rejected', '1') ?? false;
+    }
+
     public function getKYCStatus(string $user_id, string $key, string $value): bool
     {
         return Setting::verify($user_id, $key, $value);
+    }
+
+    public function getOrganizationAttributes() 
+    {
+        return Organization::where(['user_id' => $this->id])->first();
+    }
+
+    public function getAnalystAttributes() 
+    {
+        return Analyst::where(['user_id' => $this->id])->first();
+    }
+
+    public function getResearcherAttributes() 
+    {
+        return Researcher::where(['user_id' => $this->id])->first();
+    }
+
+    public function getTeamAttributes() 
+    {
+        return Team::where(['user_id' => $this->id])->first();
+    }
+
+    public function getAdminAttributes() 
+    {
+        return Admin::where(['user_id' => $this->id])->first();
     }
 
     public function canAccessPanel(\Filament\Panel $panel): bool
