@@ -9,10 +9,11 @@ export default function Dashboard({ user }) {
         <>
       <Head title="Dashboard" />
       <DashboardLayout>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-            <DashboardCard title="Balance" value="₦0.00" icon={<span className="text-white">₦</span>} bgColor='bg-green-700'/>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+            <DashboardCard title="Balance" value="₦0.00" icon={<span className="text-3xl">₦</span>} bgColor='bg-green-700'/>
             <DashboardCard title="Reports" value="45" icon={<FileText />} bgColor="bg-purple-700" />
             <DashboardCard title="Active Bounties" value="12" icon={<Star />} bgColor="bg-indigo-700" />
+            <DashboardCard title="Payments" value="₦23.44" icon={<span className="text-3xl">₦</span>} bgColor="bg-indigo-700" />
         </div>
 
         {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

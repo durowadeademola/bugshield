@@ -22,8 +22,9 @@ export default function Navbar({ darkMode, toggleDarkMode, user }) {
     const [greeting, setGreeting] = useState('');
     const [name, setName] = useState('');
     const [shakeBell, setShakeBell] = useState(false);
+    const [dateTime, setDateTime] = useState(new Date());
+
     const roles = user?.roles || [];
-    
     const isOrganization = roles.includes('organization');
     const isAnalyst = roles.includes('analyst');
     const isResearcher = roles.includes('researcher');
@@ -31,6 +32,11 @@ export default function Navbar({ darkMode, toggleDarkMode, user }) {
 
     const dropdownRef = useRef(null);
     const notificationsRef = useRef(null);
+
+    useEffect(() => {
+        const interval = setInterval(() => setDateTime(new Date()), 1000);
+        return () => clearInterval(interval);
+    }, []);
 
     useEffect(() => {
         const hour = new Date().getHours();
@@ -74,10 +80,27 @@ export default function Navbar({ darkMode, toggleDarkMode, user }) {
         router.post(route('logout'));
     };
 
+    const isDay = dateTime.getHours() >= 6 && dateTime.getHours() < 18;
+    const weatherIcon = isDay ? "🌤️" : "🌙";
+    const weekday = dateTime.toLocaleDateString("en-US", { weekday: "long" });
+    const monthDay = dateTime.toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+    });
+    const time = dateTime.toLocaleTimeString("en-US", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true,
+    });
+
     return (
         <>
             <div className="flex justify-between items-center py-4 px-6 bg-white dark:bg-gray-900 shadow relative">
                 <div className="text-xl font-bold dark:text-white mt-4">{greeting}, {name}</div>
+                <div className="text-base text-gray-600 dark:text-gray-300 flex items-center space-x-2 mt-1">
+                    <span>{weatherIcon}</span>
+                    <span>{weekday}, {monthDay} {time}</span>
+                </div>
 
                 <div className="flex items-center space-x-4 relative">
                     {/* Dark Mode Toggle */}

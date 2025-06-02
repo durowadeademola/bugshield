@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from '@inertiajs/react';
 import {
-  Home, Activity, CreditCard, Users, Settings,
+  Home, Activity, CreditCard, Users, Settings, Bot, ShieldHalf, Trophy,
   HelpCircle, FileText, ChevronDown, ChevronRight, Shield, Lock, Key
 } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -24,27 +24,35 @@ export default function Sidebar({ user, isCollapsed, setIsCollapsed }) {
     navItems = [
       { name: 'Home', icon: <Home />, href: '/org/dashboard' },
       {
-        name: 'Programs',
-        icon: <Activity />,
+        name: 'Security',
+        icon: <ShieldHalf />,
         children: [
-          { name: 'Bug Bounty', href: '/org/bug-bounty' },
-          { name: 'Vulnerability Disclosure', href: '/org/vuln-disclosure' },
-          { name: 'Penetration Testing', href: '/org/pen-test' },
+          { name: 'Bug Bounty', href: '/org/security/bug-bounty' },
+          { name: 'Vulnerability Disclosure', href: '/org/security/disclosure' },
+          { name: 'Penetration Testing', href: '/org/security/pen-test' },
         ],
       },
-      { name: 'AI and Automation', icon: <Users />, href: '/org/ai-auto' },
+      {
+        name: 'AI & Automation',
+        icon: <Bot />, 
+        children: [
+          {name: 'AI Assitant', href: '/org/ai-auto/ai-assistant'},
+          { name: 'Threat Monitoring', href: '/org/ai-auto/threat-monitor' },
+          { name: 'Vulnerability Scanner', href: '/org/ai-auto/scanner' },
+        ]
+      },
       {
         name: 'Teams',
         icon: <Users />,
         children: [
-          { name: 'Manage', icon: <Settings />, href: '/org/manage/teams' },
+          // { name: 'Manage', href: '/org/manage/teams' },
         ],
       },
       {
         name: 'Subscriptions',
         icon: <CreditCard />,
         children: [
-          { name: 'Manage', icon: <Settings />, href: '/org/manage/subscriptions' },
+          // { name: 'Manage', href: '/org/manage/subscriptions' },
         ],
       },
       { name: 'Settings', icon: <Settings />, href: '/profile' },
@@ -64,9 +72,9 @@ export default function Sidebar({ user, isCollapsed, setIsCollapsed }) {
     navItems = [
       { name: 'Home', icon: <Home />, href: '/researcher/dashboard' },
       { name: 'Programs', icon: <Activity />, href: '/researcher/programs' },
-      { name: 'My Reports', icon: <FileText />, href: '/researcher/reports' },
+      { name: 'Submissions', icon: <FileText />, href: '/researcher/submissions' },
       { name: 'Rewards', icon: <CreditCard />, href: '/researcher/rewards' },
-      { name: 'Leaderboards', icon: <CreditCard />, href: '/researcher/leaderboards' },
+      { name: 'Leaderboards', icon: <Trophy />, href: '/researcher/leaderboards' },
       { name: 'Settings', icon: <Settings />, href: '/profile' },
       { 
         name: 'Help & Support', 
@@ -101,6 +109,24 @@ export default function Sidebar({ user, isCollapsed, setIsCollapsed }) {
   } else if (isTeam) {
     navItems = [
       { name: 'Home', icon: <Home />, href: '/team/dashboard' },
+      {
+        name: 'Security',
+        icon: <ShieldHalf />,
+        children: [
+          { name: 'Bug Bounty', href: '/org/bug-bounty' },
+          { name: 'Vulnerability Disclosure', href: '/org/disclosure' },
+          { name: 'Penetration Testing', href: '/org/pen-test' },
+        ],
+      },
+      {
+        name: 'AI and Automation',
+        icon: <Bot />, 
+        children: [
+          { name: 'Vulnerability Scanner', href: '/org/ai-auto/scanner' },
+          { name: 'Threat Monitoring', href: '/org/ai-auto/threat-monitoring' },
+          { name: 'AI Assitant', href: '/org/ai-auto/ai-assitant'}
+        ]
+      },
       { name: 'Settings', icon: <Settings />, href: '/profile' },
       { 
         name: 'Help & Support', 
