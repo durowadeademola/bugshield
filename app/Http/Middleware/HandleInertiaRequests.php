@@ -36,6 +36,7 @@ class HandleInertiaRequests extends Middleware
                     ? $request->user()->only(['id', 'name', 'email', 'email_two_factor_enabled', 'totp_two_factor_enabled']) + [
                         'roles' => $request->user()->getRoleNames(),
                         'unreadNotifications' => $request->user()->unreadNotifications()->count(),
+                        'notifications' => $request->user()->notifications->take(10),
                         'organization' => $request->user()->getOrganizationAttributes(),
                         'analyst' => $request->user()->getAnalystAttributes(),
                         'team' => $request->user()->getTeamAttributes(),

@@ -36,7 +36,7 @@ export default function Sidebar({ user, isCollapsed, setIsCollapsed }) {
         name: 'AI & Automation',
         icon: <Bot />, 
         children: [
-          {name: 'AI Assitant', href: '/org/ai-auto/ai-assistant'},
+          {name: 'AI Assistant', href: '/org/ai-auto/ai-assistant'},
           { name: 'Threat Monitoring', href: '/org/ai-auto/threat-monitor' },
           { name: 'Vulnerability Scanner', href: '/org/ai-auto/scanner' },
         ]

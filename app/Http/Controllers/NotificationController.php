@@ -53,15 +53,9 @@ class NotificationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request)
+    public function update(Request $request, string $id)
     {
-        $notifications = $request->user()->unreadNotifications;
-
-        if ($notifications->isNotEmpty()) {
-            $notifications->markAsRead();
-        }
-    
-        return redirect()->back();
+        //
     }
 
     /**
@@ -70,5 +64,27 @@ class NotificationController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function markAsRead(Request $request, $id)
+    {
+        $notification = $request->user()->notifications()->where('id', $id)->first();
+
+        if ($notification && $notification->read_at === null) {
+            $notification->markAsRead();
+        }
+
+        return redirect()->back();
+    }
+
+    public function markAllAsRead(Request $request)
+    {
+        $notifications = $request->user()->unreadNotifications;
+
+        if ($notifications->isNotEmpty()) {
+            $notifications->markAsRead();
+        }
+    
+        return redirect()->back();
     }
 }

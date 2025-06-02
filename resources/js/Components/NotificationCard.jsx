@@ -1,7 +1,15 @@
 import { CheckCircle, Circle } from 'lucide-react';
+import { router } from '@inertiajs/react';
 
 export default function NotificationCard({ notification }) {
-    const { data, read_at, created_at } = notification;
+    const { id, data, read_at, created_at } = notification;
+
+    const markAsRead = () => {
+        router.post(route('notifications.read', { id }), {}, {
+            preserveScroll: true,
+            only: ['auth'], 
+        });
+    };
 
     return (
         <div className="bg-[#1E293B] text-white p-4 rounded-xl space-y-2 relative">
@@ -15,9 +23,18 @@ export default function NotificationCard({ notification }) {
                         </span>
                     )}
                 </span>
-                {!read_at && <a href="#" className="text-sm text-blue-400">Mark as read</a>}
+                {!read_at && (
+                    <button
+                        onClick={markAsRead}
+                        className="text-sm text-blue-400 hover:underline"
+                    >
+                        Mark as read
+                    </button>
+                )}
             </div>
-            <p className="text-base">{data.message}</p>
+            <p className="text-base font-semibold">{data?.title || 'Notification'}</p>
+            <p className="text-sm text-gray-300">{data?.body || 'No details available.'}</p>
+
             <p className="text-sm font-bold">{new Date(created_at).toLocaleString()}</p>
         </div>
     );

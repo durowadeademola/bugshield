@@ -36,7 +36,9 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::post('/profile/totp-2fa/enable', [TotpTwoFactorController::class, 'enable'])->name('totp-2fa-enable');
     Route::delete('/profile/totp-2fa/disable', [TotpTwoFactorController::class, 'disable'])->name('totp-2fa-disable');
     Route::get('/notifications', [NotificationController::class, 'index'])->name('notification');
-    Route::post('/notifications/update', [NotificationController::class, 'update'])->name('notifications.update');
+    Route::post('/notifications/update', [NotificationController::class, 'markAllAsRead'])->name('notifications.update');
+    Route::post('/notifications/read/{id}', [NotificationController::class, 'markAsRead'])->name('notifications.read');
+
 });
 
 Route::middleware(['auth', 'verified', 'role:organization'])->group(function () {

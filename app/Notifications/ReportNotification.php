@@ -49,7 +49,7 @@ class ReportNotifcation extends Notification
     {
         return [
             'title' => 'New Report Submitted',
-            'message' => 'A new report has been submitted by a researcher.',
+            'body' => 'A new report has been submitted by a researcher.',
             'report_id' => $this->report->id,
             'submitted_by' => $this->report->user->name,
             'url' => route('reports.show', $this->report->id),
