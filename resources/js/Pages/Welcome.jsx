@@ -125,10 +125,10 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                                     Get Started
                                 </Link>
                                 <Link
-                                    href="/quote"
+                                    href="/demo"
                                     className="bg-transparent border border-white hover:bg-white hover:text-[#0b1e4e] px-6 py-3 rounded text-white font-semibold"
                                 >
-                                    Get A Quote
+                                    Get A Demo
                                 </Link>
                             </div>
                         </div>

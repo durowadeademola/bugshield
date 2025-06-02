@@ -7,6 +7,11 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
+use App\Models\Organization;
+use App\Models\Researcher;
+use App\Models\Analyst;
+use App\Models\Team;
+
 abstract class Controller
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
@@ -119,18 +124,45 @@ abstract class Controller
 
     public function redirectToRouteBasedOnRole($user): string
     {
-        if ($user->hasRole('organization')) {
-            return route('organization.dashboard', absolute: false);
-        } elseif ($user->hasRole('researcher')) {
-            return route('researcher.dashboard', absolute: false);
-        } elseif ($user->hasRole('analyst')) {
-            return route('analyst.dashboard', absolute: false);
-        } elseif ($user->hasRole('team')) {
-            return route('team.dashboard', absolute: false);
+        $routesMap = [
+            'organization' => 'organization.dashboard',
+            'researcher'   => 'researcher.dashboard',
+            'analyst'      => 'analyst.dashboard',
+            'team'         => 'team.dashboard',
+        ];
+    
+        foreach ($routesMap as $role => $route) {
+            if ($user->hasRole($role)) {
+                return route($route, absolute: false);
+            }
         }
-
-        // fallback route
+    
+        // Fallback route
         return route('home', absolute: false);
     }
+    
 
+    public function invalidateBasedOnRole($user): void
+    {
+        $rolesMap = [
+            'organization' => Organization::class,
+            'analyst'      => Analyst::class,
+            'researcher'   => Researcher::class,
+            'team'         => Team::class,
+        ];
+    
+        foreach ($rolesMap as $role => $model) {
+            if ($user->hasRole($role)) {
+                $instance = $model::where('user_id', $user?->id)->first();
+    
+                if ($instance) {
+                    $instance->update(['is_active' => false]);
+                    $instance->delete();
+                }
+    
+                break;
+            }
+        }
+    }
+    
 }

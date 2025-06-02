@@ -35,22 +35,24 @@ class VerifyEmailController extends Controller
 
     protected function updateBasedOnRole($user): void
     {
-        //update user state to active
-        if ($user->hasRole('organization')) {
-            Organization::where(['user_id' => $user->id])->first()
-                        ->update(['is_active' => true]);
+        $rolesMap = [
+            'organization' => Organization::class,
+            'analyst'      => Analyst::class,
+            'researcher'   => Researcher::class,
+            'team'         => Team::class,
+        ];
 
-        } elseif ($user->hasRole('researcher')) {
-            Researcher::where(['user_id' => $user->id])->first()
-                      ->update(['is_active' => true]);
+        foreach ($rolesMap as $role => $model) {
+            if ($user->hasRole($role)) {
+                $instance = $model::where('user_id', $user->id)->first();
 
-        } elseif ($user->hasRole('analyst')) {
-            Analyst::where(['user_id' => $user->id])->first()
-                    ->update(['is_active' => true]);
+                if ($instance) {
+                    $instance->update(['is_active' => true]);
+                }
 
-        } elseif ($user->hasRole('team')) {
-            Team::where(['user_id' => $user->id])->first()
-                ->update(['is_active' => true]);
+                break;
+            }
         }
     }
+
 }
