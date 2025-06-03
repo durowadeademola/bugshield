@@ -44,10 +44,10 @@ class VerifyEmailController extends Controller
 
         foreach ($rolesMap as $role => $model) {
             if ($user->hasRole($role)) {
-                $instance = $model::where('user_id', $user->id)->first();
+                $query = $model::where('user_id', $user->id)->first();
 
-                if ($instance) {
-                    $instance->update(['is_active' => true]);
+                if ($query) {
+                    $query->update(['is_active' => true]);
                 }
 
                 break;

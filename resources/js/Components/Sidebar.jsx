@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { Link } from '@inertiajs/react';
 import {
   Home, Activity, CreditCard, Users, Settings, Bot, ShieldHalf, Trophy,
-  HelpCircle, FileText, ChevronDown, ChevronRight, Shield, Lock, Key
+  HelpCircle, FileText, ChevronDown, ChevronRight, Shield, Lock, Key,
+  UserPlus
 } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 
@@ -72,8 +73,9 @@ export default function Sidebar({ user, isCollapsed, setIsCollapsed }) {
     navItems = [
       { name: 'Home', icon: <Home />, href: '/researcher/dashboard' },
       { name: 'Programs', icon: <Activity />, href: '/researcher/programs' },
+      { name: 'Invites', icon: <UserPlus />, href: '/researcher/invites'},
       { name: 'Submissions', icon: <FileText />, href: '/researcher/submissions' },
-      { name: 'Rewards', icon: <CreditCard />, href: '/researcher/rewards' },
+      { name: 'Payments', icon: <CreditCard />, href: '/researcher/payments' },
       { name: 'Leaderboards', icon: <Trophy />, href: '/researcher/leaderboards' },
       { name: 'Settings', icon: <Settings />, href: '/profile' },
       { 
@@ -182,7 +184,7 @@ export default function Sidebar({ user, isCollapsed, setIsCollapsed }) {
         className="flex-1 overflow-y-auto mt-6 pr-1 pt-2 pb-4"
         style={{ overscrollBehavior: 'contain' }}
       >
-        <ul className="space-y-6">
+        <ul className="space-y-4">
           {navItems.map((item, idx) => (
             <li key={idx}>
               {item.children ? (

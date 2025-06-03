@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('description');
             $table->string('platform')->nullable();
+            $table->string('status')->default('active');
             $table->text('asset');
             $table->string('logo_name')->nullable();
             $table->string('logo_path')->nullable();

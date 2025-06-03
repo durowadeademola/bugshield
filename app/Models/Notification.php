@@ -13,23 +13,30 @@ class Notification extends BaseNotification
         'read_at' => 'datetime',
     ];
 
-    // Optional: Custom accessor for short message, etc.
     public function shortMessage(): Attribute
     {
         return Attribute::make(
-            get: fn () => $this->data['message'] ?? null
+            get: fn () => $this->data['body'] ?? null
         );
     }
 
-    // Example: scope to get only unread
     public function scopeUnread($query)
     {
         return $query->whereNull('read_at');
     }
 
-    // Example: Mark as read
+    public function scopeRead($query)
+    {
+        return $query->whereNotNull('read_at');
+    }
+
     public function markAsRead()
     {
         $this->update(['read_at' => now()]);
+    }
+
+    public function markAsUnread()
+    {
+        $this->update(['read_at' => null]);
     }
 }
