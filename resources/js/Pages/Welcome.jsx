@@ -1,4 +1,5 @@
 import { Head, Link } from '@inertiajs/react';
+import { motion } from "framer-motion";
 
 export default function Welcome({ auth, laravelVersion, phpVersion }) {
     const roles = auth.user?.roles || [];
@@ -105,44 +106,54 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
 
                 <main className="pt-32 bg-black text-white min-h-screen">
                     <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 px-6 items-center">
-                        
-                        {/* Left Content */}
-                        <div>
-                            <p className="text-blue-400 uppercase font-semibold tracking-wide mb-2">
-                                A Comprehensive Cybersecurity Solution
-                            </p>
-                            <h1 className="text-4xl lg:text-5xl font-extrabold mb-6 leading-tight">
-                                Protects <span className='text-green-400'>Data</span> from cyber <span className="text-yellow-400">security</span> <span className="text-red-400">threats</span> around the world
-                            </h1>
-                            <p className="text-white/80 mb-6">
-                                Threat intelligence provides information about current and emerging cyber threats, allowing organizations to stay ahead of potential attacks.
-                            </p>
-                            <div className="flex space-x-4">
-                                <Link
-                                    href="/register"
-                                    className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded text-white font-semibold"
-                                >
-                                    Get Started
-                                </Link>
-                                <Link
-                                    href="/demo"
-                                    className="bg-transparent border border-white hover:bg-white hover:text-[#0b1e4e] px-6 py-3 rounded text-white font-semibold"
-                                >
-                                    Get A Demo
-                                </Link>
-                            </div>
+                        {/* Left side Texts */}
+                        <motion.div
+                        initial={{ opacity: 0, y: 100 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 1 }}
+                        >
+                        <p className="text-blue-400 uppercase font-semibold tracking-wide mb-2">
+                            A Comprehensive Cybersecurity Solution
+                        </p>
+                        <h1 className="text-4xl lg:text-5xl font-extrabold mb-6 leading-tight">
+                            Protects <span className='text-green-400'>Data</span> from cyber <span className="text-yellow-400">security</span> <span className="text-red-400">threats</span> around the world
+                        </h1>
+                        <p className="text-white/80 mb-6">
+                            Threat intelligence provides information about current and emerging cyber threats, allowing organizations to stay ahead of potential attacks.
+                        </p>
+                        <div className="flex space-x-4">
+                            <Link
+                            href="/register"
+                            className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded text-white font-semibold"
+                            >
+                            Get Started
+                            </Link>
+                            <Link
+                            href="/demo"
+                            className="bg-transparent border border-white hover:bg-white hover:text-[#0b1e4e] px-6 py-3 rounded text-white font-semibold"
+                            >
+                            Get A Demo
+                            </Link>
                         </div>
+                        </motion.div>
+                            
+                        {/* Right side Illustration Image */}
+                        <motion.div
+                        className="flex justify-center items-center h-full"
+                        initial={{ opacity: 0, y: 50 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 1.2, duration: 1 }}
+                        >
+                        <img
+                            src="/images/bugshield-illustration.png"
+                            alt="Cybersecurity Illustration"
+                            className="object-contain w-full max-w-lg h-[500px]"
+                        />
+                        </motion.div>
 
-                        {/* Right Image Content */}
-                        <div className="flex justify-center items-center h-full">
-                            <img
-                                src="/images/bugshield-illustration.png"
-                                alt="Cybersecurity Illustration"
-                                className="object-contain w-full max-w-lg h-[500px]"
-                            />
-                        </div>
                     </div>
                 </main>
+
 
 
                 <footer className="py-16 text-center text-sm text-white/70">
