@@ -112,7 +112,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                                 A Comprehensive Cybersecurity Solution
                             </p>
                             <h1 className="text-4xl lg:text-5xl font-extrabold mb-6 leading-tight">
-                                Protects Data from cyber <span className="text-green-400">security</span> <span className="text-yellow-400">threats</span> to the world
+                                Protects <span className='text-green-400'>Data</span> from cyber <span className="text-yellow-400">security</span> <span className="text-red-400">threats</span> around the world
                             </h1>
                             <p className="text-white/80 mb-6">
                                 Threat intelligence provides information about current and emerging cyber threats, allowing organizations to stay ahead of potential attacks.

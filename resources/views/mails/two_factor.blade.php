@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>BugShield 2FA Code</title>
+  <title>Bugshield 2FA Code</title>
 </head>
 <body style="font-family: 'Segoe UI', sans-serif; background-color: #ffffff; padding: 30px; color: #0f172a;">
   <div style="max-width: 600px; margin: auto;">
