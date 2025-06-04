@@ -37,9 +37,18 @@ export default function Sidebar({ user, isCollapsed, setIsCollapsed }) {
         name: 'AI & Automation',
         icon: <Bot />, 
         children: [
-          {name: 'AI Assistant', href: '/org/ai-auto/ai-assistant'},
-          { name: 'Threat Monitoring', href: '/org/ai-auto/threat-monitor' },
           { name: 'Vulnerability Scanner', href: '/org/ai-auto/scanner' },
+          { name: 'Threat Monitoring', href: '/org/ai-auto/threat-monitor' },
+          { name: 'AI Assistant', href: '/org/ai-auto/ai-assistant' },
+        ]
+      },
+      {
+        name: 'Audit & Reports',
+        icon: <FileText />, 
+        children: [
+          { name: 'Security Audit', href: '/org/audit-report/security-audit'},
+          { name: 'Threat Report', href: '/org/audit-report/threat-report' },
+          { name: 'Vulnerability Report', href: '/org/audit-report/vuln-report' }
         ]
       },
       {
@@ -127,6 +136,15 @@ export default function Sidebar({ user, isCollapsed, setIsCollapsed }) {
           { name: 'Vulnerability Scanner', href: '/org/ai-auto/scanner' },
           { name: 'Threat Monitoring', href: '/org/ai-auto/threat-monitoring' },
           { name: 'AI Assitant', href: '/org/ai-auto/ai-assitant'}
+        ]
+      },
+      {
+        name: 'Audit & Reports',
+        icon: <FileText />, 
+        children: [
+          { name: 'Security Audit', href: '/org/audit-report/security-report'},
+          { name: 'Threat Report', href: '/org/audit-report/threat-report' },
+          { name: 'Vulnerability Report', href: '/org/audit-report/vuln-report' }
         ]
       },
       { name: 'Settings', icon: <Settings />, href: '/profile' },

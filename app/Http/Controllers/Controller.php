@@ -146,8 +146,8 @@ abstract class Controller
     {
         $rolesMap = [
             'organization' => Organization::class,
-            'analyst'      => Analyst::class,
             'researcher'   => Researcher::class,
+            'analyst'      => Analyst::class,
             'team'         => Team::class,
         ];
     
