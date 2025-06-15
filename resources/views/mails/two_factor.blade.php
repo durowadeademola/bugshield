@@ -32,7 +32,7 @@
     <p>If you didn't request this OTP, please contact our support and change your password immediately.</p>
 
     <br>
-    <p style="color: #475569;">— Bugshield Security Team</p>
+    <p style="color: #475569;">Bugshield.</p>
   </div>
 </body>
 </html>

@@ -129,10 +129,10 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                             Get Started
                             </Link>
                             <Link
-                            href="/demo"
+                            href="/login"
                             className="bg-transparent border border-white hover:bg-white hover:text-[#0b1e4e] px-6 py-3 rounded text-white font-semibold"
                             >
-                            Get A Demo
+                            Sign In
                             </Link>
                         </div>
                         </motion.div>
@@ -147,7 +147,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                         <img
                             src="/images/bugshield-illustration.png"
                             alt="Cybersecurity Illustration"
-                            className="object-contain w-full max-w-lg h-[500px]"
+                            className="object-contain w-full max-w-lg h-[500px] rounded-2xl"
                         />
                         </motion.div>
 

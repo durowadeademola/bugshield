@@ -164,5 +164,27 @@ abstract class Controller
             }
         }
     }
+
+    public function updateBasedOnRole($user): void
+    {
+        $rolesMap = [
+            'organization' => Organization::class,
+            'analyst'      => Analyst::class,
+            'researcher'   => Researcher::class,
+            'team'         => Team::class,
+        ];
+
+        foreach ($rolesMap as $role => $model) {
+            if ($user->hasRole($role)) {
+                $query = $model::where('user_id', $user->id)->first();
+
+                if ($query) {
+                    $query->update(['is_active' => true]);
+                }
+
+                break;
+            }
+        }
+    }
     
 }
