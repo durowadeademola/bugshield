@@ -41,7 +41,7 @@ class RegisteredUserController extends BaseController
         $role = strtolower($request->role);
 
         if (!in_array($role, ['organization', 'researcher', 'analyst', 'team'])) {
-            return redirect()->back()->withErrors(['Invalid user selected.'])->withInput();
+            return redirect()->back()->withErrors(['Please select a user.'])->withInput();
         }
 
         if ($role === "organization" && Organization::where([

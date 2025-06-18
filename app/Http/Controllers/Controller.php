@@ -176,7 +176,7 @@ abstract class Controller
 
         foreach ($rolesMap as $role => $model) {
             if ($user->hasRole($role)) {
-                $query = $model::where('user_id', $user->id)->first();
+                $query = $model::where('user_id', $user?->id)->first();
 
                 if ($query) {
                     $query->update(['is_active' => true]);

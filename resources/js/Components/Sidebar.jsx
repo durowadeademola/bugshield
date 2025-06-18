@@ -130,7 +130,7 @@ export default function Sidebar({ user, isCollapsed, setIsCollapsed }) {
         ],
       },
       {
-        name: 'AI and Automation',
+        name: 'AI & Automation',
         icon: <Bot />, 
         children: [
           { name: 'Vulnerability Scanner', href: '/org/ai-auto/scanner' },

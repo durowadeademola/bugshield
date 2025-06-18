@@ -8,7 +8,7 @@ export default function Register({ states = [] }) {
         phone_number: '',
         address: '',
         image: '',
-        role: '',
+        role: 'Organization',
         name: '',
         website: '',
         description: '',
@@ -73,20 +73,34 @@ export default function Register({ states = [] }) {
 
 
                         <form className="space-y-5" onSubmit={submit} encType="multipart/form-data">
-                         {/* VISIBLE role select field */}
-                         <div>
-                                <label className="block text-sm mb-1">You are registering as</label>
-                                <select
-                                    name="role"
-                                    value={data.role}
-                                    onChange={handleChange}
-                                    className="w-full px-4 py-3 rounded-md bg-gray-800 border border-gray-700"
-                                    required
+                         {/* User type toggle bar */}
+                        <div className="mb-4">
+                            <p className="text-sm text-white mb-1">You are registering as?</p>
+                            <div className="flex justify-center mb-6 border-b border-gray-700 space-x-10">
+                                <button
+                                    type="button"
+                                    onClick={() => setData('role', 'Organization')}
+                                    className={`px-2 py-2 text-lg font-semibold relative transition ${
+                                    data.role === 'Organization'
+                                        ? 'text-white after:absolute after:bottom-0 after:left-0 after:h-1 after:w-full after:bg-white'
+                                        : 'text-gray-400'
+                                    }`}
                                 >
-                                    <option value="">Select user</option>
-                                    <option value="Organization">Organization</option>
-                                    <option value="Researcher">Researcher</option>
-                                </select>
+                                    Organization
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => setData('role', 'Researcher')}
+                                    className={`px-2 py-2 text-lg font-semibold relative transition ${
+                                    data.role === 'Researcher'
+                                        ? 'text-white after:absolute after:bottom-0 after:left-0 after:h-1 after:w-full after:bg-white'
+                                        : 'text-gray-400'
+                                    }`}
+                                >
+                                    Researcher
+                                </button>
+                            </div>
+
                                 {errors.role && <div className="text-red-500 text-sm mt-1">{errors.role}</div>}
                             </div>
 
