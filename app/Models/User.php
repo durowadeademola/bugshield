@@ -112,33 +112,35 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
         return Setting::verify($user_id, $key, $value);
     }
 
-    public function getOrganizationAttributes() 
+    public function getOrganizationAttribute() 
     {
         return Organization::where(['user_id' => $this->id])->first();
     }
 
-    public function getAnalystAttributes() 
+    public function getAnalystAttribute() 
     {
         return Analyst::where(['user_id' => $this->id])->first();
     }
 
-    public function getResearcherAttributes() 
+    public function getResearcherAttribute() 
     {
         return Researcher::where(['user_id' => $this->id])->first();
     }
 
-    public function getTeamAttributes() 
+    public function getTeamAttribute() 
     {
         return Team::where(['user_id' => $this->id])->first();
     }
 
-    public function getAdminAttributes() 
+    public function getAdminAttribute() 
     {
         return Admin::where(['user_id' => $this->id])->first();
     }
 
     public function canAccessPanel(\Filament\Panel $panel): bool
     {
-        return str_ends_with($this->email, '@bugshield.com') && $this->hasVerifiedEmail() && $this->hasRole('admin');
+        return str_ends_with($this->email, '@bugshield.com') 
+            && $this->hasVerifiedEmail() 
+            && $this->hasRole('admin');
     }
 }

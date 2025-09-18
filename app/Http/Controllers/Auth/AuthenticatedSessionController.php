@@ -30,31 +30,29 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
-
         $request->session()->regenerate();
 
-        //handle user with enabled 2FA
+        // Handle Email-based 2FA
         if ($request->user()->isEmailTwoFactorEnabled()) {
-
             $request->user()->generateEmailTwoFactorCode();
-
-            session(['email-2fa:user:id' => $request->user()->id ?? null]);
+            session(['email-2fa:user:id' => $request->user()->id]);
 
             Auth::logout();
-
             return redirect()->route('2fa.email');
-            
-        } else if ($request->user()->isTotpTwoFactorEnabled()) {
+        }
 
-            session(['totp-2fa:user:id' => $request->user()->id ?? null]);
+        // Handle TOTP-based 2FA
+        if ($request->user()->isTotpTwoFactorEnabled()) {
+            session(['totp-2fa:user:id' => $request->user()->id]);
 
             Auth::logout();
-
             return redirect()->route('2fa.totp');
         }
 
+        // Default: redirect based on user role
         return redirect()->intended($this->redirectToRouteBasedOnRole($request->user()));
     }
+
 
     /**
      * Destroy an authenticated session.

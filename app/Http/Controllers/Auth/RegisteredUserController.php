@@ -186,7 +186,6 @@ class RegisteredUserController extends BaseController
         if ($role && $role === "organization") {
             $validator = Validator::make($request->all(), [
                 'name' => 'required|string|max:255',
-                'email' => 'required|email|unique:organizations',
                 'website' => 'required|url',
                 'address' => 'required|string|max:255',
                 'phone_number' => 'required|string|max:15',
@@ -195,7 +194,17 @@ class RegisteredUserController extends BaseController
                 'state' => 'required|string|max:100',
                 'logo_name' => 'nullable|string|max:255',
                 'logo_path' => 'nullable|string|max:255',
-                'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
+                'email' => [
+                    'required',
+                    'string',
+                    'email',
+                    'max:255',
+                    function ($attribute, $value, $fail) {
+                        if (User::where('email', $value)->exists() || Organization::where('email', $value)->exists()) {
+                            $fail("The {$attribute} already exist.");
+                        }
+                    },
+                ],
                 'password' => ['required', 'confirmed', Rules\Password::defaults()],
             ]);
 
@@ -207,11 +216,21 @@ class RegisteredUserController extends BaseController
                 'designation' => 'nullable',
                 'address' => 'nullable',
                 'phone_number' => 'nullable',
-                'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
+                'email' => [
+                    'required',
+                    'string',
+                    'email',
+                    'max:255',
+                    function ($attribute, $value, $fail) {
+                        if (User::where('email', $value)->exists() || Organization::where('email', $value)->exists()) {
+                            $fail("The {$attribute} already exist.");
+                        }
+                    },
+                ],
                 'password' => ['required', 'confirmed', Rules\Password::defaults()],
             ]);
         }
-
+        
         return $validator;
     }
 }

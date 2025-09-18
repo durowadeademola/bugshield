@@ -34,7 +34,7 @@ class RecentTransactions extends TableWidget
         return [
             Tables\Columns\TextColumn::make('researcher.full_name')
                 ->label('Researcher')
-                ->getStateUsing(fn ($record) => $record->researcher->getFullNameAttribute() ?? ''),
+                ->getStateUsing(fn ($record) => $record->researcher->full_name ?? ''),
 
             Tables\Columns\TextColumn::make('amount')
                 ->label('Amount')

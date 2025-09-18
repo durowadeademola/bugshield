@@ -31,7 +31,7 @@ class RecentReports extends Widget
 
             Tables\Columns\TextColumn::make('researcher.full_name')
                 ->label('Researcher')
-                ->getStateUsing(fn ($record) => $record->researcher->getFullNameAttribute() ?? '')
+                ->getStateUsing(fn ($record) => $record->researcher->full_name ?? '')
                 ->searchable(),
             Tables\Columns\TextColumn::make('created_at')
                 ->label('Submitted On')
