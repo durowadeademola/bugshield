@@ -3,15 +3,12 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ResearcherResource\Pages;
-use App\Filament\Resources\ResearcherResource\RelationManagers;
 use App\Models\Researcher;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ResearcherResource extends Resource
 {
@@ -63,7 +60,7 @@ class ResearcherResource extends Resource
                 Forms\Components\TextInput::make('image_name')
                     ->maxLength(100),
 
-                Forms\Components\Toggle::make('is_active')
+                Forms\Components\Toggle::make('is_active'),
             ]);
     }
 

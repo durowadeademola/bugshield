@@ -3,17 +3,13 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ReportResource\Pages;
-use App\Filament\Resources\ReportResource\RelationManagers;
 use App\Models\Report;
+use App\Models\Researcher;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-
-use App\Models\Researcher;
 
 class ReportResource extends Resource
 {
@@ -25,77 +21,77 @@ class ReportResource extends Resource
     {
         return $form
             ->schema([
-            Forms\Components\Select::make('researcher_id')
-                ->label('Researcher')
-                ->options(Researcher::where('is_active',true)->pluck('full_name', 'id'))
-                ->searchable()
-                ->required(),
+                Forms\Components\Select::make('researcher_id')
+                    ->label('Researcher')
+                    ->options(Researcher::where('is_active', true)->pluck('full_name', 'id'))
+                    ->searchable()
+                    ->required(),
 
-            Forms\Components\Select::make('program_id')
-                ->relationship('program', 'title')
-                ->required(),
+                Forms\Components\Select::make('program_id')
+                    ->relationship('program', 'title')
+                    ->required(),
 
-            Forms\Components\TextInput::make('title')
-                ->required()
-                ->maxLength(255),
+                Forms\Components\TextInput::make('title')
+                    ->required()
+                    ->maxLength(255),
 
-            Forms\Components\Textarea::make('description')
-                ->nullable()
-                ->rows(3),
+                Forms\Components\Textarea::make('description')
+                    ->nullable()
+                    ->rows(3),
 
-            Forms\Components\Select::make('status')
-                ->options([
-                    'pending' => 'Pending',
-                    'triaged' => 'Triaged',
-                    'resolved' => 'Resolved',
-                    'cancelled' => 'Cancelled'
-                ])
-                ->required(),
+                Forms\Components\Select::make('status')
+                    ->options([
+                        'pending' => 'Pending',
+                        'triaged' => 'Triaged',
+                        'resolved' => 'Resolved',
+                        'cancelled' => 'Cancelled',
+                    ])
+                    ->required(),
 
-            Forms\Components\Toggle::make('is_low')
-                ->label('Low Severity')
-                ->default(false),
+                Forms\Components\Toggle::make('is_low')
+                    ->label('Low Severity')
+                    ->default(false),
 
-            Forms\Components\Toggle::make('is_medium')
-                ->label('Medium Severity')
-                ->default(false),
+                Forms\Components\Toggle::make('is_medium')
+                    ->label('Medium Severity')
+                    ->default(false),
 
-            Forms\Components\Toggle::make('is_high')
-                ->label('High Severity')
-                ->default(false),
+                Forms\Components\Toggle::make('is_high')
+                    ->label('High Severity')
+                    ->default(false),
 
-            Forms\Components\Toggle::make('is_critical')
-                ->label('Critical Severity')
-                ->default(false),
+                Forms\Components\Toggle::make('is_critical')
+                    ->label('Critical Severity')
+                    ->default(false),
 
-            Forms\Components\Toggle::make('is_informational')
-                ->label('Informational')
-                ->default(false),
+                Forms\Components\Toggle::make('is_informational')
+                    ->label('Informational')
+                    ->default(false),
 
-            Forms\Components\Textarea::make('asset')
-                ->nullable()
-                ->rows(3)
-                ->required(),
+                Forms\Components\Textarea::make('asset')
+                    ->nullable()
+                    ->rows(3)
+                    ->required(),
 
-            Forms\Components\Textarea::make('weakness')
-                ->nullable()
-                ->rows(3)
-                ->required(),
+                Forms\Components\Textarea::make('weakness')
+                    ->nullable()
+                    ->rows(3)
+                    ->required(),
 
-            Forms\Components\TextInput::make('severity')
-                ->nullable()
-                ->maxLength(255),
+                Forms\Components\TextInput::make('severity')
+                    ->nullable()
+                    ->maxLength(255),
 
-            Forms\Components\FileUpload::make('attch_name')
-                ->image()
-                ->disk('public')
-                ->directory('report_attachments')
-                ->nullable(),
+                Forms\Components\FileUpload::make('attch_name')
+                    ->image()
+                    ->disk('public')
+                    ->directory('report_attachments')
+                    ->nullable(),
 
-            Forms\Components\Textarea::make('impact')
-                ->nullable()
-                ->rows(3)
-                ->required(),
+                Forms\Components\Textarea::make('impact')
+                    ->nullable()
+                    ->rows(3)
+                    ->required(),
             ]);
     }
 
@@ -105,7 +101,7 @@ class ReportResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('researcher.full_name')
                     ->label('Researcher')
-                    ->getStateUsing(fn ($record) => $record->researcher->getFullNameAttribute() ?? '')
+                    ->getStateUsing(fn ($record) => $record->researcher->full_name ?? '')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('program.title')->label('Program'),
                 Tables\Columns\TextColumn::make('title')->limit(50),

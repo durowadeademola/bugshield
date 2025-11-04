@@ -2,21 +2,20 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Http\Traits\GuidId;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Http\Traits\GuidId;
 
 class Plan extends Model
 {
-    use SoftDeletes, GuidId;
+    use GuidId, SoftDeletes;
 
     public $table = 'plans';
 
     protected $dates = ['deleted_at'];
 
     protected $fillable = ['title', 'description', 'amount', 'max_reports', 'is_free', 'is_basic', 'is_pro', 'is_enterprise',
-        'is_life_time', 'is_daily', 'is_weekly', 'is_monthly', 'is_yearly', 'custom_period', 'logo_name', 'logo_path'
+        'is_life_time', 'is_daily', 'is_weekly', 'is_monthly', 'is_yearly', 'custom_period', 'logo_name', 'logo_path',
     ];
 
     protected function casts(): array
@@ -28,7 +27,7 @@ class Plan extends Model
             'max_reports' => 'integer',
             'is_free' => 'boolean',
             'is_basic' => 'boolean',
-            'is_pro' => 'boolean', 
+            'is_pro' => 'boolean',
             'is_enterprise' => 'boolean',
             'is_life_time' => 'boolean',
             'is_daily' => 'boolean',
@@ -36,7 +35,7 @@ class Plan extends Model
             'is_monthly' => 'boolean',
             'is_yearly' => 'boolean',
             'logo_name' => 'string',
-            'logo_path' => 'string'
+            'logo_path' => 'string',
         ];
     }
 }

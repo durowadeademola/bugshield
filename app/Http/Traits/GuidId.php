@@ -2,7 +2,6 @@
 
 namespace App\Http\Traits;
 
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 trait GuidId
@@ -11,8 +10,8 @@ trait GuidId
     {
         parent::boot();
 
-        static::creating(function ($model){
-            if (!$model->getKey()){
+        static::creating(function ($model) {
+            if (! $model->getKey()) {
                 $guidStr = (string) Str::uuid();
                 $model->{$model->getKeyName()} = $guidStr;
             }

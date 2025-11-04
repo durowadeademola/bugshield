@@ -2,9 +2,9 @@
 
 namespace App\Filament\Widgets;
 
-use Filament\Widgets\ChartWidget;
 use App\Models\Transaction;
 use Carbon\Carbon;
+use Filament\Widgets\ChartWidget;
 
 class BountyPaymentsChart extends ChartWidget
 {

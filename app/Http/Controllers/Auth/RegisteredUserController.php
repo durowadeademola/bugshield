@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller as BaseController;
+use App\Models\Analyst;
+use App\Models\Organization;
+use App\Models\Researcher;
+use App\Models\Team;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -14,11 +18,6 @@ use Inertia\Inertia;
 use Inertia\Response;
 use Validator;
 
-use App\Models\Analyst;
-use App\Models\Researcher;
-use App\Models\Organization;
-use App\Models\Team;
-
 class RegisteredUserController extends BaseController
 {
     /**
@@ -26,8 +25,8 @@ class RegisteredUserController extends BaseController
      */
     public function create(): Response
     {
-        return Inertia::render('Auth/Register',[
-            'states' => BaseController::getStatesList()
+        return Inertia::render('Auth/Register', [
+            'states' => BaseController::getStatesList(),
         ]);
     }
 
@@ -40,27 +39,28 @@ class RegisteredUserController extends BaseController
     {
         $role = strtolower($request->role);
 
-        if (!in_array($role, ['organization', 'researcher', 'analyst', 'team'])) {
+        if (! in_array($role, ['organization', 'researcher', 'analyst', 'team'])) {
             return redirect()->back()->withErrors(['Please select a user.'])->withInput();
         }
 
-        if ($role === "organization" && Organization::where([
+        if ($role === 'organization' && Organization::where([
             'name' => $request->name,
-            'email' => $request->email
-        ])->exists()) {return redirect()->back()->withErrors(['The organization already exists.'])->withInput();} 
-
-        else if ($role === "researcher" && Researcher::where([
+            'email' => $request->email,
+        ])->exists()) {
+            return redirect()->back()->withErrors(['The organization already exists.'])->withInput();
+        } elseif ($role === 'researcher' && Researcher::where([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
-            'email' => $request->email
-        ])->exists()) {return redirect()->back()->withErrors(['The researcher already exists.'])->withInput();}
-
-        else if ($role === 'team' && Team::where([
+            'email' => $request->email,
+        ])->exists()) {
+            return redirect()->back()->withErrors(['The researcher already exists.'])->withInput();
+        } elseif ($role === 'team' && Team::where([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
-            'email' => $request->email
-        ])->exists()) {return redirect()->back()->withError(['The team already exists'])->withInput();}
-
+            'email' => $request->email,
+        ])->exists()) {
+            return redirect()->back()->withError(['The team already exists'])->withInput();
+        }
 
         $validator = $this->validateBasedOnRole($role, $request);
 
@@ -69,35 +69,37 @@ class RegisteredUserController extends BaseController
         }
 
         $user = User::create([
-            'name' => $role === "organization" ? $request->name : $request->first_name . " " . $request->last_name,
+            'name' => $role === 'organization' ? $request->name : $request->first_name.' '.$request->last_name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
-        if (!empty($user)) {
+        if (! empty($user)) {
             $user->assignRole($role);
         }
 
         $this->createBasedOnRole($role, $user, $request);
 
-        //Dispatch email verification
+        // Dispatch email verification
         event(new Registered($user));
 
         Auth::login($user);
 
         return redirect()->route('verification.notice');
 
-        //return redirect(route('dashboard', absolute: false));
+        // return redirect(route('dashboard', absolute: false));
     }
 
     protected function createBasedOnRole(string $role, $user, Request $request)
     {
-        if ($user && $user->hasRole('organization') && strtolower($role) === "organization") {
+        if ($user && $user->hasRole('organization') && strtolower($role) === 'organization') {
             if (Organization::where([
                 'user_id' => $user->id,
                 'name' => $request->name,
-                'email' => $request->email
-            ])->exists()) {return redirect()->back()->withErrors(['The organization already exists.'])->withInput();}
+                'email' => $request->email,
+            ])->exists()) {
+                return redirect()->back()->withErrors(['The organization already exists.'])->withInput();
+            }
 
             Organization::create([
                 'user_id' => $user->id,
@@ -109,16 +111,18 @@ class RegisteredUserController extends BaseController
                 'description' => $request->description,
                 'country' => $request->country,
                 'state' => $request->state,
-                'is_active' => false 
+                'is_active' => false,
             ]);
 
-        } elseif ($user && $user->hasRole('researcher') && strtolower($role) === "researcher") {
+        } elseif ($user && $user->hasRole('researcher') && strtolower($role) === 'researcher') {
             if (Researcher::where([
                 'user_id' => $user->id,
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
-                'email' => $request->email
-            ])->exists()) {return redirect()->back()->withErrors(['The researcher already exists.'])->withInput();}
+                'email' => $request->email,
+            ])->exists()) {
+                return redirect()->back()->withErrors(['The researcher already exists.'])->withInput();
+            }
 
             Researcher::create([
                 'user_id' => $user->id,
@@ -129,15 +133,17 @@ class RegisteredUserController extends BaseController
                 'designation' => $request->designation,
                 'address' => $request->address,
                 'phone_number' => $request->phone_number,
-                'is_active' => false
+                'is_active' => false,
             ]);
-        } elseif ($user && $user->hasRole('analyst') && strtolower($role) === "analyst") {
+        } elseif ($user && $user->hasRole('analyst') && strtolower($role) === 'analyst') {
             if (Analyst::where([
                 'user_id' => $user->id,
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
-                'email' => $request->email
-            ])->exists()) {return redirect()->back()->withErrors(['The analyst already exists.'])->withInput();}
+                'email' => $request->email,
+            ])->exists()) {
+                return redirect()->back()->withErrors(['The analyst already exists.'])->withInput();
+            }
 
             Analyst::create([
                 'user_id' => $user->id,
@@ -148,21 +154,23 @@ class RegisteredUserController extends BaseController
                 'designation' => $request->designation,
                 'address' => $request->address,
                 'phone_number' => $request->phone_number,
-                'is_active' => false
+                'is_active' => false,
             ]);
-        } elseif ($user && $user->hasRole('team') && strtolower($role) === "team") {
+        } elseif ($user && $user->hasRole('team') && strtolower($role) === 'team') {
             if (Team::where([
                 'user_id' => $user->id,
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
-                'email' => $request->email
-            ])->exists()) {return redirect()->back()->withErrors(['The team already exists.'])->withInput();}
+                'email' => $request->email,
+            ])->exists()) {
+                return redirect()->back()->withErrors(['The team already exists.'])->withInput();
+            }
 
             $org = Organization::where([
-                'user_id' => optional($request->user())->id
+                'user_id' => optional($request->user())->id,
             ])->first();
 
-            if (!empty($org)) {
+            if (! empty($org)) {
                 Team::create([
                     'user_id' => $user->id,
                     'organization_id' => $org->id,
@@ -173,7 +181,7 @@ class RegisteredUserController extends BaseController
                     'designation' => $request->designation,
                     'address' => $request->address,
                     'phone_number' => $request->phone_number,
-                    'is_active' => false
+                    'is_active' => false,
                 ]);
             }
         }
@@ -183,7 +191,7 @@ class RegisteredUserController extends BaseController
     {
         $validator = null;
 
-        if ($role && $role === "organization") {
+        if ($role && $role === 'organization') {
             $validator = Validator::make($request->all(), [
                 'name' => 'required|string|max:255',
                 'website' => 'required|url',
@@ -208,8 +216,8 @@ class RegisteredUserController extends BaseController
                 'password' => ['required', 'confirmed', Rules\Password::defaults()],
             ]);
 
-        } else if($role && $role === "researcher" || $role === "analyst" || $role === "team") {
-            $validator = Validator::make($request->all(),[
+        } elseif ($role && $role === 'researcher' || $role === 'analyst' || $role === 'team') {
+            $validator = Validator::make($request->all(), [
                 'first_name' => 'required|string|max:255',
                 'middle_name' => 'nullable|string|max:255',
                 'last_name' => 'required|string|max:255',
@@ -230,7 +238,7 @@ class RegisteredUserController extends BaseController
                 'password' => ['required', 'confirmed', Rules\Password::defaults()],
             ]);
         }
-        
+
         return $validator;
     }
 }

@@ -1,19 +1,17 @@
 <?php
 
+use App\Http\Controllers\AnalystController;
 use App\Http\Controllers\Auth\EmailTwoFactorController;
 use App\Http\Controllers\Auth\TotpTwoFactorController;
-use App\Http\Middleware\PreventAdminLogin;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ResearcherController;
+use App\Http\Controllers\TeamController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-
-use App\Http\Controllers\OrganizationController;
-use App\Http\Controllers\ResearcherController;
-use App\Http\Controllers\AnalystController;
-use App\Http\Controllers\NotificationController;
-use App\Http\Controllers\TeamController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [

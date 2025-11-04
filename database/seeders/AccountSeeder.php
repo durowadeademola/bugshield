@@ -2,13 +2,13 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use App\Models\Analyst;
+use App\Models\Account;
 use App\Models\Admin;
+use App\Models\Analyst;
 use App\Models\Researcher;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
 use Illuminate\Database\Seeder;
-use App\Models\Account;
 
 class AccountSeeder extends Seeder
 {
@@ -17,10 +17,10 @@ class AccountSeeder extends Seeder
      */
     public function run(): void
     {
-        //analyst account
+        // analyst account
         $analyst = User::where([
             'name' => 'bugshield-analyst',
-            'email' => 'analyst@bugshield.com'
+            'email' => 'analyst@bugshield.com',
         ])->first();
 
         if ($analyst) {
@@ -34,8 +34,8 @@ class AccountSeeder extends Seeder
                     'account_type' => 'savings',
                     'currency' => 'NGN',
                     'status' => 'active',
-                    'balance' => '1000000'
-                ]); 
+                    'balance' => '1000000',
+                ]);
                 $this->command->info('Analyst account created successfully.');
             } else {
                 $this->command->info('Analyst account already exist.');
@@ -44,10 +44,10 @@ class AccountSeeder extends Seeder
             $this->command->info('Analyst account does not exist.');
         }
 
-        //admin account
+        // admin account
         $admin = User::where([
             'name' => 'bugshield-admin',
-            'email' => 'admin@bugshield.com'
+            'email' => 'admin@bugshield.com',
         ])->first();
 
         if ($admin) {
@@ -61,8 +61,8 @@ class AccountSeeder extends Seeder
                     'account_type' => 'savings',
                     'currency' => 'NGN',
                     'status' => 'active',
-                    'balance' => '3000000'
-                ]); 
+                    'balance' => '3000000',
+                ]);
                 $this->command->info('Admin account created successfully.');
             } else {
                 $this->command->info('Admin account already exist.');
@@ -71,10 +71,10 @@ class AccountSeeder extends Seeder
             $this->command->info('Admin account does not exist.');
         }
 
-        //researcher account
+        // researcher account
         $researcher = User::where([
             'name' => 'bugshield-researcher',
-            'email' => 'researcher@bugshield.com'
+            'email' => 'researcher@bugshield.com',
         ])->first();
 
         if ($researcher) {
@@ -88,8 +88,8 @@ class AccountSeeder extends Seeder
                     'account_type' => 'savings',
                     'currency' => 'NGN',
                     'status' => 'active',
-                    'balance' => '5000000'
-                ]); 
+                    'balance' => '5000000',
+                ]);
                 $this->command->info('Researcher account created successfully.');
             } else {
                 $this->command->info('Researcher account already exist.');

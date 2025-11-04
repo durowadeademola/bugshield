@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 use App\Models\Analyst;
+use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -16,7 +16,7 @@ class AnalystSeeder extends Seeder
     {
         $analyst = User::where([
             'name' => 'bugshield-analyst',
-            'email' => 'analyst@bugshield.com'
+            'email' => 'analyst@bugshield.com',
         ])->first();
 
         if ($analyst) {
@@ -30,7 +30,7 @@ class AnalystSeeder extends Seeder
                     'designation' => 'bugshield-analyst',
                     'address' => 'No 22, Citizens Avenue, Dawaki. Abuja',
                     'phone_number' => '07064706193',
-                    'is_active' => true
+                    'is_active' => true,
                 ]);
                 $this->command->info('Analyst created successfully.');
             } else {

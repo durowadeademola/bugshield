@@ -2,12 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
-
 use App\Models\Organization;
-use App\Models\User;
 use App\Models\Team;
+use App\Models\User;
+use Illuminate\Database\Seeder;
 
 class TeamSeeder extends Seeder
 {
@@ -18,12 +16,12 @@ class TeamSeeder extends Seeder
     {
         $organization = Organization::where([
             'name' => 'Bugshield',
-            'email' => 'bugshield@gmail.com'
+            'email' => 'bugshield@gmail.com',
         ])->first();
 
         $team = User::where([
             'name' => 'bugshield-team',
-            'email' => 'team@bugshield.com'
+            'email' => 'team@bugshield.com',
         ])->first();
 
         if ($team && $organization) {
@@ -38,7 +36,7 @@ class TeamSeeder extends Seeder
                     'designation' => 'bugshield-team',
                     'address' => 'No 22, Citizens Avenue, Dawaki. Abuja',
                     'phone_number' => '07064706193',
-                    'is_active' => true
+                    'is_active' => true,
                 ]);
                 $this->command->info('Team created successfully.');
             } else {
@@ -46,6 +44,6 @@ class TeamSeeder extends Seeder
             }
         } else {
             $this->command->info('Team user does not exist.');
-        } 
+        }
     }
 }

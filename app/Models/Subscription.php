@@ -2,26 +2,25 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Http\Traits\GuidId;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Http\Traits\GuidId;
 
 class Subscription extends Model
 {
-    use SoftDeletes, GuidId;
+    use GuidId, SoftDeletes;
 
     public $table = 'subscriptions';
 
     protected $dates = ['deleted_at'];
-    
+
     protected $fillable = ['organization_id', 'plan_id', 'status', 'is_active'];
 
     protected function casts(): array
     {
         return [
             'status' => 'string',
-            'is_active' => 'boolean'
+            'is_active' => 'boolean',
         ];
     }
 

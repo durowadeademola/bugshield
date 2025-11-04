@@ -86,5 +86,5 @@ return [
     'livewire_loading_delay' => 'default',
 
     'footer' => 'BugShield - Secure Your Business',
-    
+
 ];

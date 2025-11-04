@@ -2,10 +2,6 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
-
-use App\Http\Requests\BaseFormRequest;
-
 class UpdateOrganizationRequest extends BaseFormRequest
 {
     /**
@@ -26,7 +22,7 @@ class UpdateOrganizationRequest extends BaseFormRequest
         return [
             'user_id' => 'required|exists:users,id',
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:organizations,email,' . $this->organization->id,
+            'email' => 'required|email|unique:organizations,email,'.$this->organization->id,
             'website' => 'nullable|url',
             'address' => 'nullable|string|max:255',
             'phone_number' => 'nullable|string|max:15',

@@ -3,32 +3,32 @@
 namespace App\Models;
 
 use App\Http\Traits\GuidId;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Mail\TwoFactorCodeMail;
+use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
+// use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-//use Laravel\Sanctum\HasApiTokens;
-use Spatie\Permission\Traits\HasRoles;
-use Filament\Models\Contracts\FilamentUser;
-use Laravel\Fortify\TwoFactorAuthenticatable;
-use App\Mail\TwoFactorCodeMail; 
 use Illuminate\Support\Facades\Mail;
+use Laravel\Fortify\TwoFactorAuthenticatable;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements FilamentUser, MustVerifyEmail
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use Notifiable, TwoFactorAuthenticatable, SoftDeletes, GuidId, HasRoles;
+    use GuidId, HasRoles, Notifiable, SoftDeletes, TwoFactorAuthenticatable;
 
     public $incrementing = false;
-    protected $keyType = 'string'; 
+
+    protected $keyType = 'string';
 
     /**
      * The attributes that are mass assignable.
      *
      * @var list<string>
      */
-
     public $table = 'users';
 
     protected $dates = ['deleted_at'];
@@ -38,7 +38,7 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
         'email',
         'password',
         'email_two_factor_enabled',
-        'totp_two_factor_enabled'
+        'totp_two_factor_enabled',
     ];
 
     /**
@@ -112,35 +112,35 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
         return Setting::verify($user_id, $key, $value);
     }
 
-    public function getOrganizationAttribute() 
+    public function getOrganizationAttribute()
     {
         return Organization::where(['user_id' => $this->id])->first();
     }
 
-    public function getAnalystAttribute() 
+    public function getAnalystAttribute()
     {
         return Analyst::where(['user_id' => $this->id])->first();
     }
 
-    public function getResearcherAttribute() 
+    public function getResearcherAttribute()
     {
         return Researcher::where(['user_id' => $this->id])->first();
     }
 
-    public function getTeamAttribute() 
+    public function getTeamAttribute()
     {
         return Team::where(['user_id' => $this->id])->first();
     }
 
-    public function getAdminAttribute() 
+    public function getAdminAttribute()
     {
         return Admin::where(['user_id' => $this->id])->first();
     }
 
     public function canAccessPanel(\Filament\Panel $panel): bool
     {
-        return str_ends_with($this->email, '@bugshield.com') 
-            && $this->hasVerifiedEmail() 
+        return str_ends_with($this->email, '@bugshield.com')
+            && $this->hasVerifiedEmail()
             && $this->hasRole('admin');
     }
 }

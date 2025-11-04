@@ -2,10 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class RolePermissionSeeder extends Seeder
 {
@@ -20,7 +19,7 @@ class RolePermissionSeeder extends Seeder
             'researcher',
             'organization',
             'analyst',
-            'team'
+            'team',
         ];
 
         // available permissions
@@ -34,16 +33,14 @@ class RolePermissionSeeder extends Seeder
             'approve reports',
             'create reports',
             'view reports',
-            'manage organization'
+            'manage organization',
         ];
 
-        foreach ($roles as $role)
-        {
+        foreach ($roles as $role) {
             Role::firstOrCreate(['name' => $role]);
         }
 
-        foreach ($permissions as $permission)
-        {
+        foreach ($permissions as $permission) {
             Permission::firstOrCreate(['name' => $permission]);
         }
 
@@ -64,7 +61,7 @@ class RolePermissionSeeder extends Seeder
         ]);
 
         Role::findByName('team')->givePermissionTo([
-            'manage organization'
+            'manage organization',
         ]);
 
         $this->command->info('Roles and permissions seeded successfully.');

@@ -18,6 +18,7 @@ class PreventAdminLogin
         if ($request->is('login') && auth()->check() && auth()->user()->hasRole('admin')) {
             return redirect('/admin'); // Redirect to Filament admin panel
         }
+
         return $next($request);
     }
 }

@@ -2,12 +2,9 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Http\Response;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Validation\ValidationException;
-use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\ValidationException;
 
 abstract class BaseFormRequest extends FormRequest
 {
@@ -28,7 +25,6 @@ abstract class BaseFormRequest extends FormRequest
     /**
      * Handle a failed validation attempt.
      *
-     * @param  \Illuminate\Contracts\Validation\Validator $validator
      * @return void
      *
      * @throws \Illuminate\Validation\ValidationException
@@ -39,7 +35,7 @@ abstract class BaseFormRequest extends FormRequest
 
         if ($this->wantsJson()) {
             $response = response()->json([
-                'errors' => $validator->errors()
+                'errors' => $validator->errors(),
             ]);
         } else {
 

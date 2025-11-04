@@ -3,7 +3,6 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
@@ -37,13 +36,13 @@ class ReportNotifcation extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-        ->subject('New Report Submitted')
-        ->line('A new bug report has been submitted by a researcher.')
-        ->action('View Report', url('/reports/' . $this->report->id))
-        ->line('Thank you for using BugShield!');
+            ->subject('New Report Submitted')
+            ->line('A new bug report has been submitted by a researcher.')
+            ->action('View Report', url('/reports/'.$this->report->id))
+            ->line('Thank you for using BugShield!');
     }
 
-    //$user->notify(new NewReportSubmitted($report));
+    // $user->notify(new NewReportSubmitted($report));
 
     public function toDatabase(object $notifiable)
     {

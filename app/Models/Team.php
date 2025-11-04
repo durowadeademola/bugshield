@@ -2,22 +2,21 @@
 
 namespace App\Models;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Http\Traits\GuidId;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Http\Traits\GuidId;
+use Illuminate\Notifications\Notifiable;
 
 class Team extends Model
 {
-    use Notifiable, SoftDeletes, GuidId;
+    use GuidId, Notifiable, SoftDeletes;
 
     public $table = 'teams';
 
     protected $dates = ['deleted_at'];
 
     protected $fillable = ['user_id', 'organization_id', 'first_name', 'middle_name', 'last_name', 'email',
-        'designation', 'address', 'phone_number', 'is_active'
+        'designation', 'address', 'phone_number', 'is_active',
     ];
 
     protected function casts(): array
@@ -33,7 +32,7 @@ class Team extends Model
         ];
     }
 
-    public function user() 
+    public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
@@ -47,5 +46,4 @@ class Team extends Model
     {
         return "{$this->first_name} {$this->last_name}";
     }
-
 }

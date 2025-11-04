@@ -3,24 +3,18 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\TwoFactorChallengeRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Inertia\Inertia;
-use Inertia\Response;
-use Illuminate\Http\JsonResponse;
-
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Validation\ValidationException;
-
-use Laravel\Fortify\Actions\EnableTwoFactorAuthentication;
+use Inertia\Inertia;
+use Inertia\Response;
 use Laravel\Fortify\Actions\DisableTwoFactorAuthentication;
-
-use Laravel\Fortify\Http\Requests\TwoFactorLoginRequest;
-use Illuminate\Http\Exceptions\HttpResponseException;
-
-use App\Http\Requests\Auth\TwoFactorChallengeRequest;
+use Laravel\Fortify\Actions\EnableTwoFactorAuthentication;
 use Laravel\Fortify\Events\RecoveryCodeReplaced;
 
 class TotpTwoFactorController extends Controller
@@ -42,7 +36,7 @@ class TotpTwoFactorController extends Controller
         return Inertia::render('Profile/TotpTwoFactorSetting', [
             'totpTwoFactorEnabled' => $totpTwoFactorEnabled,
             'qrCode' => $qrCode,
-            'recoveryCodes' => $recoveryCodes
+            'recoveryCodes' => $recoveryCodes,
         ]);
     }
 
@@ -51,7 +45,7 @@ class TotpTwoFactorController extends Controller
         if (! $request->session()->has('totp-2fa:user:id')) {
             throw new HttpResponseException(redirect()->route('login'));
         }
-        
+
         return Inertia::render('Auth/TotpTwoFactorChallenge');
     }
 
@@ -59,10 +53,10 @@ class TotpTwoFactorController extends Controller
     {
         $user = $request->getChallengedUser();
 
-        if(! $user->isTotpTwoFactorEnabled()) {
+        if (! $user->isTotpTwoFactorEnabled()) {
             throw new HttpResponseException(redirect()->route('login'));
-        } 
-        
+        }
+
         // Throttle attempts to prevent brute-force
         $this->ensureIsNotRateLimited($request);
 
@@ -86,28 +80,27 @@ class TotpTwoFactorController extends Controller
         if ($request->filled('recovery_code')) {
             // Get decrypted array of recovery codes using Fortify's built-in method
             $recoveryCodes = $user->recoveryCodes();
-        
-            if (!in_array($request->input('recovery_code'), $recoveryCodes)) {
+
+            if (! in_array($request->input('recovery_code'), $recoveryCodes)) {
                 RateLimiter::hit($this->throttleKey($request));
-                throw ValidationException::withMessages(['recovery_code' => 'The provided recovery code is invalid.',]);
+                throw ValidationException::withMessages(['recovery_code' => 'The provided recovery code is invalid.']);
             }
-        
+
             // Invalidate the used recovery code
             $remainingCodes = array_values(array_diff($recoveryCodes, [$request->input('recovery_code')]));
-        
+
             $user->forceFill([
                 'two_factor_recovery_codes' => encrypt(json_encode($remainingCodes)),
             ])->save();
-        
+
             // Optionally handle any internal logic related to the used recovery code
             $request->getChallengedUser()->replaceRecoveryCode($request->input('recovery_code'));
-        
+
             event(new RecoveryCodeReplaced($user, $request->input('recovery_code')));
         }
-        
-        
+
         if ($request->filled('code')) {
-            if(! $request->hasValidCode() && ! $this->isValidTotpCode($user, $request->input('code'))) {
+            if (! $request->hasValidCode() && ! $this->isValidTotpCode($user, $request->input('code'))) {
                 RateLimiter::hit($this->throttleKey($request));
                 throw ValidationException::withMessages(['code' => 'The provided authentication code is invalid.']);
             }
@@ -127,13 +120,13 @@ class TotpTwoFactorController extends Controller
     public function enable(EnableTwoFactorAuthentication $enable): JsonResponse
     {
         $user = Auth::user();
-    
+
         $user->totp_two_factor_enabled = true;
         $user->email_two_factor_enabled = false;
         $user->save();
-    
+
         $enable($user);
-    
+
         return response()->json(['success' => true, 'newlyEnabled' => true]);
     }
 
@@ -151,12 +144,12 @@ class TotpTwoFactorController extends Controller
 
     protected function throttleKey(Request $request)
     {
-        return strtolower($request->ip()) . '|totp-2fa';
+        return strtolower($request->ip()).'|totp-2fa';
     }
 
     protected function ensureIsNotRateLimited(Request $request)
     {
-        if (!RateLimiter::tooManyAttempts($this->throttleKey($request), 5)) {
+        if (! RateLimiter::tooManyAttempts($this->throttleKey($request), 5)) {
             return;
         }
 
@@ -170,5 +163,4 @@ class TotpTwoFactorController extends Controller
         return app(\Pragmarx\Google2FA\Google2FA::class)
             ->verifyKey(decrypt($user->two_factor_secret), $code);
     }
-
 }

@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\OrganizationResource\Pages;
-use App\Filament\Resources\OrganizationResource\RelationManagers;
 use App\Models\Organization;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -11,7 +10,6 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class OrganizationResource extends Resource
 {
@@ -24,57 +22,57 @@ class OrganizationResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Select::make('user_id')
-                ->relationship('user', 'name')
-                ->required(),
+                    ->relationship('user', 'name')
+                    ->required(),
 
-            Forms\Components\TextInput::make('name')
-                ->required()
-                ->maxLength(255),
+                Forms\Components\TextInput::make('name')
+                    ->required()
+                    ->maxLength(255),
 
-            Forms\Components\TextInput::make('email')
-                ->required()
-                ->email()
-                ->maxLength(255),
+                Forms\Components\TextInput::make('email')
+                    ->required()
+                    ->email()
+                    ->maxLength(255),
 
-            Forms\Components\TextInput::make('website')
-                ->url()
-                ->nullable()
-                ->maxLength(255),
+                Forms\Components\TextInput::make('website')
+                    ->url()
+                    ->nullable()
+                    ->maxLength(255),
 
-            Forms\Components\TextInput::make('address')
-                ->required()
-                ->maxLength(255),
+                Forms\Components\TextInput::make('address')
+                    ->required()
+                    ->maxLength(255),
 
-            Forms\Components\TextInput::make('phone_number')
-                ->required()
-                ->maxLength(15),
+                Forms\Components\TextInput::make('phone_number')
+                    ->required()
+                    ->maxLength(15),
 
-            Forms\Components\Textarea::make('description')
-                ->nullable()
-                ->rows(3),
+                Forms\Components\Textarea::make('description')
+                    ->nullable()
+                    ->rows(3),
 
-            Forms\Components\TextInput::make('country')
-                ->required()
-                ->maxLength(255),
+                Forms\Components\TextInput::make('country')
+                    ->required()
+                    ->maxLength(255),
 
-            Forms\Components\TextInput::make('state')
-                ->nullable()
-                ->maxLength(255),
+                Forms\Components\TextInput::make('state')
+                    ->nullable()
+                    ->maxLength(255),
 
-            Forms\Components\FileUpload::make('logo_path')
-                ->image()
-                ->disk('public')
-                ->directory('logos')
-                ->nullable(),
+                Forms\Components\FileUpload::make('logo_path')
+                    ->image()
+                    ->disk('public')
+                    ->directory('logos')
+                    ->nullable(),
 
-            Forms\Components\TextInput::make('logo_name')
-                ->nullable()
-                ->maxLength(255),
+                Forms\Components\TextInput::make('logo_name')
+                    ->nullable()
+                    ->maxLength(255),
 
-            Forms\Components\Toggle::make('is_active')
-                ->required()
-                ->label('Is Active')
-                ->default(true),
+                Forms\Components\Toggle::make('is_active')
+                    ->required()
+                    ->label('Is Active')
+                    ->default(true),
             ]);
     }
 

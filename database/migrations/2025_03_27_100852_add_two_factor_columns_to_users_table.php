@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            //for totp based 2FA
+            // for totp based 2FA
             $table->text('two_factor_secret')
                 ->after('password')
                 ->nullable();
@@ -25,12 +25,12 @@ return new class extends Migration
                 ->after('two_factor_recovery_codes')
                 ->nullable();
 
-            //enable totp two factor
+            // enable totp two factor
             $table->boolean('totp_two_factor_enabled')
                 ->after('two_factor_confirmed_at')
                 ->default(false);
 
-            //for email based 2FA
+            // for email based 2FA
             $table->text('two_factor_code')
                 ->after('totp_two_factor_enabled')
                 ->nullable();
@@ -39,7 +39,7 @@ return new class extends Migration
                 ->after('two_factor_code')
                 ->nullable();
 
-            //enable email two factor
+            // enable email two factor
             $table->boolean('email_two_factor_enabled')
                 ->after('two_factor_expires_at')
                 ->default(false);
@@ -59,7 +59,7 @@ return new class extends Migration
                 'two_factor_code',
                 'two_factor_expires_at',
                 'email_two_factor_enabled',
-                'totp_two_factor_enabled'
+                'totp_two_factor_enabled',
             ]);
         });
     }

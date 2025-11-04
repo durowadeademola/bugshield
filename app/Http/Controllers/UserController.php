@@ -2,19 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;
-
-use Illuminate\Auth\Events\Registered;
-
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
-
-use App\Http\Models\User;
-use App\Http\Models\Analyst;
-use App\Http\Models\Researcher;
-use App\Http\Models\Organization;
-
+use Illuminate\Http\RedirectResponse;
 
 class UserController extends Controller
 {
@@ -39,7 +29,7 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request): RedirectResponse
     {
-       //
+        //
     }
 
     /**

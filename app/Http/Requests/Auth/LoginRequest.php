@@ -40,29 +40,28 @@ class LoginRequest extends FormRequest
     public function authenticate(): void
     {
         $this->ensureIsNotRateLimited();
-    
+
         if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
-    
+
             throw ValidationException::withMessages([
                 'email' => trans('auth.failed'),
             ]);
         }
-    
+
         RateLimiter::clear($this->throttleKey());
-    
+
         // Get the authenticated user
         $user = Auth::user();
 
-        if ($user && $user->hasRole('admin')) { 
-            Auth::logout(); 
-            
+        if ($user && $user->hasRole('admin')) {
+            Auth::logout();
+
             throw ValidationException::withMessages([
                 'email' => 'User does not have access to this resource.',
             ]);
         }
     }
-    
 
     /**
      * Ensure the login request is not rate limited.

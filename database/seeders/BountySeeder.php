@@ -2,13 +2,13 @@
 
 namespace Database\Seeders;
 
+use App\Models\Bounty;
+use App\Models\Organization;
 use App\Models\Program;
 use App\Models\Report;
-use App\Models\Researcher;
-use App\Models\Organization;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Researcher;
 use Illuminate\Database\Seeder;
-use App\Models\Bounty;
 
 class BountySeeder extends Seeder
 {
@@ -24,12 +24,12 @@ class BountySeeder extends Seeder
         $researcher = Researcher::where([
             'first_name' => 'Abdulmajeed',
             'last_name' => 'Durowade',
-            'email' => 'durowadeabdulmajeed@gmail.com'
+            'email' => 'durowadeabdulmajeed@gmail.com',
         ])->first();
 
         $organization = Organization::where([
             'name' => 'Bugshield',
-            'email' => 'bugshield@gmail.com'
+            'email' => 'bugshield@gmail.com',
         ])->first();
 
         if ($program && $report && $researcher && $organization) {
@@ -45,7 +45,7 @@ class BountySeeder extends Seeder
                     'is_medium' => false,
                     'is_high' => false,
                     'is_critical' => true,
-                    'is_informational' => false
+                    'is_informational' => false,
                 ]);
                 $this->command->info('Bounty created successfully.');
             } else {

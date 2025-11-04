@@ -2,14 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Http\Traits\GuidId;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Http\Traits\GuidId;
 
 class Transaction extends Model
 {
-    use SoftDeletes, GuidId;
+    use GuidId, SoftDeletes;
 
     public $table = 'transactions';
 
@@ -17,7 +16,7 @@ class Transaction extends Model
 
     protected $fillable = [
         'txn_id', 'program_id', 'bounty_id', 'researcher_id', 'organization_id', 'amount', 'status',
-        'payment_method', 'transaction_reference'
+        'payment_method', 'transaction_reference',
     ];
 
     protected function casts(): array
@@ -27,7 +26,7 @@ class Transaction extends Model
             'amount' => 'integer',
             'status' => 'string',
             'payment_method' => 'string',
-            'transaction_reference' => 'string'
+            'transaction_reference' => 'string',
         ];
     }
 

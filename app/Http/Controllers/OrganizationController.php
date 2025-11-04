@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Auth;
-
-use Inertia\Inertia;
 use App\Http\Requests\StoreOrganizationRequest;
 use App\Http\Requests\UpdateOrganizationRequest;
+use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class OrganizationController extends Controller
 {
@@ -17,8 +14,8 @@ class OrganizationController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Organization/Dashboard',[
-            'user' => Auth::user()->load('notifications')
+        return Inertia::render('Organization/Dashboard', [
+            'user' => Auth::user()->load('notifications'),
         ]);
     }
 

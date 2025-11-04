@@ -2,10 +2,6 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
-
-use App\Http\Requests\BaseFormRequest;
-
 class UpdateAccountRequest extends BaseFormRequest
 {
     /**
@@ -25,7 +21,7 @@ class UpdateAccountRequest extends BaseFormRequest
     {
         return [
             'user_id' => 'required|exists:users,id',
-            'account_number' => 'required|string|unique:accounts,account_number,' . $this->account->id,
+            'account_number' => 'required|string|unique:accounts,account_number,'.$this->account->id,
             'account_name' => 'required|string',
             'bank_name' => 'required|string',
             'bank_code' => 'required|string',

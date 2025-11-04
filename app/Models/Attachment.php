@@ -2,14 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Http\Traits\GuidId;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Http\Traits\GuidId;
 
 class Attachment extends Model
 {
-    use SoftDeletes, GuidId;
+    use GuidId, SoftDeletes;
 
     public $table = 'attachments';
 
@@ -22,7 +21,7 @@ class Attachment extends Model
         return ['file_path' => 'string'];
     }
 
-    public function report() 
+    public function report()
     {
         return $this->belongsTo(Report::class, 'report_id');
     }

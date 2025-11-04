@@ -1,9 +1,10 @@
 <?php
+
 namespace App\Filament\Widgets;
 
-use Filament\Widgets\TableWidget as Widget;
-use Filament\Tables;
 use App\Models\Report;
+use Filament\Tables;
+use Filament\Widgets\TableWidget as Widget;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
@@ -11,7 +12,7 @@ class RecentReports extends Widget
 {
     protected static ?string $heading = 'Recent Reports';
 
-    //protected int $recordsPerPage = 10;
+    // protected int $recordsPerPage = 10;
 
     protected function getTableQuery(): Builder|Relation|null
     {
@@ -20,7 +21,7 @@ class RecentReports extends Widget
 
     protected function isTablePaginationEnabled(): bool
     {
-        return false; 
+        return false;
     }
 
     protected function getTableColumns(): array

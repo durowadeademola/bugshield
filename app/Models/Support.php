@@ -2,21 +2,20 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Http\Traits\GuidId;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Http\Traits\GuidId;
 
 class Support extends Model
 {
-    use SoftDeletes, GuidId;
+    use GuidId, SoftDeletes;
 
     public $table = 'supports';
 
     protected $dates = ['deleted_at'];
-    
-    protected $fillable = ['user_id', 'ticket_id', 'title', 'description', 'status', 'message', 
-        'is_pending', 'is_resolved', 'is_cancelled'
+
+    protected $fillable = ['user_id', 'ticket_id', 'title', 'description', 'status', 'message',
+        'is_pending', 'is_resolved', 'is_cancelled',
     ];
 
     protected function casts(): array
@@ -28,7 +27,7 @@ class Support extends Model
             'message' => 'string',
             'is_pending' => 'boolean',
             'is_resolved' => 'boolean',
-            'is_cancelled' => 'boolean'
+            'is_cancelled' => 'boolean',
         ];
     }
 

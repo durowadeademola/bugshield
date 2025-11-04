@@ -13,10 +13,6 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Laravel\Fortify\Fortify;
 
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\ValidationException;
-
 class FortifyServiceProvider extends ServiceProvider
 {
     /**
@@ -32,7 +28,7 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //Fortify::ignoreRoutes();
+        // Fortify::ignoreRoutes();
         // Fortify::createUsersUsing(CreateNewUser::class);
         // Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
         // Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);

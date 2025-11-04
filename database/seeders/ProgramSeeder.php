@@ -2,11 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 use App\Models\Organization;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 use App\Models\Program;
+use Illuminate\Database\Seeder;
 
 class ProgramSeeder extends Seeder
 {
@@ -17,7 +16,7 @@ class ProgramSeeder extends Seeder
     {
         $organization = Organization::where([
             'name' => 'Bugshield',
-            'email' => 'bugshield@gmail.com'
+            'email' => 'bugshield@gmail.com',
         ])->first();
 
         if ($organization) {
@@ -38,7 +37,7 @@ class ProgramSeeder extends Seeder
                     'low_bounty_range' => '10000 - 30000',
                     'asset' => '*bugshield.com',
                     'in_scope' => '*bugshield.com',
-                    'out_of_scope' => 'N/A'
+                    'out_of_scope' => 'N/A',
                 ]);
                 $this->command->info('Program created successfully.');
             } else {

@@ -2,14 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Auth;
-
-use Inertia\Inertia;
-
 use App\Http\Requests\StoreResearcherRequest;
 use App\Http\Requests\UpdateResearcherRequest;
+use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class ResearcherController extends Controller
 {
@@ -18,8 +14,8 @@ class ResearcherController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Researcher/Dashboard',[
-            'user' => Auth::user()
+        return Inertia::render('Researcher/Dashboard', [
+            'user' => Auth::user(),
         ]);
     }
 

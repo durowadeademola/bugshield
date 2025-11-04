@@ -75,7 +75,7 @@ export default function Register({ states = [] }) {
                         <form className="space-y-5" onSubmit={submit} encType="multipart/form-data">
                          {/* User type toggle bar */}
                         <div className="mb-4">
-                            <p className="text-sm text-white mb-1">You are registering as?</p>
+                            <p className="text-sm text-white mb-1">Let us know who you are.</p>
                             <div className="flex justify-center mb-6 border-b border-gray-700 space-x-10">
                                 <button
                                     type="button"

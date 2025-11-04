@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;
-
 use App\Http\Requests\StoreAttachmentRequest;
 use App\Http\Requests\UpdateAttachmentRequest;
 

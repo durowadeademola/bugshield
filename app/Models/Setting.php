@@ -2,19 +2,18 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Http\Traits\GuidId;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Http\Traits\GuidId;
 
 class Setting extends Model
 {
-    use SoftDeletes, GuidId;
+    use GuidId, SoftDeletes;
 
     public $table = 'settings';
 
     protected $dates = ['deleted_at'];
-    
+
     protected $fillable = ['user_id', 'key', 'value', 'type', 'group'];
 
     protected function casts(): array
@@ -23,7 +22,7 @@ class Setting extends Model
             'key' => 'string',
             'value' => 'string',
             'type' => 'string',
-            'group' => 'string'
+            'group' => 'string',
         ];
     }
 
@@ -35,11 +34,11 @@ class Setting extends Model
     public static function get(string $user_id, string $key, mixed $default = null): mixed
     {
         return self::where([
-            'user_id' => $user_id, 
-            'key' => $value
+            'user_id' => $user_id,
+            'key' => $value,
         ])->value('value') ?? $default;
     }
-    
+
     public static function set(string $user_id, string $key, mixed $value): self
     {
         return self::updateOrCreate(
@@ -52,7 +51,7 @@ class Setting extends Model
     {
         return self::where([
             'user_id' => $user_id, 'key' => $key,
-            'value' => $value
+            'value' => $value,
         ])->exists();
     }
 }

@@ -25,18 +25,17 @@ class DatabaseSeeder extends Seeder
             AttachmentSeeder::class,
             BountySeeder::class,
             CommentSeeder::class,
-            //NotificationSeeder::class,
+            // NotificationSeeder::class,
             TransactionSeeder::class,
             PlanSeeder::class,
             TeamSeeder::class,
             SupportSeeder::class,
-            SubscriptionSeeder::class
+            SubscriptionSeeder::class,
         ];
-     
-        foreach ($seeders as $seeder) 
-        {
+
+        foreach ($seeders as $seeder) {
             $this->call($seeder);
-            $this->command->info($seeder. ' seeded successfully.');
+            $this->command->info($seeder.' seeded successfully.');
         }
     }
 }

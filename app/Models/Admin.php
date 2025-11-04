@@ -2,23 +2,21 @@
 
 namespace App\Models;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Http\Traits\GuidId;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Http\Traits\GuidId;
+use Illuminate\Notifications\Notifiable;
 
 class Admin extends Model
 {
-    use Notifiable, SoftDeletes, GuidId;
+    use GuidId, Notifiable, SoftDeletes;
 
     public $table = 'admins';
 
     protected $dates = ['deleted_at'];
 
-    
-    protected $fillable = ['user_id','first_name', 'middle_name', 'last_name', 'email',
-        'designation', 'address', 'phone_number','image_name', 'image_path', 'is_active',
+    protected $fillable = ['user_id', 'first_name', 'middle_name', 'last_name', 'email',
+        'designation', 'address', 'phone_number', 'image_name', 'image_path', 'is_active',
     ];
 
     protected function casts(): array
@@ -33,11 +31,11 @@ class Admin extends Model
             'phone_number' => 'integer',
             'image_name' => 'string',
             'image_path' => 'string',
-            'is_active' => 'boolean'
+            'is_active' => 'boolean',
         ];
     }
 
-    public function user() 
+    public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
@@ -46,6 +44,4 @@ class Admin extends Model
     {
         return "{$this->first_name} {$this->last_name}";
     }
-
-
 }

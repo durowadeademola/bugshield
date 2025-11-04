@@ -3,17 +3,13 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\TransactionResource\Pages;
-use App\Filament\Resources\TransactionResource\RelationManagers;
+use App\Models\Researcher;
 use App\Models\Transaction;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-
-use App\Models\Researcher;
 
 class TransactionResource extends Resource
 {
@@ -26,48 +22,48 @@ class TransactionResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Select::make('program_id')
-                ->relationship('program', 'title') 
-                ->required(),
+                    ->relationship('program', 'title')
+                    ->required(),
 
-            Forms\Components\Select::make('bounty_id')
-                ->relationship('bounty', 'id')
-                ->required(),
+                Forms\Components\Select::make('bounty_id')
+                    ->relationship('bounty', 'id')
+                    ->required(),
 
-            Forms\Components\Select::make('researcher_id')
-                ->label('Researcher')
-                ->options(Researcher::where('is_active', true)->pluck('full_name', 'id'))
-                ->searchable()
-                ->required(),
+                Forms\Components\Select::make('researcher_id')
+                    ->label('Researcher')
+                    ->options(Researcher::where('is_active', true)->pluck('full_name', 'id'))
+                    ->searchable()
+                    ->required(),
 
-            Forms\Components\Select::make('organization_id')
-                ->relationship('organization', 'name')
-                ->required(),
+                Forms\Components\Select::make('organization_id')
+                    ->relationship('organization', 'name')
+                    ->required(),
 
-            Forms\Components\TextInput::make('amount')
-                ->numeric()
-                ->required()
-                ->minValue(0),
+                Forms\Components\TextInput::make('amount')
+                    ->numeric()
+                    ->required()
+                    ->minValue(0),
 
-            Forms\Components\Select::make('status')
-                ->options([
-                    'pending' => 'Pending',
-                    'completed' => 'Completed',
-                    'failed' => 'Failed',
-                ])
-                ->required(),
+                Forms\Components\Select::make('status')
+                    ->options([
+                        'pending' => 'Pending',
+                        'completed' => 'Completed',
+                        'failed' => 'Failed',
+                    ])
+                    ->required(),
 
-            Forms\Components\Select::make('payment_method')
-                ->options([
-                    'bank_transfer' => 'Bank Transfer',
-                    'paypal' => 'PayPal',
-                    'credit_card' => 'Credit Card',
-                    'other' => 'Other',
-                ])
-                ->required(),
+                Forms\Components\Select::make('payment_method')
+                    ->options([
+                        'bank_transfer' => 'Bank Transfer',
+                        'paypal' => 'PayPal',
+                        'credit_card' => 'Credit Card',
+                        'other' => 'Other',
+                    ])
+                    ->required(),
 
-            Forms\Components\TextInput::make('transaction_reference')
-                ->required()
-                ->maxLength(255),
+                Forms\Components\TextInput::make('transaction_reference')
+                    ->required()
+                    ->maxLength(255),
             ]);
     }
 
@@ -77,7 +73,7 @@ class TransactionResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('researcher.full_name')
                     ->label('Researcher')
-                    ->getStateUsing(fn ($record) => $record->researcher->getFullNameAttribute() ?? '')
+                    ->getStateUsing(fn ($record) => $record->researcher->full_name ?? '')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('program.title')->label('Program'),
                 Tables\Columns\TextColumn::make('organization.name')->label('Organization'),

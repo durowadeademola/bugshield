@@ -38,6 +38,7 @@ class AuthenticatedSessionController extends Controller
             session(['email-2fa:user:id' => $request->user()->id]);
 
             Auth::logout();
+
             return redirect()->route('2fa.email');
         }
 
@@ -46,13 +47,13 @@ class AuthenticatedSessionController extends Controller
             session(['totp-2fa:user:id' => $request->user()->id]);
 
             Auth::logout();
+
             return redirect()->route('2fa.totp');
         }
 
         // Default: redirect based on user role
         return redirect()->intended($this->redirectToRouteBasedOnRole($request->user()));
     }
-
 
     /**
      * Destroy an authenticated session.

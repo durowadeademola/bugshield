@@ -2,10 +2,6 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
-
-use App\Http\Requests\BaseFormRequest;
-
 class UpdateCommentRequest extends BaseFormRequest
 {
     /**

@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Auth;
-
-use Inertia\Inertia;
 use App\Http\Requests\StoreTeamRequest;
 use App\Http\Requests\UpdateTeamRequest;
+use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class TeamController extends Controller
 {
@@ -17,8 +14,8 @@ class TeamController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Team/Dashboard',[
-            'user' => Auth::user()
+        return Inertia::render('Team/Dashboard', [
+            'user' => Auth::user(),
         ]);
     }
 

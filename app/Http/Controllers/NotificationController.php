@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;
-
 use App\Http\Requests\StoreNotificationRequest;
-use App\Http\Requests\UpdateNotificationRequest;
+use Illuminate\Http\Request;
 
 class NotificationController extends Controller
 {
@@ -84,7 +81,7 @@ class NotificationController extends Controller
         if ($notifications->isNotEmpty()) {
             $notifications->markAsRead();
         }
-    
+
         return redirect()->back();
     }
 }

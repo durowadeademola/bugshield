@@ -2,14 +2,14 @@
 
 namespace Database\Seeders;
 
-use App\Models\Report;
-use App\Models\Program;
 use App\Models\Bounty;
-use App\Models\Researcher;
 use App\Models\Organization;
+use App\Models\Program;
+use App\Models\Report;
+use App\Models\Researcher;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 use App\Models\Transaction;
+use Illuminate\Database\Seeder;
 
 class TransactionSeeder extends Seeder
 {
@@ -25,19 +25,19 @@ class TransactionSeeder extends Seeder
         $researcher = Researcher::where([
             'first_name' => 'Abdulmajeed',
             'last_name' => 'Durowade',
-            'email' => 'durowadeabdulmajeed@gmail.com'
+            'email' => 'durowadeabdulmajeed@gmail.com',
         ])->first();
 
         $organization = Organization::where([
             'name' => 'Bugshield',
-            'email' => 'bugshield@gmail.com'
+            'email' => 'bugshield@gmail.com',
         ])->first();
 
         $bounty = Bounty::where([
             'program_id' => $program->id,
             'report_id' => $report->id,
             'researcher_id' => $researcher->id,
-            'organization_id' => $organization->id
+            'organization_id' => $organization->id,
         ])->first();
 
         if ($program && $researcher && $organization && $bounty) {
@@ -51,7 +51,7 @@ class TransactionSeeder extends Seeder
                     'amount' => 90000,
                     'status' => 'paid',
                     'payment_method' => 'Stripe',
-                    'transaction_reference' => '77sss7873288uue27848y222'
+                    'transaction_reference' => '77sss7873288uue27848y222',
                 ]);
                 $this->command->info('Transaction created successfully.');
             } else {

@@ -2,12 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
+use App\Models\Comment;
 use App\Models\Program;
 use App\Models\Report;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
 use Illuminate\Database\Seeder;
-use App\Models\Comment;
 
 class CommentSeeder extends Seeder
 {
@@ -22,7 +22,7 @@ class CommentSeeder extends Seeder
 
         $analyst = User::where([
             'name' => 'bugshield-analyst',
-            'email' => 'analyst@bugshield.com'
+            'email' => 'analyst@bugshield.com',
         ])->first();
 
         if ($program && $report && $analyst) {
@@ -31,7 +31,7 @@ class CommentSeeder extends Seeder
                     'program_id' => $program->id,
                     'report_id' => $report->id,
                     'user_id' => $analyst->id,
-                    'message' => 'Thank you for your report, a bounty have been paid.'
+                    'message' => 'Thank you for your report, a bounty have been paid.',
                 ]);
                 $this->command->info('Analyst comment saved successfully.');
             } else {
@@ -40,10 +40,10 @@ class CommentSeeder extends Seeder
         } else {
             $this->command->info('Program, Report or Analyst does not exist.');
         }
-        
+
         $researcher = User::where([
             'name' => 'bugshield-researcher',
-            'email' => 'researcher@bugshield.com'
+            'email' => 'researcher@bugshield.com',
         ])->first();
 
         if ($program && $report && $researcher) {
@@ -52,7 +52,7 @@ class CommentSeeder extends Seeder
                     'program_id' => $program->id,
                     'report_id' => $report->id,
                     'user_id' => $researcher->id,
-                    'message' => 'Thank you for the bounty.'
+                    'message' => 'Thank you for the bounty.',
                 ]);
                 $this->command->info('Researcher comment saved successfully.');
             } else {

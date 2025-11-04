@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 use App\Models\Plan;
+use Illuminate\Database\Seeder;
 
 class PlanSeeder extends Seeder
 {
@@ -13,7 +13,7 @@ class PlanSeeder extends Seeder
      */
     public function run(): void
     {
-        //Free plan
+        // Free plan
         if (Plan::where(['title' => 'Free Plan'])->count() == 0) {
             Plan::create([
                 'title' => 'Free Plan',
@@ -29,15 +29,15 @@ class PlanSeeder extends Seeder
                 'is_weekly' => false,
                 'is_monthly' => true,
                 'is_yearly' => false,
-                'custom_period' => null
+                'custom_period' => null,
             ]);
             $this->command->info('Free plan created successfully.');
         } else {
             $this->command->info('Free plan already exist.');
         }
 
-         //Basic plan
-         if (Plan::where(['title' => 'Basic Plan'])->count() == 0) {
+        // Basic plan
+        if (Plan::where(['title' => 'Basic Plan'])->count() == 0) {
             Plan::create([
                 'title' => 'Basic Plan',
                 'description' => 'This plan offers a max reports of 100 per month',
@@ -52,15 +52,15 @@ class PlanSeeder extends Seeder
                 'is_weekly' => false,
                 'is_monthly' => true,
                 'is_yearly' => false,
-                'custom_period' => null
+                'custom_period' => null,
             ]);
             $this->command->info('Basic plan created successfully.');
         } else {
             $this->command->info('Basic plan already exist.');
         }
 
-         //Pro plan
-         if (Plan::where(['title' => 'Pro Plan'])->count() == 0) {
+        // Pro plan
+        if (Plan::where(['title' => 'Pro Plan'])->count() == 0) {
             Plan::create([
                 'title' => 'Pro Plan',
                 'description' => 'This plan offers a max reports of 500 per month',
@@ -75,14 +75,14 @@ class PlanSeeder extends Seeder
                 'is_weekly' => false,
                 'is_monthly' => true,
                 'is_yearly' => false,
-                'custom_period' => null
+                'custom_period' => null,
             ]);
             $this->command->info('Pro plan created successfully.');
         } else {
             $this->command->info('Pro plan already exist.');
         }
 
-        //Enterprise plan
+        // Enterprise plan
         if (Plan::where(['title' => 'Enterprise Plan'])->count() == 0) {
             Plan::create([
                 'title' => 'Enterprise Plan',
@@ -98,14 +98,14 @@ class PlanSeeder extends Seeder
                 'is_weekly' => false,
                 'is_monthly' => true,
                 'is_yearly' => false,
-                'custom_period' => null
+                'custom_period' => null,
             ]);
             $this->command->info('Enterprise plan created successfully.');
         } else {
             $this->command->info('Enterprise plan already exist.');
         }
 
-        //Life time plan
+        // Life time plan
         if (Plan::where(['title' => 'Life Time Plan'])->count() == 0) {
             Plan::create([
                 'title' => 'Life Time Plan',
@@ -121,7 +121,7 @@ class PlanSeeder extends Seeder
                 'is_weekly' => false,
                 'is_monthly' => false,
                 'is_yearly' => false,
-                'custom_period' => null
+                'custom_period' => null,
             ]);
             $this->command->info('Life time plan created successfully.');
         } else {

@@ -2,10 +2,6 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
-
-use App\Http\Requests\BaseFormRequest;
-
 class UpdateAnalystRequest extends BaseFormRequest
 {
     /**
@@ -28,7 +24,7 @@ class UpdateAnalystRequest extends BaseFormRequest
             'first_name' => 'required|string|max:255',
             'middle_name' => 'nullable|string|max:255',
             'last_name' => 'required|string|max:255',
-            'email' => 'required|email|unique:admins,email,' . $this->admin->id,
+            'email' => 'required|email|unique:admins,email,'.$this->admin->id,
             'designation' => 'nullable|string|max:255',
             'address' => 'nullable|string|max:255',
             'phone_number' => 'nullable|string|max:15',

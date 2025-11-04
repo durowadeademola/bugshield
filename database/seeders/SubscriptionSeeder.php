@@ -2,12 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
-
 use App\Models\Organization;
 use App\Models\Plan;
 use App\Models\Subscription;
+use Illuminate\Database\Seeder;
 
 class SubscriptionSeeder extends Seeder
 {
@@ -18,7 +16,7 @@ class SubscriptionSeeder extends Seeder
     {
         $organization = Organization::where([
             'name' => 'Bugshield',
-            'email' => 'bugshield@gmail.com'
+            'email' => 'bugshield@gmail.com',
         ])->first();
 
         $plan = Plan::where(['title' => 'Free Plan'])->first();
@@ -29,7 +27,7 @@ class SubscriptionSeeder extends Seeder
                     'organization_id' => $organization->id,
                     'plan_id' => $plan->id,
                     'status' => 'paid',
-                    'is_active' => true
+                    'is_active' => true,
                 ]);
                 $this->command->info('Subscription created successfully.');
             } else {
@@ -37,6 +35,6 @@ class SubscriptionSeeder extends Seeder
             }
         } else {
             $this->command->info('Organization plan does not exist.');
-        } 
+        }
     }
 }

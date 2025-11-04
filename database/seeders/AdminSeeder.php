@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 use App\Models\Admin;
+use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -16,7 +16,7 @@ class AdminSeeder extends Seeder
     {
         $admin = User::where([
             'name' => 'bugshield-admin',
-            'email' => 'admin@bugshield.com'
+            'email' => 'admin@bugshield.com',
         ])->first();
 
         if ($admin) {
@@ -30,7 +30,7 @@ class AdminSeeder extends Seeder
                     'designation' => 'bugshield-admin',
                     'address' => 'No 22, Citizens Avenue, Dawaki. Abuja',
                     'phone_number' => '07064706193',
-                    'is_active' => true
+                    'is_active' => true,
                 ]);
                 $this->command->info('Admin created successfully.');
             } else {

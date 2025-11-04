@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\AdminResource\Pages;
-use App\Filament\Resources\AdminResource\RelationManagers;
 use App\Models\Admin;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -11,7 +10,6 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class AdminResource extends Resource
 {
@@ -64,8 +62,8 @@ class AdminResource extends Resource
                     ->maxLength(100),
 
                 Forms\Components\Toggle::make('is_active')
-                ->label('Active Status')
-                ->default(true),
+                    ->label('Active Status')
+                    ->default(true),
             ]);
     }
 

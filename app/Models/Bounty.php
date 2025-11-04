@@ -2,21 +2,20 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Http\Traits\GuidId;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Http\Traits\GuidId;
 
 class Bounty extends Model
 {
-    use SoftDeletes, GuidId;
+    use GuidId, SoftDeletes;
 
     public $table = 'bounties';
 
     protected $dates = ['deleted_at'];
 
-    protected $fillable = ['program_id','report_id', 'researcher_id', 'organization_id', 
-        'amount', 'status', 'is_low', 'is_medium', 'is_high', 'is_critical', 'is_informational'
+    protected $fillable = ['program_id', 'report_id', 'researcher_id', 'organization_id',
+        'amount', 'status', 'is_low', 'is_medium', 'is_high', 'is_critical', 'is_informational',
     ];
 
     protected function casts(): array
@@ -28,21 +27,21 @@ class Bounty extends Model
             'is_medium' => 'boolean',
             'is_high' => 'boolean',
             'is_critical' => 'boolean',
-            'is_informational' => 'boolean'
+            'is_informational' => 'boolean',
         ];
     }
 
-    public function report() 
+    public function report()
     {
         return $this->belongsTo(Report::class, 'report_id');
     }
 
-    public function researcher() 
+    public function researcher()
     {
-        return $this->belongsTo(Researcher::class, 'researcher_id'); 
+        return $this->belongsTo(Researcher::class, 'researcher_id');
     }
 
-    public function organization() 
+    public function organization()
     {
         return $this->belongsTo(Organization::class, 'organization_id');
     }
@@ -52,7 +51,7 @@ class Bounty extends Model
         return $this->belongsTo(Program::class, 'program_id');
     }
 
-    public function transactions() 
+    public function transactions()
     {
         return $this->hasMany(Transaction::class);
     }

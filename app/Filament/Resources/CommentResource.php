@@ -3,15 +3,12 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\CommentResource\Pages;
-use App\Filament\Resources\CommentResource\RelationManagers;
 use App\Models\Comment;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class CommentResource extends Resource
 {
@@ -48,31 +45,31 @@ class CommentResource extends Resource
     {
         return $table
             ->columns([
-            Tables\Columns\TextColumn::make('program.title')
-                ->label('Program')
-                ->sortable()
-                ->searchable(),
+                Tables\Columns\TextColumn::make('program.title')
+                    ->label('Program')
+                    ->sortable()
+                    ->searchable(),
 
-            Tables\Columns\TextColumn::make('report.title')
-                ->label('Report')
-                ->sortable()
-                ->searchable(),
+                Tables\Columns\TextColumn::make('report.title')
+                    ->label('Report')
+                    ->sortable()
+                    ->searchable(),
 
-            Tables\Columns\TextColumn::make('user.name')
-                ->label('User')
-                ->sortable()
-                ->searchable(),
+                Tables\Columns\TextColumn::make('user.name')
+                    ->label('User')
+                    ->sortable()
+                    ->searchable(),
 
-            Tables\Columns\TextColumn::make('message')
-                ->limit(50)
-                ->wrap()
-                ->label('Message')
-                ->searchable(),
+                Tables\Columns\TextColumn::make('message')
+                    ->limit(50)
+                    ->wrap()
+                    ->label('Message')
+                    ->searchable(),
 
-            Tables\Columns\TextColumn::make('created_at')
-                ->label('Created')
-                ->dateTime()
-                ->sortable(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->label('Created')
+                    ->dateTime()
+                    ->sortable(),
             ])
             ->filters([
                 //

@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 use App\Models\Organization;
+use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -16,7 +16,7 @@ class OrganizationSeeder extends Seeder
     {
         $organization = User::where([
             'name' => 'bugshield-organization',
-            'email' => 'organization@bugshield.com'
+            'email' => 'organization@bugshield.com',
         ])->first();
 
         if ($organization) {
@@ -31,7 +31,7 @@ class OrganizationSeeder extends Seeder
                     'description' => 'Continuous penetration and bug bounty platform.',
                     'state' => 'FCT',
                     'country' => 'Nigeria',
-                    'is_active' => true
+                    'is_active' => true,
                 ]);
                 $this->command->info('Organization created successfully.');
             } else {
@@ -39,6 +39,6 @@ class OrganizationSeeder extends Seeder
             }
         } else {
             $this->command->info('Organization user does not exist.');
-        } 
+        }
     }
 }

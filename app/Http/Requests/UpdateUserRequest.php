@@ -2,10 +2,6 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
-
-use App\Http\Requests\BaseFormRequest;
-
 class UpdateUserRequest extends BaseFormRequest
 {
     /**
@@ -25,7 +21,7 @@ class UpdateUserRequest extends BaseFormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $this->user->id,
+            'email' => 'required|email|unique:users,email,'.$this->user->id,
             'password' => 'nullable|string|min:8|confirmed',
         ];
     }

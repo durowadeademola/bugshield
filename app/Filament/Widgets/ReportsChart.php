@@ -2,9 +2,9 @@
 
 namespace App\Filament\Widgets;
 
-use Filament\Widgets\ChartWidget;
 use App\Models\Report;
 use Carbon\Carbon;
+use Filament\Widgets\ChartWidget;
 
 class ReportsChart extends ChartWidget
 {
@@ -28,7 +28,7 @@ class ReportsChart extends ChartWidget
         }
 
         return [
-              'labels' => $months,
+            'labels' => $months,
             'datasets' => [
                 [
                     'label' => 'Reports',

@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 use App\Models\Researcher;
+use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -16,7 +16,7 @@ class ResearcherSeeder extends Seeder
     {
         $researcher = User::where([
             'name' => 'bugshield-researcher',
-            'email' => 'researcher@bugshield.com'
+            'email' => 'researcher@bugshield.com',
         ])->first();
 
         if ($researcher) {
@@ -30,7 +30,7 @@ class ResearcherSeeder extends Seeder
                     'designation' => 'bugshield-researcher',
                     'address' => 'No 22, Citizens Avenue, Dawaki. Abuja',
                     'phone_number' => '07064706193',
-                    'is_active' => true
+                    'is_active' => true,
                 ]);
                 $this->command->info('Researcher created successfully.');
             } else {
@@ -38,6 +38,6 @@ class ResearcherSeeder extends Seeder
             }
         } else {
             $this->command->info('Researcher user does not exist.');
-        } 
+        }
     }
 }

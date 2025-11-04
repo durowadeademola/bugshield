@@ -2,17 +2,16 @@
 
 namespace App\Filament\Widgets;
 
+use App\Models\Bounty;
+use App\Models\Report;
+use App\Models\User;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
-
-use App\Models\User;
-use App\Models\Report;
-use App\Models\Bounty;
 
 class AllStatsOverview extends BaseWidget
 {
     protected static bool $isLazy = false;
-    
+
     protected function getStats(): array
     {
         return [

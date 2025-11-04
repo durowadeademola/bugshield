@@ -2,10 +2,6 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
-
-use App\Http\Requests\BaseFormRequest;
-
 class UpdateTransactionRequest extends BaseFormRequest
 {
     /**
@@ -31,7 +27,7 @@ class UpdateTransactionRequest extends BaseFormRequest
             'amount' => 'required|numeric',
             'status' => 'required|string',
             'payment_method' => 'required|string|max:255',
-            'transaction_reference' => 'required|string|max:255|unique:transactions,transaction_reference,' . $this->transaction->id,
+            'transaction_reference' => 'required|string|max:255|unique:transactions,transaction_reference,'.$this->transaction->id,
         ];
     }
 }

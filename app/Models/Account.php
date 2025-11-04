@@ -2,21 +2,20 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Http\Traits\GuidId;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Http\Traits\GuidId;
 
 class Account extends Model
 {
-    use SoftDeletes, GuidId;
+    use GuidId, SoftDeletes;
 
     public $table = 'accounts';
 
     protected $dates = ['deleted_at'];
-    
-    protected $fillable = ['user_id','account_number', 'account_name', 'bank_name', 'bank_code',
-        'account_type', 'currency', 'balance', 'status'
+
+    protected $fillable = ['user_id', 'account_number', 'account_name', 'bank_name', 'bank_code',
+        'account_type', 'currency', 'balance', 'status',
     ];
 
     protected function casts(): array
@@ -28,7 +27,7 @@ class Account extends Model
             'bank_code' => 'string',
             'account_type' => 'string',
             'currency' => 'string',
-            'status' => 'string'
+            'status' => 'string',
         ];
     }
 

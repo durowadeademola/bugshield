@@ -2,21 +2,20 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Http\Traits\GuidId;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Report extends Model
 {
-    use SoftDeletes, GuidId;
+    use GuidId, SoftDeletes;
 
     public $table = 'reports';
 
     protected $dates = ['deleted_at'];
 
-    protected $fillable = ['researcher_id', 'program_id', 'title', 'description', 'status', 'is_low', 'is_medium', 
-        'is_high', 'is_critical', 'is_informational', 'asset', 'weakness', 'severity', 'attch_name', 'impact'
+    protected $fillable = ['researcher_id', 'program_id', 'title', 'description', 'status', 'is_low', 'is_medium',
+        'is_high', 'is_critical', 'is_informational', 'asset', 'weakness', 'severity', 'attch_name', 'impact',
     ];
 
     protected function casts(): array
@@ -33,7 +32,7 @@ class Report extends Model
             'is_medium' => 'boolean',
             'is_high' => 'boolean',
             'is_critical' => 'boolean',
-            'is_informational' => 'boolean'
+            'is_informational' => 'boolean',
         ];
     }
 

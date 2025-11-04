@@ -3,10 +3,8 @@
 namespace App\Http\Requests\Auth;
 
 use Illuminate\Contracts\Auth\StatefulGuard;
-use Illuminate\Http\Exceptions\HttpResponseException;
-use Laravel\Fortify\Http\Requests\TwoFactorLoginRequest;
-use Laravel\Fortify\Contracts\FailedTwoFactorLoginRequest;
 use Illuminate\Validation\ValidationException;
+use Laravel\Fortify\Http\Requests\TwoFactorLoginRequest;
 use Laravel\Fortify\TwoFactorAuthenticationProvider;
 
 class TwoFactorChallengeRequest extends TwoFactorLoginRequest
@@ -42,8 +40,6 @@ class TwoFactorChallengeRequest extends TwoFactorLoginRequest
     {
         return app(TwoFactorAuthenticationProvider::class)
             ->verify(decrypt($this->getChallengedUser()
-            ->two_factor_secret), $this->input('code'));
+                ->two_factor_secret), $this->input('code'));
     }
-
-
 }
