@@ -37,143 +37,90 @@ class RegisteredUserController extends BaseController
      */
     public function store(Request $request): RedirectResponse
     {
-        $role = strtolower($request->role);
+        $role = strtolower($request->input('role'));
 
+        // Validate role
         if (! in_array($role, ['organization', 'researcher', 'analyst', 'team'])) {
-            return redirect()->back()->withErrors(['Please select a user.'])->withInput();
+            return back()->withErrors(['role' => 'Please select a valid user role.'])->withInput();
         }
 
-        if ($role === 'organization' && Organization::where([
-            'name' => $request->name,
-            'email' => $request->email,
-        ])->exists()) {
-            return redirect()->back()->withErrors(['The organization already exists.'])->withInput();
-        } elseif ($role === 'researcher' && Researcher::where([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'email' => $request->email,
-        ])->exists()) {
-            return redirect()->back()->withErrors(['The researcher already exists.'])->withInput();
-        } elseif ($role === 'team' && Team::where([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'email' => $request->email,
-        ])->exists()) {
-            return redirect()->back()->withError(['The team already exists'])->withInput();
-        }
-
+        // Validate input fields dynamically based on role
         $validator = $this->validateBasedOnRole($role, $request);
 
-        if ($validator && $validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
         }
 
+        // Prevent duplicate accounts
+        if (
+            ($role === 'organization' && Organization::where(['name' => $request->name, 'email' => $request->email])->exists()) ||
+            ($role === 'researcher' && Researcher::where(['first_name' => $request->first_name, 'last_name' => $request->last_name, 'email' => $request->email])->exists()) ||
+            ($role === 'team' && Team::where(['first_name' => $request->first_name, 'last_name' => $request->last_name, 'email' => $request->email])->exists())
+        ) {
+            return back()->withErrors(['An account with these details already exists.'])->withInput();
+        }
+
+        // Create the user
         $user = User::create([
-            'name' => $role === 'organization' ? $request->name : $request->first_name.' '.$request->last_name,
+            'name' => $role === 'organization'
+                ? $request->name
+                : "{$request->first_name} {$request->last_name}",
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
-        if (! empty($user)) {
-            $user->assignRole($role);
+        if (! $user) {
+            return back()->withErrors(['Failed to create user account. Please try again.'])->withInput();
         }
 
+        // Assign role
+        $user->assignRole($role);
+
+        // Create related model (Organization, Researcher, Team, etc.)
         $this->createBasedOnRole($role, $user, $request);
 
-        // Dispatch email verification
+        // Send email verification event
         event(new Registered($user));
 
         Auth::login($user);
 
+        // Redirect to email verification notice
         return redirect()->route('verification.notice');
-
-        // return redirect(route('dashboard', absolute: false));
     }
 
-    protected function createBasedOnRole(string $role, $user, Request $request)
+    protected function createBasedOnRole(string $role, $user, Request $request): bool
     {
-        if ($user && $user->hasRole('organization') && strtolower($role) === 'organization') {
-            if (Organization::where([
-                'user_id' => $user->id,
-                'name' => $request->name,
-                'email' => $request->email,
-            ])->exists()) {
-                return redirect()->back()->withErrors(['The organization already exists.'])->withInput();
-            }
+        if (! $user) {
+            return false;
+        }
 
-            Organization::create([
-                'user_id' => $user->id,
-                'name' => $request->name,
-                'email' => $request->email,
-                'address' => $request->address,
-                'phone_number' => $request->phone_number,
-                'website' => $request->website,
-                'description' => $request->description,
-                'country' => $request->country,
-                'state' => $request->state,
-                'is_active' => false,
-            ]);
+        switch (strtolower($role)) {
+            case 'organization':
+                if (Organization::where(['user_id' => $user->id, 'email' => $request->email])->exists()) {
+                    return false;
+                }
 
-        } elseif ($user && $user->hasRole('researcher') && strtolower($role) === 'researcher') {
-            if (Researcher::where([
-                'user_id' => $user->id,
-                'first_name' => $request->first_name,
-                'last_name' => $request->last_name,
-                'email' => $request->email,
-            ])->exists()) {
-                return redirect()->back()->withErrors(['The researcher already exists.'])->withInput();
-            }
-
-            Researcher::create([
-                'user_id' => $user->id,
-                'first_name' => $request->first_name,
-                'middle_name' => $request->middle_name,
-                'last_name' => $request->last_name,
-                'email' => $request->email,
-                'designation' => $request->designation,
-                'address' => $request->address,
-                'phone_number' => $request->phone_number,
-                'is_active' => false,
-            ]);
-        } elseif ($user && $user->hasRole('analyst') && strtolower($role) === 'analyst') {
-            if (Analyst::where([
-                'user_id' => $user->id,
-                'first_name' => $request->first_name,
-                'last_name' => $request->last_name,
-                'email' => $request->email,
-            ])->exists()) {
-                return redirect()->back()->withErrors(['The analyst already exists.'])->withInput();
-            }
-
-            Analyst::create([
-                'user_id' => $user->id,
-                'first_name' => $request->first_name,
-                'middle_name' => $request->middle_name,
-                'last_name' => $request->last_name,
-                'email' => $request->email,
-                'designation' => $request->designation,
-                'address' => $request->address,
-                'phone_number' => $request->phone_number,
-                'is_active' => false,
-            ]);
-        } elseif ($user && $user->hasRole('team') && strtolower($role) === 'team') {
-            if (Team::where([
-                'user_id' => $user->id,
-                'first_name' => $request->first_name,
-                'last_name' => $request->last_name,
-                'email' => $request->email,
-            ])->exists()) {
-                return redirect()->back()->withErrors(['The team already exists.'])->withInput();
-            }
-
-            $org = Organization::where([
-                'user_id' => optional($request->user())->id,
-            ])->first();
-
-            if (! empty($org)) {
-                Team::create([
+                Organization::create([
                     'user_id' => $user->id,
-                    'organization_id' => $org->id,
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'address' => $request->address,
+                    'phone_number' => $request->phone_number,
+                    'website' => $request->website,
+                    'description' => $request->description,
+                    'country' => $request->country,
+                    'state' => $request->state,
+                    'is_active' => false,
+                ]);
+                break;
+
+            case 'researcher':
+                if (Researcher::where(['user_id' => $user->id, 'email' => $request->email])->exists()) {
+                    return false;
+                }
+
+                Researcher::create([
+                    'user_id' => $user->id,
                     'first_name' => $request->first_name,
                     'middle_name' => $request->middle_name,
                     'last_name' => $request->last_name,
@@ -183,8 +130,49 @@ class RegisteredUserController extends BaseController
                     'phone_number' => $request->phone_number,
                     'is_active' => false,
                 ]);
-            }
+                break;
+
+            case 'analyst':
+                if (Analyst::where(['user_id' => $user->id, 'email' => $request->email])->exists()) {
+                    return false;
+                }
+
+                Analyst::create([
+                    'user_id' => $user->id,
+                    'first_name' => $request->first_name,
+                    'middle_name' => $request->middle_name,
+                    'last_name' => $request->last_name,
+                    'email' => $request->email,
+                    'designation' => $request->designation,
+                    'address' => $request->address,
+                    'phone_number' => $request->phone_number,
+                    'is_active' => false,
+                ]);
+                break;
+
+            case 'team':
+                if (Team::where(['user_id' => $user->id, 'email' => $request->email])->exists()
+                    || ! $request->organization_id) {
+                    return false;
+                }
+
+                Team::create([
+                    'user_id' => $user->id,
+                    'organization_id' => $request->organization_id,
+                    'first_name' => $request->first_name,
+                    'middle_name' => $request->middle_name,
+                    'last_name' => $request->last_name,
+                    'email' => $request->email,
+                    'designation' => $request->designation,
+                    'address' => $request->address,
+                    'phone_number' => $request->phone_number,
+                    'is_active' => false,
+                ]);
+
+                break;
         }
+
+        return true;
     }
 
     private function validateBasedOnRole(string $role, Request $request)

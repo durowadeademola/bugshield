@@ -12,7 +12,7 @@ class AIManager
 {
     protected $providers = [];
 
-    protected $defaultProviders = [];
+    protected $defaultProvider;
 
     public function __construct()
     {
