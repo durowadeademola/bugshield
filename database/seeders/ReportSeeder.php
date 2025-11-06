@@ -15,38 +15,44 @@ class ReportSeeder extends Seeder
      */
     public function run(): void
     {
-        $program = Program::where(['title' => 'Bugshield'])->first();
-
+        $program = Program::where('title', 'Bugshield')->first();
         $researcher = Researcher::where([
             'first_name' => 'Abdulmajeed',
             'last_name' => 'Durowade',
             'email' => 'durowadeabdulmajeed@gmail.com',
         ])->first();
 
-        if ($program && $researcher) {
-            if (Report::where(['program_id' => $program->id, 'researcher_id' => $researcher->id])->count() == 0) {
-                Report::create([
-                    'researcher_id' => $researcher->id,
-                    'program_id' => $program->id,
-                    'title' => 'SQL Injection in Login page',
-                    'description' => 'There is an SQL Injection of the login page at www.bugshield.com',
-                    'status' => 'pending',
-                    'is_low' => false,
-                    'is_medium' => false,
-                    'is_high' => false,
-                    'is_critical' => true,
-                    'is_informational' => false,
-                    'asset' => 'www.bugshield.com',
-                    'weakness' => 'SQL Injection',
-                    'severity' => '9.0',
-                    'impact' => 'Threat actor compromises the whole data.',
-                ]);
-                $this->command->info('Report created successfully.');
-            } else {
-                $this->command->info('Report already exist.');
-            }
-        } else {
-            $this->command->info('Program or Researcher does not exist.');
+        if (! $program || ! $researcher) {
+            $this->command->warn('Program or Researcher does not exist.');
+
+            return;
         }
+
+        $report = Report::firstOrCreate(
+            [
+                'program_id' => $program->id,
+                'researcher_id' => $researcher->id,
+                'title' => 'SQL Injection in Login page',
+            ],
+            [
+                'description' => 'There is an SQL Injection vulnerability in the login page at www.bugshield.com.',
+                'status' => 'pending',
+                'is_low' => false,
+                'is_medium' => false,
+                'is_high' => false,
+                'is_critical' => true,
+                'is_informational' => false,
+                'asset' => 'www.bugshield.com',
+                'weakness' => 'SQL Injection',
+                'severity' => '9.0',
+                'impact' => 'Threat actor compromises the whole data.',
+            ]
+        );
+
+        $message = $report->wasRecentlyCreated
+            ? '✅ Report created successfully.'
+            : 'ℹ️ Report already exists.';
+
+        $this->command->info($message);
     }
 }

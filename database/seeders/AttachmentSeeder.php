@@ -14,20 +14,32 @@ class AttachmentSeeder extends Seeder
      */
     public function run(): void
     {
-        $report = Report::where(['title' => 'SQL Injection in Login Page'])->first();
+        $reportTitle = 'SQL Injection in Login Page';
 
-        if ($report) {
-            if (Attachment::where(['report_id' => $report->id])->count() == 0) {
-                Attachment::create([
-                    'report_id' => $report->id,
-                    'file_path' => storage_path('app/public/reports/attachment.jpg'),
-                ]);
-                $this->command->info('Attachment created successfully.');
-            } else {
-                $this->command->info('Attachment already exists.');
-            }
-        } else {
-            $this->command->info('Report does not exist.');
+        // Find report by title
+        $report = Report::where('title', $reportTitle)->first();
+
+        if (! $report) {
+            $this->command->warn("Report titled '{$reportTitle}' does not exist.");
+
+            return;
         }
+
+        // Check if attachment already exists
+        $exists = Attachment::where('report_id', $report->id)->exists();
+
+        if ($exists) {
+            $this->command->info('Attachment already exists for this report.');
+
+            return;
+        }
+
+        // Create attachment record
+        Attachment::create([
+            'report_id' => $report->id,
+            'file_path' => storage_path('app/public/reports/attachment.jpg'),
+        ]);
+
+        $this->command->info('Attachment created successfully.');
     }
 }

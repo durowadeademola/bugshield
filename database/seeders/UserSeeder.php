@@ -16,56 +16,54 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $current_timestamp = \Carbon\Carbon::now();
+        $currentTimestamp = Carbon::now();
 
-        // admin user
-        if (User::where(['name' => 'bugshield-admin', 'email' => 'admin@bugshield.com'])->count() == 0) {
-            User::create([
+        // Define all default users in one place
+        $usersData = [
+            [
                 'name' => 'bugshield-admin',
                 'email' => 'admin@bugshield.com',
-                'password' => static::$password ??= Hash::make('password'),
-                'email_verified_at' => $current_timestamp,
-            ])->assignRole('admin');
-        }
-
-        // analyst user
-        if (User::where(['name' => 'bugshield-analyst', 'email' => 'analyst@bugshield.com'])->count() == 0) {
-            User::create([
+                'role' => 'admin',
+            ],
+            [
                 'name' => 'bugshield-analyst',
                 'email' => 'analyst@bugshield.com',
-                'password' => static::$password ??= Hash::make('password'),
-                'email_verified_at' => $current_timestamp,
-            ])->assignRole('analyst');
-        }
-
-        // researcher user
-        if (User::where(['name' => 'bugshield-researcher', 'email' => 'researcher@bugshield.com'])->count() == 0) {
-            User::create([
+                'role' => 'analyst',
+            ],
+            [
                 'name' => 'bugshield-researcher',
                 'email' => 'researcher@bugshield.com',
-                'password' => static::$password ??= Hash::make('password'),
-                'email_verified_at' => $current_timestamp,
-            ])->assignRole('researcher');
-        }
-
-        // organization user
-        if (User::where(['name' => 'bugshield-organization', 'email' => 'organization@bugshield.com'])->count() == 0) {
-            User::create([
+                'role' => 'researcher',
+            ],
+            [
                 'name' => 'bugshield-organization',
                 'email' => 'organization@bugshield.com',
-                'password' => static::$password ??= Hash::make('password'),
-                'email_verified_at' => $current_timestamp,
-            ])->assignRole('organization');
-        }
-
-        // Team user
-        if (User::where(['name' => 'bugshield-team', 'email' => 'team@bugshield.com'])->count() == 0) {
-            User::create([
+                'role' => 'organization',
+            ],
+            [
                 'name' => 'bugshield-team',
                 'email' => 'team@bugshield.com',
-                'password' => static::$password ??= Hash::make('password'),
-                'email_verified_at' => $current_timestamp,
-            ])->assignRole('team');
+                'role' => 'team',
+            ],
+        ];
+
+        foreach ($usersData as $data) {
+            $exists = User::where('email', $data['email'])->exists();
+
+            if (! $exists) {
+                $user = User::create([
+                    'name' => $data['name'],
+                    'email' => $data['email'],
+                    'password' => static::$password ??= Hash::make('password'),
+                    'email_verified_at' => $currentTimestamp,
+                ]);
+
+                $user->assignRole($data['role']);
+
+                $this->command->info("✅ {$data['role']} user created successfully ({$data['email']}).");
+            } else {
+                $this->command->info("ℹ️ {$data['role']} user already exists ({$data['email']}).");
+            }
         }
     }
 }

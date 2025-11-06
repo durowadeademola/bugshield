@@ -14,30 +14,37 @@ class ResearcherSeeder extends Seeder
      */
     public function run(): void
     {
-        $researcher = User::where([
+        $researcherUser = User::where([
             'name' => 'bugshield-researcher',
             'email' => 'researcher@bugshield.com',
         ])->first();
 
-        if ($researcher) {
-            if (Researcher::where(['user_id' => $researcher->id, 'is_active' => true])->count() == 0) {
-                Researcher::create([
-                    'user_id' => $researcher->id,
-                    'first_name' => 'Abdulmajeed',
-                    'middle_name' => 'Ademola',
-                    'last_name' => 'Durowade',
-                    'email' => 'durowadeabdulmajeed@gmail.com',
-                    'designation' => 'bugshield-researcher',
-                    'address' => 'No 22, Citizens Avenue, Dawaki. Abuja',
-                    'phone_number' => '07064706193',
-                    'is_active' => true,
-                ]);
-                $this->command->info('Researcher created successfully.');
-            } else {
-                $this->command->info('Researcher user already exist.');
-            }
-        } else {
-            $this->command->info('Researcher user does not exist.');
+        if (! $researcherUser) {
+            $this->command->warn('Researcher user does not exist.');
+
+            return;
         }
+
+        $researcher = Researcher::firstOrCreate(
+            [
+                'user_id' => $researcherUser->id,
+                'is_active' => true,
+            ],
+            [
+                'first_name' => 'Abdulmajeed',
+                'middle_name' => 'Ademola',
+                'last_name' => 'Durowade',
+                'email' => 'durowadeabdulmajeed@gmail.com',
+                'designation' => 'bugshield-researcher',
+                'address' => 'No 22, Citizens Avenue, Dawaki. Abuja',
+                'phone_number' => '07064706193',
+            ]
+        );
+
+        $message = $researcher->wasRecentlyCreated
+            ? '✅ Researcher created successfully.'
+            : 'ℹ️ Researcher already exists.';
+
+        $this->command->info($message);
     }
 }

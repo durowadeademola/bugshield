@@ -24,4 +24,11 @@ class UpdateAttachmentRequest extends BaseFormRequest
             'file_path' => 'required|string|max:255',
         ];
     }
+
+    public function attributes(): array
+    {
+        return [
+            'report_id' => 'report',
+        ];
+    }
 }

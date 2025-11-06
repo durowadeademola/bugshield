@@ -18,25 +18,30 @@ class SupportSeeder extends Seeder
             'email' => 'organization@bugshield.com',
         ])->first();
 
-        if ($organization) {
-            if (Support::where(['user_id' => $organization->id])->count() == 0) {
-                Support::create([
-                    'user_id' => $organization->id,
-                    'ticket_id' => 'GGDJJEWOO2223',
-                    'title' => 'Pending Payment Approval',
-                    'description' => 'Payment was made but services is not available',
-                    'status' => 'active',
-                    'message' => null,
-                    'is_pending' => true,
-                    'is_resolved' => false,
-                    'is_cancelled' => false,
-                ]);
-                $this->command->info('Support ticket created successfully.');
-            } else {
-                $this->command->info('Support ticket already exist.');
-            }
+        if (! $organization) {
+            $this->command->info('Organization user does not exist.');
+
+            return;
+        }
+
+        $supportExists = Support::where('user_id', $organization->id)->exists();
+
+        if (! $supportExists) {
+            Support::create([
+                'user_id' => $organization->id,
+                'ticket_id' => 'GGDJJEWOO2223',
+                'title' => 'Pending Payment Approval',
+                'description' => 'Payment was made but services are not available',
+                'status' => 'active',
+                'message' => null,
+                'is_pending' => true,
+                'is_resolved' => false,
+                'is_cancelled' => false,
+            ]);
+
+            $this->command->info('Support ticket created successfully.');
         } else {
-            $this->command->info('Organization does not exist.');
+            $this->command->info('Support ticket already exists.');
         }
     }
 }

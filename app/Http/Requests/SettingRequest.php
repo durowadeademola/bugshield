@@ -21,4 +21,9 @@ class SettingRequest extends BaseFormRequest
     {
         return [];
     }
+
+    public function attributes(): array
+    {
+        return [];
+    }
 }

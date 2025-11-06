@@ -34,4 +34,11 @@ class UpdateOrganizationRequest extends BaseFormRequest
             'is_active' => 'required|boolean',
         ];
     }
+
+    public function attributes(): array
+    {
+        return [
+            'user_id' => 'user',
+        ];
+    }
 }

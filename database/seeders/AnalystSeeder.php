@@ -14,30 +14,50 @@ class AnalystSeeder extends Seeder
      */
     public function run(): void
     {
-        $analyst = User::where([
-            'name' => 'bugshield-analyst',
+        $analystData = [
+            'role' => 'analyst',
             'email' => 'analyst@bugshield.com',
+            'profile' => [
+                'first_name' => 'Abdulmajeed',
+                'middle_name' => 'Ademola',
+                'last_name' => 'Durowade',
+                'email' => 'durowadeabdulmajeed@gmail.com',
+                'designation' => 'bugshield-analyst',
+                'address' => 'No 22, Citizens Avenue, Dawaki. Abuja',
+                'phone_number' => '07064706193',
+            ],
+        ];
+
+        // find analyst user
+        $user = User::where([
+            'name' => "bugshield-{$analystData['role']}",
+            'email' => $analystData['email'],
         ])->first();
 
-        if ($analyst) {
-            if (Analyst::where(['user_id' => $analyst->id, 'is_active' => true])->count() == 0) {
-                Analyst::create([
-                    'user_id' => $analyst->id,
-                    'first_name' => 'Abdulmajeed',
-                    'middle_name' => 'Ademola',
-                    'last_name' => 'Durowade',
-                    'email' => 'durowadeabdulmajeed@gmail.com',
-                    'designation' => 'bugshield-analyst',
-                    'address' => 'No 22, Citizens Avenue, Dawaki. Abuja',
-                    'phone_number' => '07064706193',
-                    'is_active' => true,
-                ]);
-                $this->command->info('Analyst created successfully.');
-            } else {
-                $this->command->info('Analyst user already exist.');
-            }
-        } else {
-            $this->command->info('Analyst user does not exist.');
+        if (! $user) {
+            $this->command->warn('Analyst user does not exist.');
+
+            return;
         }
+
+        // check if analyst profile exists
+        $exists = Analyst::where([
+            'user_id' => $user->id,
+            'is_active' => true,
+        ])->exists();
+
+        if ($exists) {
+            $this->command->info('Analyst profile already exists.');
+
+            return;
+        }
+
+        // create analyst profile
+        Analyst::create(array_merge($analystData['profile'], [
+            'user_id' => $user->id,
+            'is_active' => true,
+        ]));
+
+        $this->command->info('Analyst profile created successfully.');
     }
 }

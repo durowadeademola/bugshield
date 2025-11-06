@@ -19,22 +19,29 @@ class SubscriptionSeeder extends Seeder
             'email' => 'bugshield@gmail.com',
         ])->first();
 
-        $plan = Plan::where(['title' => 'Free Plan'])->first();
+        $plan = Plan::where('title', 'Free Plan')->first();
 
-        if ($organization && $plan) {
-            if (Subscription::where(['organization_id' => $organization->id, 'plan_id' => $plan->id])->count() == 0) {
-                Subscription::create([
-                    'organization_id' => $organization->id,
-                    'plan_id' => $plan->id,
-                    'status' => 'paid',
-                    'is_active' => true,
-                ]);
-                $this->command->info('Subscription created successfully.');
-            } else {
-                $this->command->info('Subscription already exist.');
-            }
-        } else {
-            $this->command->info('Organization plan does not exist.');
+        if (! $organization || ! $plan) {
+            $this->command->warn('Organization or Plan does not exist.');
+
+            return;
         }
+
+        $subscription = Subscription::firstOrCreate(
+            [
+                'organization_id' => $organization->id,
+                'plan_id' => $plan->id,
+            ],
+            [
+                'status' => 'paid',
+                'is_active' => true,
+            ]
+        );
+
+        $message = $subscription->wasRecentlyCreated
+            ? '✅ Subscription created successfully.'
+            : 'ℹ️ Subscription already exists.';
+
+        $this->command->info($message);
     }
 }

@@ -37,4 +37,12 @@ class StoreReportRequest extends BaseFormRequest
             'impact' => 'nullable|string|max:1000',
         ];
     }
+
+    public function attributes(): array
+    {
+        return [
+            'researcher_id' => 'researcher',
+            'program_id' => 'program',
+        ];
+    }
 }

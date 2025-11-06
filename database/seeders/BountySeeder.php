@@ -17,42 +17,62 @@ class BountySeeder extends Seeder
      */
     public function run(): void
     {
-        $program = Program::where(['title' => 'Bugshield'])->first();
+        $programTitle = 'Bugshield';
+        $reportTitle = 'SQL Injection in Login Page';
 
-        $report = Report::where(['title' => 'SQL Injection in Login page'])->first();
-
-        $researcher = Researcher::where([
+        $researcherData = [
             'first_name' => 'Abdulmajeed',
             'last_name' => 'Durowade',
             'email' => 'durowadeabdulmajeed@gmail.com',
-        ])->first();
+        ];
 
-        $organization = Organization::where([
+        $organizationData = [
             'name' => 'Bugshield',
             'email' => 'bugshield@gmail.com',
-        ])->first();
+        ];
 
-        if ($program && $report && $researcher && $organization) {
-            if (Bounty::where(['program_id' => $program->id, 'report_id' => $report->id, 'researcher_id' => $researcher->id, 'organization_id' => $organization->id])->count() == 0) {
-                Bounty::create([
-                    'program_id' => $program->id,
-                    'report_id' => $report->id,
-                    'researcher_id' => $researcher->id,
-                    'organization_id' => $organization->id,
-                    'amount' => 90000,
-                    'status' => 'paid',
-                    'is_low' => false,
-                    'is_medium' => false,
-                    'is_high' => false,
-                    'is_critical' => true,
-                    'is_informational' => false,
-                ]);
-                $this->command->info('Bounty created successfully.');
-            } else {
-                $this->command->info('Bounty already exist.');
-            }
-        } else {
-            $this->command->info('Program, Report, Researcher or Organization does not exist.');
+        // Fetch related records
+        $program = Program::where('title', $programTitle)->first();
+        $report = Report::where('title', $reportTitle)->first();
+        $researcher = Researcher::where($researcherData)->first();
+        $organization = Organization::where($organizationData)->first();
+
+        // Validate required data existence
+        if (! $program || ! $report || ! $researcher || ! $organization) {
+            $this->command->warn('One or more dependencies (Program, Report, Researcher, or Organization) do not exist.');
+
+            return;
         }
+
+        // Check if bounty already exists
+        $exists = Bounty::where([
+            'program_id' => $program->id,
+            'report_id' => $report->id,
+            'researcher_id' => $researcher->id,
+            'organization_id' => $organization->id,
+        ])->exists();
+
+        if ($exists) {
+            $this->command->info('Bounty already exists.');
+
+            return;
+        }
+
+        // Create new bounty
+        Bounty::create([
+            'program_id' => $program->id,
+            'report_id' => $report->id,
+            'researcher_id' => $researcher->id,
+            'organization_id' => $organization->id,
+            'amount' => 90000,
+            'status' => 'paid',
+            'is_low' => false,
+            'is_medium' => false,
+            'is_high' => false,
+            'is_critical' => true,
+            'is_informational' => false,
+        ]);
+
+        $this->command->info('Bounty created successfully.');
     }
 }

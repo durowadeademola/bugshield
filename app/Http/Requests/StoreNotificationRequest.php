@@ -25,4 +25,11 @@ class StoreNotificationRequest extends BaseFormRequest
             'read_status' => 'required|boolean',
         ];
     }
+
+    public function attributes(): array
+    {
+        return [
+            'user_id' => 'user',
+        ];
+    }
 }

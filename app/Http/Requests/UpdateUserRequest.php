@@ -25,4 +25,9 @@ class UpdateUserRequest extends BaseFormRequest
             'password' => 'nullable|string|min:8|confirmed',
         ];
     }
+
+    public function attributes(): array
+    {
+        return [];
+    }
 }

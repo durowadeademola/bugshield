@@ -3,9 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Account;
-use App\Models\Admin;
-use App\Models\Analyst;
-use App\Models\Researcher;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -17,85 +14,69 @@ class AccountSeeder extends Seeder
      */
     public function run(): void
     {
-        // analyst account
-        $analyst = User::where([
-            'name' => 'bugshield-analyst',
-            'email' => 'analyst@bugshield.com',
-        ])->first();
+        $accounts = [
+            [
+                'role' => 'analyst',
+                'email' => 'analyst@bugshield.com',
+                'account_number' => '2216232901',
+                'bank_name' => 'Zenith Bank Plc',
+                'bank_code' => 'ZNTHNG',
+                'balance' => 1000000,
+            ],
+            [
+                'role' => 'admin',
+                'email' => 'admin@bugshield.com',
+                'account_number' => '7064706193',
+                'bank_name' => 'Opay Services',
+                'bank_code' => 'OPAYNG',
+                'balance' => 3000000,
+            ],
+            [
+                'role' => 'researcher',
+                'email' => 'researcher@bugshield.com',
+                'account_number' => '0409992852',
+                'bank_name' => 'Wema Bank Plc',
+                'bank_code' => 'WEMALG',
+                'balance' => 5000000,
+            ],
+        ];
 
-        if ($analyst) {
-            if (Account::where(['user_id' => $analyst->id, 'status' => 'active'])->count() == 0) {
-                Account::create([
-                    'user_id' => $analyst->id,
-                    'account_number' => '2216232901',
-                    'account_name' => 'ABDULMAJEED ADEMOLA DUROWADE',
-                    'bank_name' => 'Zenith Bank Plc',
-                    'bank_code' => 'ZNTHNG',
-                    'account_type' => 'savings',
-                    'currency' => 'NGN',
-                    'status' => 'active',
-                    'balance' => '1000000',
-                ]);
-                $this->command->info('Analyst account created successfully.');
-            } else {
-                $this->command->info('Analyst account already exist.');
+        foreach ($accounts as $data) {
+            $user = User::where([
+                'name' => "bugshield-{$data['role']}",
+                'email' => $data['email'],
+            ])->first();
+
+            if (! $user) {
+                $this->command->warn(ucfirst($data['role']).' user does not exist.');
+
+                continue;
             }
-        } else {
-            $this->command->info('Analyst account does not exist.');
-        }
 
-        // admin account
-        $admin = User::where([
-            'name' => 'bugshield-admin',
-            'email' => 'admin@bugshield.com',
-        ])->first();
+            $existingAccount = Account::where([
+                'user_id' => $user->id,
+                'status' => 'active',
+            ])->exists();
 
-        if ($admin) {
-            if (Account::where(['user_id' => $admin->id, 'status' => 'active'])->count() == 0) {
-                Account::create([
-                    'user_id' => $admin->id,
-                    'account_number' => '7064706193',
-                    'account_name' => 'ABDULMAJEED ADEMOLA DUROWADE',
-                    'bank_name' => 'Opay Services',
-                    'bank_code' => 'OPAYNG',
-                    'account_type' => 'savings',
-                    'currency' => 'NGN',
-                    'status' => 'active',
-                    'balance' => '3000000',
-                ]);
-                $this->command->info('Admin account created successfully.');
-            } else {
-                $this->command->info('Admin account already exist.');
+            if ($existingAccount) {
+                $this->command->info(ucfirst($data['role']).' account already exists.');
+
+                continue;
             }
-        } else {
-            $this->command->info('Admin account does not exist.');
-        }
 
-        // researcher account
-        $researcher = User::where([
-            'name' => 'bugshield-researcher',
-            'email' => 'researcher@bugshield.com',
-        ])->first();
+            Account::create([
+                'user_id' => $user->id,
+                'account_number' => $data['account_number'],
+                'account_name' => 'ABDULMAJEED ADEMOLA DUROWADE',
+                'bank_name' => $data['bank_name'],
+                'bank_code' => $data['bank_code'],
+                'account_type' => 'savings',
+                'currency' => 'NGN',
+                'status' => 'active',
+                'balance' => $data['balance'],
+            ]);
 
-        if ($researcher) {
-            if (Account::where(['user_id' => $researcher->id, 'status' => 'active'])->count() == 0) {
-                Account::create([
-                    'user_id' => $researcher->id,
-                    'account_number' => '0409992852',
-                    'account_name' => 'ABDULMAJEED ADEMOLA DUROWADE',
-                    'bank_name' => 'Wema Bank Plc',
-                    'bank_code' => 'WEMALG',
-                    'account_type' => 'savings',
-                    'currency' => 'NGN',
-                    'status' => 'active',
-                    'balance' => '5000000',
-                ]);
-                $this->command->info('Researcher account created successfully.');
-            } else {
-                $this->command->info('Researcher account already exist.');
-            }
-        } else {
-            $this->command->info('Researcher account does not exist.');
+            $this->command->info(ucfirst($data['role']).' account created successfully.');
         }
     }
 }

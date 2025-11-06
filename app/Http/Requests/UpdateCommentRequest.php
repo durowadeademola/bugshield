@@ -26,4 +26,13 @@ class UpdateCommentRequest extends BaseFormRequest
             'message' => 'required|string|max:1000',
         ];
     }
+
+    public function attributes(): array
+    {
+        return [
+            'program_id' => 'program',
+            'report_id' => 'report',
+            'user_id' => 'user',
+        ];
+    }
 }

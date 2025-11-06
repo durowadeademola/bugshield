@@ -33,4 +33,14 @@ class StoreBountyRequest extends BaseFormRequest
             'is_informational' => 'required|boolean',
         ];
     }
+
+    public function attributes(): array
+    {
+        return [
+            'program_id' => 'program',
+            'report_id' => 'report',
+            'researcher_id' => 'researcher',
+            'organization_id' => 'organization',
+        ];
+    }
 }

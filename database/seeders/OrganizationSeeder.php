@@ -14,31 +14,49 @@ class OrganizationSeeder extends Seeder
      */
     public function run(): void
     {
-        $organization = User::where([
+        $userData = [
             'name' => 'bugshield-organization',
             'email' => 'organization@bugshield.com',
-        ])->first();
+        ];
 
-        if ($organization) {
-            if (Organization::where(['user_id' => $organization->id, 'is_active' => true])->count() == 0) {
-                Organization::create([
-                    'user_id' => $organization->id,
-                    'name' => 'Bugshield',
-                    'email' => 'bugshield@gmail.com',
-                    'website' => 'https://www.bugshield.com',
-                    'address' => 'Abuja',
-                    'phone_number' => '07064706193',
-                    'description' => 'Continuous penetration and bug bounty platform.',
-                    'state' => 'FCT',
-                    'country' => 'Nigeria',
-                    'is_active' => true,
-                ]);
-                $this->command->info('Organization created successfully.');
-            } else {
-                $this->command->info('Organization user already exist.');
-            }
-        } else {
-            $this->command->info('Organization user does not exist.');
+        $organizationData = [
+            'name' => 'Bugshield',
+            'email' => 'bugshield@gmail.com',
+            'website' => 'https://www.bugshield.com',
+            'address' => 'Abuja',
+            'phone_number' => '07064706193',
+            'description' => 'Continuous penetration and bug bounty platform.',
+            'state' => 'FCT',
+            'country' => 'Nigeria',
+            'is_active' => true,
+        ];
+
+        // Find the linked user
+        $user = User::where($userData)->first();
+
+        if (! $user) {
+            $this->command->warn('Organization user does not exist.');
+
+            return;
         }
+
+        // Check if organization profile exists
+        $exists = Organization::where([
+            'user_id' => $user->id,
+            'is_active' => true,
+        ])->exists();
+
+        if ($exists) {
+            $this->command->info('Organization profile already exists.');
+
+            return;
+        }
+
+        // Create organization profile
+        Organization::create(array_merge($organizationData, [
+            'user_id' => $user->id,
+        ]));
+
+        $this->command->info('Organization profile created successfully.');
     }
 }

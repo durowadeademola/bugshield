@@ -31,4 +31,11 @@ class StoreAccountRequest extends BaseFormRequest
             'status' => 'required|in:active,inactive',
         ];
     }
+
+    public function attributes(): array
+    {
+        return [
+            'user_id' => 'user',
+        ];
+    }
 }

@@ -30,4 +30,14 @@ class StoreTransactionRequest extends BaseFormRequest
             'transaction_reference' => 'required|string|max:255|unique:transactions',
         ];
     }
+
+    public function attributes(): array
+    {
+        return [
+            'program_id' => 'program',
+            'bounty_id' => 'bounty',
+            'researcher_id' => 'researcher',
+            'organization_id' => 'organization',
+        ];
+    }
 }

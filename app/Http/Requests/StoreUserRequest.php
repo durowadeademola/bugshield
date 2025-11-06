@@ -25,4 +25,9 @@ class StoreUserRequest extends BaseFormRequest
             'password' => 'required|string|min:8|confirmed',
         ];
     }
+
+    public function attributes(): array
+    {
+        return [];
+    }
 }
