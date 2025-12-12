@@ -16,33 +16,33 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $currentTimestamp = Carbon::now();
+        $currentTimestamp = \Carbon\Carbon::now();
 
         // Define all default users in one place
         $usersData = [
             [
-                'name' => 'bugshield-admin',
-                'email' => 'admin@bugshield.com',
+                'name' => 'bluestrike-admin',
+                'email' => 'admin@bluestrike.com',
                 'role' => 'admin',
             ],
             [
-                'name' => 'bugshield-analyst',
-                'email' => 'analyst@bugshield.com',
+                'name' => 'bluestrike-analyst',
+                'email' => 'analyst@bluestrike.com',
                 'role' => 'analyst',
             ],
             [
-                'name' => 'bugshield-researcher',
-                'email' => 'researcher@bugshield.com',
+                'name' => 'bluestrike-researcher',
+                'email' => 'researcher@bluestrike.com',
                 'role' => 'researcher',
             ],
             [
-                'name' => 'bugshield-organization',
-                'email' => 'organization@bugshield.com',
+                'name' => 'bluestrike-organization',
+                'email' => 'organization@bluestrike.com',
                 'role' => 'organization',
             ],
             [
-                'name' => 'bugshield-team',
-                'email' => 'team@bugshield.com',
+                'name' => 'bluestrike-team',
+                'email' => 'team@bluestrike.com',
                 'role' => 'team',
             ],
         ];

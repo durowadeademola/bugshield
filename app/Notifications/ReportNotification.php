@@ -39,7 +39,7 @@ class ReportNotifcation extends Notification
             ->subject('New Report Submitted')
             ->line('A new bug report has been submitted by a researcher.')
             ->action('View Report', url('/reports/'.$this->report->id))
-            ->line('Thank you for using BugShield!');
+            ->line('Thank you for using Bluestrike!');
     }
 
     // $user->notify(new NewReportSubmitted($report));

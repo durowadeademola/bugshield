@@ -15,8 +15,8 @@ class ProgramSeeder extends Seeder
     public function run(): void
     {
         $organization = Organization::where([
-            'name' => 'Bugshield',
-            'email' => 'bugshield@gmail.com',
+            'name' => 'Bluestrike',
+            'email' => 'bluestrike@gmail.com',
         ])->first();
 
         if (! $organization) {
@@ -28,10 +28,10 @@ class ProgramSeeder extends Seeder
         $program = Program::firstOrCreate(
             [
                 'organization_id' => $organization->id,
-                'title' => 'Bugshield',
+                'title' => 'Bluestrike',
             ],
             [
-                'description' => 'Bugshield bug bounty program.',
+                'description' => 'Bluestrike bug bounty program.',
                 'platform' => 'web',
                 'is_public' => true,
                 'is_private' => false,
@@ -42,8 +42,8 @@ class ProgramSeeder extends Seeder
                 'high_bounty_range' => '60000 - 70000',
                 'medium_bounty_range' => '40000 - 55000',
                 'low_bounty_range' => '10000 - 30000',
-                'asset' => '*bugshield.com',
-                'in_scope' => '*bugshield.com',
+                'asset' => '*bluestrike.com',
+                'in_scope' => '*bluestrike.com',
                 'out_of_scope' => 'N/A',
             ]
         );

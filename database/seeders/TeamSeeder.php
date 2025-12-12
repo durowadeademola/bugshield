@@ -15,13 +15,13 @@ class TeamSeeder extends Seeder
     public function run(): void
     {
         $organization = Organization::where([
-            'name' => 'Bugshield',
-            'email' => 'bugshield@gmail.com',
+            'name' => 'Bluestrike',
+            'email' => 'bluestrike@gmail.com',
         ])->first();
 
         $teamUser = User::where([
-            'name' => 'bugshield-team',
-            'email' => 'team@bugshield.com',
+            'name' => 'bluestrike-team',
+            'email' => 'team@bluestrike.com',
         ])->first();
 
         if (! $organization) {
@@ -49,7 +49,7 @@ class TeamSeeder extends Seeder
                 'middle_name' => 'Ademola',
                 'last_name' => 'Durowade',
                 'email' => 'durowadeabdulmajeed@gmail.com',
-                'designation' => 'bugshield-team',
+                'designation' => 'bluestrike-team',
                 'address' => 'No 22, Citizens Avenue, Dawaki. Abuja',
                 'phone_number' => '07064706193',
                 'is_active' => true,

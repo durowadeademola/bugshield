@@ -17,7 +17,7 @@ class BountySeeder extends Seeder
      */
     public function run(): void
     {
-        $programTitle = 'Bugshield';
+        $programTitle = 'Bluestrike';
         $reportTitle = 'SQL Injection in Login Page';
 
         $researcherData = [
@@ -27,8 +27,8 @@ class BountySeeder extends Seeder
         ];
 
         $organizationData = [
-            'name' => 'Bugshield',
-            'email' => 'bugshield@gmail.com',
+            'name' => 'Bluestrike',
+            'email' => 'bluestrike@gmail.com',
         ];
 
         // Fetch related records

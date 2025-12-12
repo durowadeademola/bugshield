@@ -16,13 +16,13 @@ class AdminSeeder extends Seeder
     {
         $adminData = [
             'role' => 'admin',
-            'email' => 'admin@bugshield.com',
+            'email' => 'admin@bluestrike.com',
             'profile' => [
                 'first_name' => 'Abdulmajeed',
                 'middle_name' => 'Ademola',
                 'last_name' => 'Durowade',
                 'email' => 'durowadeabdulmajeed@gmail.com',
-                'designation' => 'bugshield-admin',
+                'designation' => 'bluestrike-admin',
                 'address' => 'No 22, Citizens Avenue, Dawaki. Abuja',
                 'phone_number' => '07064706193',
             ],
@@ -30,7 +30,7 @@ class AdminSeeder extends Seeder
 
         // find admin user
         $adminUser = User::where([
-            'name' => "bugshield-{$adminData['role']}",
+            'name' => "bluestrike-{$adminData['role']}",
             'email' => $adminData['email'],
         ])->first();
 

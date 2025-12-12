@@ -15,14 +15,14 @@ class OrganizationSeeder extends Seeder
     public function run(): void
     {
         $userData = [
-            'name' => 'bugshield-organization',
-            'email' => 'organization@bugshield.com',
+            'name' => 'bluestrike-organization',
+            'email' => 'organization@bluestrike.com',
         ];
 
         $organizationData = [
-            'name' => 'Bugshield',
-            'email' => 'bugshield@gmail.com',
-            'website' => 'https://www.bugshield.com',
+            'name' => 'Bluestrike',
+            'email' => 'bluestrike@gmail.com',
+            'website' => 'https://www.bluestrike.com',
             'address' => 'Abuja',
             'phone_number' => '07064706193',
             'description' => 'Continuous penetration and bug bounty platform.',

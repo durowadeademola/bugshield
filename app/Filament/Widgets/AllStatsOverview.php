@@ -17,7 +17,7 @@ class AllStatsOverview extends BaseWidget
         return [
             Stat::make('Total Users', User::count())
                 ->icon('heroicon-o-user-group')
-                ->description('Total registered users on Bugshield')
+                ->description('Total registered users on Bluestrike')
                 ->descriptionIcon('heroicon-m-arrow-trending-up')
                 ->chart([7, 2, 10, 3, 15, 4, 17])
                 ->color('success'),
@@ -31,7 +31,7 @@ class AllStatsOverview extends BaseWidget
 
             Stat::make('Total Bounties', Bounty::count())
                 ->icon('heroicon-o-currency-dollar')
-                ->description('Active bounties on Bugshield')
+                ->description('Active bounties on Bluestrike')
                 ->descriptionIcon('heroicon-m-arrow-trending-up')
                 ->chart([7, 2, 10, 3, 15, 4, 17])
                 ->color('danger'),

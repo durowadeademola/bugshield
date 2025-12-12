@@ -16,7 +16,7 @@ class CommentSeeder extends Seeder
      */
     public function run(): void
     {
-        $program = Program::where('title', 'Bugshield')->first();
+        $program = Program::where('title', 'Bluestrike')->first();
         $report = Report::where('title', 'SQL Injection in Login Page')->first();
 
         if (! $program || ! $report) {
@@ -28,16 +28,16 @@ class CommentSeeder extends Seeder
         $comments = [
             [
                 'user' => [
-                    'name' => 'bugshield-analyst',
-                    'email' => 'analyst@bugshield.com',
+                    'name' => 'bluestrike-analyst',
+                    'email' => 'analyst@bluestrike.com',
                 ],
                 'message' => 'Thank you for your report, a bounty has been paid.',
                 'role' => 'Analyst',
             ],
             [
                 'user' => [
-                    'name' => 'bugshield-researcher',
-                    'email' => 'researcher@bugshield.com',
+                    'name' => 'bluestrike-researcher',
+                    'email' => 'researcher@bluestrike.com',
                 ],
                 'message' => 'Thank you for the bounty.',
                 'role' => 'Researcher',

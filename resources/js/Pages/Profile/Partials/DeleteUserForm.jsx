@@ -67,7 +67,7 @@ export default function DeleteUserForm({ className = '' }) {
                 title="Are you sure you want to delete your account?"
                 message={
                     <>
-                        Once your account is deleted, all resources and data will be lost. Bugshield would not recover your account. <br />
+                        Once your account is deleted, all resources and data will be lost. Bluestrike would not recover your account. <br />
                         Please enter your password to confirm.
                         <div className="mt-6 text-left">
                             <input

@@ -17,7 +17,7 @@ class AccountSeeder extends Seeder
         $accounts = [
             [
                 'role' => 'analyst',
-                'email' => 'analyst@bugshield.com',
+                'email' => 'analyst@bluestrike.com',
                 'account_number' => '2216232901',
                 'bank_name' => 'Zenith Bank Plc',
                 'bank_code' => 'ZNTHNG',
@@ -25,7 +25,7 @@ class AccountSeeder extends Seeder
             ],
             [
                 'role' => 'admin',
-                'email' => 'admin@bugshield.com',
+                'email' => 'admin@bluestrike.com',
                 'account_number' => '7064706193',
                 'bank_name' => 'Opay Services',
                 'bank_code' => 'OPAYNG',
@@ -33,7 +33,7 @@ class AccountSeeder extends Seeder
             ],
             [
                 'role' => 'researcher',
-                'email' => 'researcher@bugshield.com',
+                'email' => 'researcher@bluestrike.com',
                 'account_number' => '0409992852',
                 'bank_name' => 'Wema Bank Plc',
                 'bank_code' => 'WEMALG',
@@ -43,7 +43,7 @@ class AccountSeeder extends Seeder
 
         foreach ($accounts as $data) {
             $user = User::where([
-                'name' => "bugshield-{$data['role']}",
+                'name' => "bluestrike-{$data['role']}",
                 'email' => $data['email'],
             ])->first();
 

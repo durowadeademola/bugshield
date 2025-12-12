@@ -15,8 +15,8 @@ class ResearcherSeeder extends Seeder
     public function run(): void
     {
         $researcherUser = User::where([
-            'name' => 'bugshield-researcher',
-            'email' => 'researcher@bugshield.com',
+            'name' => 'bluestrike-researcher',
+            'email' => 'researcher@bluestrike.com',
         ])->first();
 
         if (! $researcherUser) {
@@ -35,7 +35,7 @@ class ResearcherSeeder extends Seeder
                 'middle_name' => 'Ademola',
                 'last_name' => 'Durowade',
                 'email' => 'durowadeabdulmajeed@gmail.com',
-                'designation' => 'bugshield-researcher',
+                'designation' => 'bluestrike-researcher',
                 'address' => 'No 22, Citizens Avenue, Dawaki. Abuja',
                 'phone_number' => '07064706193',
             ]

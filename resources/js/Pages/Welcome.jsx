@@ -37,8 +37,8 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
            <Head>
             <title>Protect Your Business</title>
             <img
-                src="/images/bugshield-logo.png"
-                alt="Bugshield Logo"
+                src="/images/bluestrike-logo.png"
+                alt="Bluestrike Logo"
                 className="h-20 w-auto"
             />
             </Head>
@@ -50,12 +50,12 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                     {/* Logo */}
                     <div className="flex items-center">
                         <img
-                        src="/images/bugshield-logo.png"
-                        alt="Bugshield Logo"
+                        src="/images/bluestrike-logo.png"
+                        alt="Bluestrike Logo"
                         className="h-20 w-auto"
                         />
                         <Link href="/">
-                            <span className="text-3xl font-bold text-white cursor-pointer">Bugshield</span>
+                            <span className="text-3xl font-bold text-white cursor-pointer">Bluestrike</span>
                         </Link>
                     </div>
 
@@ -96,7 +96,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                             href={route('register')}
                             className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-4 rounded hover:bg-hoverPrimary ease-in duration-300"
                             >
-                            Try Bugshield
+                            Try Bluestrike
                             </Link>
                         </>
                         )}
@@ -145,7 +145,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                         transition={{ delay: 1.2, duration: 1 }}
                         >
                         <img
-                            src="/images/bugshield-illustration.png"
+                            src="/images/bluestrike-illustration.png"
                             alt="Cybersecurity Illustration"
                             className="object-contain w-full max-w-lg h-[500px] rounded-2xl"
                         />

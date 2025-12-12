@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Bugshield 2FA Code</title>
+  <title>Bluestrike 2FA Code</title>
 </head>
 <body style="font-family: 'Segoe UI', sans-serif; background-color: #ffffff; padding: 30px; color: #0f172a;">
   <div style="max-width: 600px; margin: auto;">
     {{-- <div style="margin-bottom: 30px;">
-      <img src="/images/bugshield-logo.png" alt="BugShield" style="height: 30px;" /> 
-      <span class="text-white">Bugshield</span>
+      <img src="/images/bluestrike-logo.png" alt="Bluestrike" style="height: 30px;" /> 
+      <span class="text-white">Bluestrike</span>
     </div> --}}
 
     <h2 style="color: #0f172a;">Hello,</h2>
@@ -32,7 +32,7 @@
     <p>If you didn't request this OTP, please contact our support and change your password immediately.</p>
 
     <br>
-    <p style="color: #475569;">Bugshield.</p>
+    <p style="color: #475569;">Bluestrike.</p>
   </div>
 </body>
 </html>

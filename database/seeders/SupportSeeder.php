@@ -14,8 +14,8 @@ class SupportSeeder extends Seeder
     public function run(): void
     {
         $organization = User::where([
-            'name' => 'bugshield-organization',
-            'email' => 'organization@bugshield.com',
+            'name' => 'bluestrike-organization',
+            'email' => 'organization@bluestrike.com',
         ])->first();
 
         if (! $organization) {

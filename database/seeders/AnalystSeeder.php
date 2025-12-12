@@ -16,13 +16,13 @@ class AnalystSeeder extends Seeder
     {
         $analystData = [
             'role' => 'analyst',
-            'email' => 'analyst@bugshield.com',
+            'email' => 'analyst@bluestrike.com',
             'profile' => [
                 'first_name' => 'Abdulmajeed',
                 'middle_name' => 'Ademola',
                 'last_name' => 'Durowade',
                 'email' => 'durowadeabdulmajeed@gmail.com',
-                'designation' => 'bugshield-analyst',
+                'designation' => 'bluestrike-analyst',
                 'address' => 'No 22, Citizens Avenue, Dawaki. Abuja',
                 'phone_number' => '07064706193',
             ],
@@ -30,7 +30,7 @@ class AnalystSeeder extends Seeder
 
         // find analyst user
         $user = User::where([
-            'name' => "bugshield-{$analystData['role']}",
+            'name' => "bluestrike-{$analystData['role']}",
             'email' => $analystData['email'],
         ])->first();
 

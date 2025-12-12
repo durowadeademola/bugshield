@@ -15,8 +15,8 @@ class SubscriptionSeeder extends Seeder
     public function run(): void
     {
         $organization = Organization::where([
-            'name' => 'Bugshield',
-            'email' => 'bugshield@gmail.com',
+            'name' => 'Bluestrike',
+            'email' => 'bluestrike@gmail.com',
         ])->first();
 
         $plan = Plan::where('title', 'Free Plan')->first();

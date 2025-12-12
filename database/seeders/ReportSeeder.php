@@ -15,7 +15,7 @@ class ReportSeeder extends Seeder
      */
     public function run(): void
     {
-        $program = Program::where('title', 'Bugshield')->first();
+        $program = Program::where('title', 'Bluestrike')->first();
         $researcher = Researcher::where([
             'first_name' => 'Abdulmajeed',
             'last_name' => 'Durowade',
@@ -35,14 +35,14 @@ class ReportSeeder extends Seeder
                 'title' => 'SQL Injection in Login page',
             ],
             [
-                'description' => 'There is an SQL Injection vulnerability in the login page at www.bugshield.com.',
+                'description' => 'There is an SQL Injection vulnerability in the login page at www.bluestrike.com.',
                 'status' => 'pending',
                 'is_low' => false,
                 'is_medium' => false,
                 'is_high' => false,
                 'is_critical' => true,
                 'is_informational' => false,
-                'asset' => 'www.bugshield.com',
+                'asset' => 'www.bluestrike.com',
                 'weakness' => 'SQL Injection',
                 'severity' => '9.0',
                 'impact' => 'Threat actor compromises the whole data.',

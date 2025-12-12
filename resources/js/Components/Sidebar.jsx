@@ -170,12 +170,12 @@ export default function Sidebar({ user, isCollapsed, setIsCollapsed }) {
       <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
         {!isCollapsed && (
           <div className="flex items-center space-x-2">
-            <img src="/images/bugshield-logo.png" alt="Bugshield Logo" className="h-10" />
+            <img src="/images/bluestrike-logo.png" alt="Bluestrike Logo" className="h-10" />
             <Link
               href="/"
               className="text-2xl font-extrabold text-gray-900 dark:text-white select-none"
             >
-              Bugshield
+              Bluestrike
             </Link>
           </div>
         )}

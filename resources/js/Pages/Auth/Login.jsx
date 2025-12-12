@@ -27,13 +27,13 @@ export default function Login({ status, canResetPassword }) {
                 {/* Logo at Top Left */}
                 <div className="absolute top-6 left-6 flex items-center">
                     <img
-                        src="/images/bugshield-logo.png"
-                        alt="Bugshield Logo"
+                        src="/images/bluestrike-logo.png"
+                        alt="Bluestrike Logo"
                         className="h-12 w-auto"
                     />
                     <Link href="/">
                         <span className="text-2xl md:text-3xl font-extrabold text-white cursor-pointer">
-                            Bugshield
+                            Bluestrike
                         </span>
                     </Link>
                 </div>
@@ -110,7 +110,7 @@ export default function Login({ status, canResetPassword }) {
                     </p>
 
                     <p className="text-sm text-center text-gray-400 mt-6">
-                        By continuing, you agree to Bugshield&apos;s{' '}
+                        By continuing, you agree to Bluestrike&apos;s{' '}
                         <Link
                             href={route('terms')}
                             className="text-blue-500 hover:underline"
@@ -133,8 +133,8 @@ export default function Login({ status, canResetPassword }) {
             {/* Right Panel */}
             <div className="hidden md:flex w-1/2 bg-[#263178] items-center justify-center p-6 shadow-2xl overflow-hidden">
                 <img
-                    src="/images/bugshield-illustration.png"
-                    alt="Bugshield Illustration"
+                    src="/images/bluestrike-illustration.png"
+                    alt="Bluestrike Illustration"
                     className="max-w-[700px] w-full h-auto object-contain rounded-xl"
                 />
             </div>

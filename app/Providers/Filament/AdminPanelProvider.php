@@ -35,7 +35,7 @@ class AdminPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([])
             ->defaultThemeMode(ThemeMode::Dark)
-            ->brandName('Bugshield')
+            ->brandName('Bluestrike')
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,

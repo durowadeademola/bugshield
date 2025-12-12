@@ -19,15 +19,15 @@ class TransactionSeeder extends Seeder
     public function run(): void
     {
         $report = Report::where(['title' => 'SQL Injection in Login Page'])->first();
-        $program = Program::where(['title' => 'Bugshield'])->first();
+        $program = Program::where(['title' => 'Bluestrike'])->first();
         $researcher = Researcher::where([
             'first_name' => 'Abdulmajeed',
             'last_name' => 'Durowade',
             'email' => 'durowadeabdulmajeed@gmail.com',
         ])->first();
         $organization = Organization::where([
-            'name' => 'Bugshield',
-            'email' => 'bugshield@gmail.com',
+            'name' => 'Bluestrike',
+            'email' => 'bluestrike@gmail.com',
         ])->first();
 
         // ✅ Check dependencies before querying bounty
