@@ -71,7 +71,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                         </div>
                         </div>
                         <Link href="/solution">Solutions</Link>
-                        <Link href="/hackers">Researchers</Link>
+                        <Link href="/researchers">Researchers</Link>
                         <Link href="/customers">Customers</Link>
                         <Link href="/resources">Resources</Link>
                         <Link href="/company">Company</Link>

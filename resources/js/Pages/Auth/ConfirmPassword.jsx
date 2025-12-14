@@ -84,7 +84,7 @@ export default function ConfirmPassword() {
                 {/* Right Panel */}
                 <div className="hidden md:flex w-1/2 bg-[#263178] items-center justify-center p-6 shadow-2xl overflow-hidden">
                     <img
-                        src="/images/bluestrike-illustration.png"
+                        src="/images/bluestrike-illustration_@.png"
                         alt="Bluestrike Illustration"
                         className="max-w-[700px] w-full h-auto object-contain rounded-xl"
                     />

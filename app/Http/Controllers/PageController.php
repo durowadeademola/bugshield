@@ -23,9 +23,9 @@ class PageController extends Controller
         return Inertia::render('Solution', ['user' => Auth::user()]);
     }
 
-    public function hacker(): Response
+    public function researcher(): Response
     {
-        return Inertia::render('Hacker', ['user' => Auth::user()]);
+        return Inertia::render('Researcher', ['user' => Auth::user()]);
     }
 
     public function customer(): Response

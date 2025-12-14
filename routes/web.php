@@ -58,7 +58,7 @@ Route::middleware(['auth', 'verified', 'role:team'])->group(function () {
 Route::get('/terms', [PageController::class, 'terms'])->name('terms');
 Route::get('/privacy', [PageController::class, 'privacy'])->name('privacy');
 Route::get('/solution', [PageController::class, 'solution'])->name('solution');
-Route::get('/hackers', [PageController::class, 'hacker'])->name('hacker');
+Route::get('/researchers', [PageController::class, 'researcher'])->name('researcher');
 Route::get('/customers', [PageController::class, 'customer'])->name('customer');
 Route::get('/resources', [PageController::class, 'resource'])->name('resource');
 Route::get('/company', [PageController::class, 'company'])->name('company');

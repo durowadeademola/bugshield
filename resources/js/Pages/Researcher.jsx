@@ -1,7 +1,7 @@
 import React from 'react';
 import { usePage } from '@inertiajs/react';
 
-export default function Hacker() {
+export default function Researcher() {
     const { user } = usePage().props;
     
     return (
