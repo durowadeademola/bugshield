@@ -65,7 +65,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                             transition={{ duration: 1 }}
                             className="space-y-4 md:space-y-6"
                         >
-                            <p className="text-sm font-semibold uppercase tracking-wide text-blue-400 md:text-base">
+                            <p className="text-1xl bg-gradient-to-r from-blue-400 via-teal-400 to-green-400 bg-clip-text font-bold uppercase tracking-wider text-transparent drop-shadow-lg transition-transform duration-300 ease-in-out hover:scale-105 hover:drop-shadow-2xl md:text-2xl lg:text-2xl">
                                 A Comprehensive Cybersecurity Solution
                             </p>
 
