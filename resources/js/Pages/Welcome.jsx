@@ -90,13 +90,13 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                             <div className="mt-6 flex flex-col space-y-3 sm:flex-row sm:space-x-4 sm:space-y-0">
                                 <Link
                                     href="/register"
-                                    className="rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white shadow-md transition-all hover:bg-blue-700 hover:shadow-lg"
+                                    className="transform rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white shadow-md transition transition-all duration-200 hover:scale-105 hover:bg-blue-700 hover:shadow-lg"
                                 >
                                     Get Started
                                 </Link>
                                 <Link
                                     href="/login"
-                                    className="rounded-lg border border-white bg-transparent px-6 py-3 font-semibold text-white transition-all hover:bg-white hover:text-[#0b1e4e]"
+                                    className="transform rounded-lg border border-white bg-transparent px-6 py-3 font-semibold text-white transition transition-all duration-200 hover:scale-105 hover:bg-white hover:text-[#0b1e4e]"
                                 >
                                     Sign In
                                 </Link>
