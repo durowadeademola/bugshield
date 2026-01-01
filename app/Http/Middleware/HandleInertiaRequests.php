@@ -35,10 +35,16 @@ class HandleInertiaRequests extends Middleware
             ...parent::share($request),
             'auth' => [
                 'user' => $user
-                    ? $user->only(['id', 'name', 'email', 'email_two_factor_enabled', 'totp_two_factor_enabled']) + [
+                    ? $user->only([
+                        'id',
+                        'name',
+                        'email',
+                        'email_two_factor_enabled',
+                        'totp_two_factor_enabled',
+                    ]) + [
                         'roles' => $user->getRoleNames(),
                         'unreadNotifications' => $user->unreadNotifications()->count(),
-                        'notifications' => $user->notifications->take(10),
+                        'notifications' => $user->notifications()->latest()->limit(10)->get(),
                         'organization' => $user->organization,
                         'analyst' => $user->analyst,
                         'team' => $user->team,

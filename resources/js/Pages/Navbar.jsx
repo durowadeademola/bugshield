@@ -6,9 +6,30 @@ import { useState } from 'react';
 export default function Navbar() {
     const { props } = usePage();
     const auth = props.auth ?? {};
+    const roles = auth.user?.roles || [];
+
     const [isServicesOpen, setIsServicesOpen] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
+
+    const isOrganization = roles.includes('organization');
+    const isAnalyst = roles.includes('analyst');
+    const isResearcher = roles.includes('researcher');
+    const isTeam = roles.includes('team');
+
+    let href;
+
+    if (isOrganization) {
+        href = route('organization.dashboard');
+    } else if (isAnalyst) {
+        href = route('analyst.dashboard');
+    } else if (isResearcher) {
+        href = route('researcher.dashboard');
+    } else if (isTeam) {
+        href = route('team.dashboard');
+    } else {
+        href = route('home');
+    }
 
     const services = [
         {
@@ -118,7 +139,7 @@ export default function Navbar() {
                     <div className="ml-6 hidden items-center space-x-4 lg:flex">
                         {auth.user ? (
                             <Link
-                                href="/dashboard"
+                                href={href}
                                 className="transform rounded-lg bg-blue-600 px-5 py-2.5 font-medium text-white shadow-md transition transition-all duration-200 hover:scale-105 hover:bg-blue-700 hover:shadow-lg"
                             >
                                 Dashboard
@@ -228,7 +249,7 @@ export default function Navbar() {
                                 <div className="space-y-2 px-4 py-2">
                                     {auth.user ? (
                                         <Link
-                                            href="/dashboard"
+                                            href={href}
                                             className="block rounded-lg bg-blue-600 px-5 py-2.5 text-center font-medium text-white shadow-md transition-all hover:bg-blue-700 hover:shadow-lg"
                                         >
                                             Dashboard

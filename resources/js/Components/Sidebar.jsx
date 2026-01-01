@@ -30,7 +30,7 @@ export default function Sidebar({ user, isCollapsed, setIsCollapsed }) {
         children: [
           { name: 'Bug Bounty', href: '/org/security/bug-bounty' },
           { name: 'Vulnerability Disclosure', href: '/org/security/disclosure' },
-          { name: 'Penetration Testing', href: '/org/security/pen-test' },
+          { name: 'Penetration Testing', href: '/org/security/pentest' },
         ],
       },
       {
@@ -70,9 +70,9 @@ export default function Sidebar({ user, isCollapsed, setIsCollapsed }) {
         name: 'Help & Support', 
         icon: <HelpCircle />, 
         children: [
-          { name: 'Contact Us', href: '/org/contact' },
-          { name: 'Chat with us', href: '/org/chat' },
-          { name: 'Report a Bug', href: '/org/bug' },
+          { name: 'Contact Us', href: '/contact' },
+          { name: 'Chat with us', href: '/chat' },
+          { name: 'Report a Bug', href: '/bug' },
           { name: 'FAQs', href: '/faqs' },
           { name: 'Terms & Conditions', href: '/terms' },
         ],
@@ -91,9 +91,9 @@ export default function Sidebar({ user, isCollapsed, setIsCollapsed }) {
         name: 'Help & Support', 
         icon: <HelpCircle />, 
         children: [
-          { name: 'Contact Us', href: '/researcher/contact' },
-          { name: 'Chat with us', href: '/researcher/chat' },
-          { name: 'Report a Bug', href: '/researcher/bug' },
+          { name: 'Contact Us', href: '/contact' },
+          { name: 'Chat with us', href: '/chat' },
+          { name: 'Report a Bug', href: '/bug' },
           { name: 'FAQs', href: '/faqs' },
           { name: 'Terms & Conditions', href: '/terms' },
         ],
@@ -109,9 +109,9 @@ export default function Sidebar({ user, isCollapsed, setIsCollapsed }) {
         name: 'Help & Support', 
         icon: <HelpCircle />, 
         children: [
-          { name: 'Contact Us', href: '/analyst/contact' },
-          { name: 'Chat with us', href: '/analyst/chat' },
-          { name: 'Report a Bug', href: '/analyst/bug' },
+          { name: 'Contact Us', href: '/contact' },
+          { name: 'Chat with us', href: '/chat' },
+          { name: 'Report a Bug', href: '/bug' },
           { name: 'FAQs', href: '/faqs' },
           { name: 'Terms & Conditions', href: '/terms' },
         ],
@@ -152,9 +152,9 @@ export default function Sidebar({ user, isCollapsed, setIsCollapsed }) {
         name: 'Help & Support', 
         icon: <HelpCircle />, 
         children: [
-          { name: 'Contact Us', href: '/team/contact' },
-          { name: 'Chat with us', href: '/team/chat' },
-          { name: 'Report a Bug', href: '/team/bug' },
+          { name: 'Contact Us', href: '/contact' },
+          { name: 'Chat with us', href: '/chat' },
+          { name: 'Report a Bug', href: '/bug' },
           { name: 'FAQs', href: '/faqs' },
           { name: 'Terms & Conditions', href: '/terms' },
         ],
@@ -202,7 +202,7 @@ export default function Sidebar({ user, isCollapsed, setIsCollapsed }) {
         className="flex-1 overflow-y-auto mt-6 pr-1 pt-2 pb-4"
         style={{ overscrollBehavior: 'contain' }}
       >
-        <ul className="space-y-4">
+        <ul className="space-y-2">
           {navItems.map((item, idx) => (
             <li key={idx}>
               {item.children ? (
@@ -212,7 +212,7 @@ export default function Sidebar({ user, isCollapsed, setIsCollapsed }) {
                     className={`w-full flex justify-between items-center text-left
                       ${isCollapsed ? 'justify-center' : 'justify-between'}
                       text-gray-800 dark:text-gray-200 font-medium
-                      py-3 px-4 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors
+                      py-2 px-4 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors
                       `}
                     style={{ fontSize: '1.125rem' }}
                   >
@@ -242,7 +242,7 @@ export default function Sidebar({ user, isCollapsed, setIsCollapsed }) {
                         animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ duration: 0.3 }}
-                        className="pl-6 space-y-4 mt-2 overflow-hidden"
+                        className="pl-6 space-y-2 mt-1 overflow-hidden"
                       >
                         {item.children.map((child, cidx) => (
                           <li key={cidx}>
@@ -267,7 +267,7 @@ export default function Sidebar({ user, isCollapsed, setIsCollapsed }) {
                   className={`flex items-center space-x-3
                     ${isCollapsed ? 'justify-center' : ''}
                     text-gray-800 dark:text-gray-200 font-medium
-                    py-3 px-4 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors
+                    py-2 px-4 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors
                     `}
                   style={{ fontSize: '1.125rem' }}
                 >
@@ -278,6 +278,7 @@ export default function Sidebar({ user, isCollapsed, setIsCollapsed }) {
             </li>
           ))}
         </ul>
+        
       </div>
     </div>
   );

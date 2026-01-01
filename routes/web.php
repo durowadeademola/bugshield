@@ -41,18 +41,51 @@ Route::middleware('auth', 'verified')->group(function () {
 
 Route::middleware(['auth', 'verified', 'role:organization'])->group(function () {
     Route::get('/org/dashboard', [OrganizationController::class, 'index'])->name('organization.dashboard');
+    // Security
+    Route::get('/org/security/bug-bounty', [OrganizationController::class, 'bugBounty'])->name('organization.security.bug-bounty');
+    Route::get('/org/security/disclosure', [OrganizationController::class, 'vulnDisclosure'])->name('organization.security.disclosure');
+    Route::get('/org/security/pentest', [OrganizationController::class, 'penTest'])->name('organization.security.pentest');
+    // AI & Automation
+    Route::get('/org/ai-auto/scanner', [OrganizationController::class, 'vulnScanner'])->name('organization.ai-auto.scanner');
+    Route::get('/org/ai-auto/threat-monitor', [OrganizationController::class, 'threatMonitor'])->name('organization.ai-auto.threat-monitor');
+    Route::get('/org/ai-auto/ai-assistant', [OrganizationController::class, 'aiAssitant'])->name('organization.ai-auto.ai-assistant');
+    // Audit & Reports
+    Route::get('/org/audit-report/security-audit', [OrganizationController::class, 'securityAudit'])->name('organization.audit-report.security-audit');
+    Route::get('/org/audit-report/threat-report', [OrganizationController::class, 'threatReport'])->name('organization.audit-report.threat-report');
+    Route::get('/org/audit-report/vuln-report', [OrganizationController::class, 'vulnReport'])->name('organization.audit-report.vuln-report');
+    // Teams
+    // Subscriptions
 });
 
 Route::middleware(['auth', 'verified', 'role:analyst'])->group(function () {
     Route::get('/analyst/dashboard', [AnalystController::class, 'index'])->name('analyst.dashboard');
+    Route::get('/analyst/programs', [AnalystController::class, 'programs'])->name('analyst.programs');
+    Route::get('/analyst/reports', [AnalystController::class, 'reports'])->name('analyst.reports');
 });
 
 Route::middleware(['auth', 'verified', 'role:researcher'])->group(function () {
     Route::get('/researcher/dashboard', [ResearcherController::class, 'index'])->name('researcher.dashboard');
+    Route::get('/researcher/programs', [ResearcherController::class, 'programs'])->name('researcher.programs');
+    Route::get('/researcher/invites', [ResearcherController::class, 'invites'])->name('researcher.invites');
+    Route::get('/researcher/submissions', [ResearcherController::class, 'submissions'])->name('researcher.submissions');
+    Route::get('/researcher/payments', [ResearcherController::class, 'payments'])->name('researcher.payments');
+    Route::get('/researcher/leaderboards', [ResearcherController::class, 'leaderboards'])->name('researcher.leaderboards');
 });
 
 Route::middleware(['auth', 'verified', 'role:team'])->group(function () {
     Route::get('/team/dashboard', [TeamController::class, 'index'])->name('team.dashboard');
+    // Security
+    Route::get('/org/security/bug-bounty', [OrganizationController::class, 'bugBounty'])->name('organization.security.bug-bounty');
+    Route::get('/org/security/disclosure', [OrganizationController::class, 'vulnDisclosure'])->name('organization.security.disclosure');
+    Route::get('/org/security/pentest', [OrganizationController::class, 'penTest'])->name('organization.security.pentest');
+    // AI & Automation
+    Route::get('/org/ai-auto/scanner', [OrganizationController::class, 'vulnScanner'])->name('organization.ai-auto.scanner');
+    Route::get('/org/ai-auto/threat-monitor', [OrganizationController::class, 'threatMonitor'])->name('organization.ai-auto.threat-monitor');
+    Route::get('/org/ai-auto/ai-assistant', [OrganizationController::class, 'aiAssitant'])->name('organization.ai-auto.ai-assistant');
+    // Audit & Reports
+    Route::get('/org/audit-report/security-audit', [OrganizationController::class, 'securityAudit'])->name('organization.audit-report.security-audit');
+    Route::get('/org/audit-report/threat-report', [OrganizationController::class, 'threatReport'])->name('organization.audit-report.threat-report');
+    Route::get('/org/audit-report/vuln-report', [OrganizationController::class, 'vulnReport'])->name('organization.audit-report.vuln-report');
 });
 
 Route::get('/terms', [PageController::class, 'terms'])->name('terms');

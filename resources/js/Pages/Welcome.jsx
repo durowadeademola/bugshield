@@ -4,24 +4,6 @@ import { Head, Link } from '@inertiajs/react';
 import { motion } from 'framer-motion';
 
 export default function Welcome({ auth, laravelVersion, phpVersion }) {
-    const roles = auth.user?.roles || [];
-    const isOrganization = roles.includes('organization');
-    const isAnalyst = roles.includes('analyst');
-    const isResearcher = roles.includes('researcher');
-    const isTeam = roles.includes('team');
-    var href;
-
-    if (isOrganization) {
-        href = route('organization.dashboard');
-    } else if (isAnalyst) {
-        href = route('analyst.dashboard');
-    } else if (isResearcher) {
-        href = route('researcher.dashboard');
-    } else if (isTeam) {
-        href = route('team.dashboard');
-    } else {
-        href = route('home');
-    }
 
     return (
         <>
@@ -51,7 +33,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                 {/* Header */}
                 <header className="fixed left-0 top-0 z-50 w-full bg-[#0b1e4e] text-white shadow">
                     <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-2">
-                        <Navbar auth={auth} href={href} />
+                        <Navbar auth={auth} />
                     </div>
                 </header>
 
