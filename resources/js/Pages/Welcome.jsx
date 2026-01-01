@@ -1,5 +1,7 @@
+import Footer from '@/Pages/Footer.jsx';
+import Navbar from '@/Pages/Navbar.jsx';
 import { Head, Link } from '@inertiajs/react';
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
 
 export default function Welcome({ auth, laravelVersion, phpVersion }) {
     const roles = auth.user?.roles || [];
@@ -9,9 +11,9 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
     const isTeam = roles.includes('team');
     var href;
 
-    if(isOrganization) {
+    if (isOrganization) {
         href = route('organization.dashboard');
-    } else if(isAnalyst) {
+    } else if (isAnalyst) {
         href = route('analyst.dashboard');
     } else if (isResearcher) {
         href = route('researcher.dashboard');
@@ -21,144 +23,104 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
         href = route('home');
     }
 
-    const handleImageError = () => {
-        document
-            .getElementById('screenshot-container')
-            ?.classList.add('!hidden');
-        document.getElementById('docs-card')?.classList.add('!row-span-1');
-        document
-            .getElementById('docs-card-content')
-            ?.classList.add('!flex-row');
-        document.getElementById('background')?.classList.add('!hidden');
-    };
-
     return (
         <>
-           <Head>
-            <title>Protect Your Business</title>
-            <img
-                src="/images/bluestrike-logo.png"
-                alt="Bluestrike Logo"
-                className="h-20 w-auto"
-            />
+            <Head>
+                <title>Protect Your Business</title>
+                <link
+                    rel="apple-touch-icon"
+                    sizes="180x180"
+                    href="/apple-touch-icon.png"
+                />
+                <link
+                    rel="icon"
+                    type="image/png"
+                    sizes="32x32"
+                    href="/favicon-32x32.png"
+                />
+                <link
+                    rel="icon"
+                    type="image/png"
+                    sizes="16x16"
+                    href="/favicon-16x16.png"
+                />
+                <link rel="manifest" href="/site.webmanifest" />
             </Head>
 
-            <div className="bg-black text-white dark:bg-black dark:text-white/50 relative min-h-screen">
-
-                <header className="fixed top-0 left-0 w-full bg-[#0b1e4e] text-white shadow z-50">
-                    <div className="max-w-7xl mx-auto flex items-center justify-between py-1 px-6">
-                    {/* Logo */}
-                    <div className="flex items-center">
-                        <img
-                        src="/images/bluestrike-logo.png"
-                        alt="Bluestrike Logo"
-                        className="h-20 w-auto"
-                        />
-                        <Link href="/">
-                            <span className="text-3xl font-bold text-white cursor-pointer">Bluestrike</span>
-                        </Link>
-                    </div>
-
-                    {/* Navigation */}
-                    <nav className="flex items-center space-x-8">
-                        <div className="relative group">
-                        <span className="cursor-pointer">Services</span>
-                        <div className="absolute hidden cursor-pointer group-hover:block bg-white text-black mt-2 rounded shadow-lg p-2 space-y-2">
-                            <Link href="/bug-bounty">Bug Bounty</Link>
-                            <Link href="/pentest">Penetration Testing</Link>
-                            <Link href="/audit">Security Audit</Link>
-                            <Link href="/training">Training</Link>
-                        </div>
-                        </div>
-                        <Link href="/solution">Solutions</Link>
-                        <Link href="/researchers">Researchers</Link>
-                        <Link href="/customers">Customers</Link>
-                        <Link href="/resources">Resources</Link>
-                        <Link href="/company">Company</Link>
-                    </nav>
-
-                    {/* Auth Buttons */}
-                    <div className="space-x-4 flex-shrink-0">
-                        {auth.user ? (
-                        <Link
-                            href={href}
-                            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
-                        >
-                            Go to Dashboard
-                        </Link>
-                        ) : (
-                        <>
-                            <Link href={route('login')} className="text-white hover:text-gray-300">
-                            Log In
-                            </Link>
-            
-                            <Link
-                            href={route('register')}
-                            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-4 rounded hover:bg-hoverPrimary ease-in duration-300"
-                            >
-                            Try Bluestrike
-                            </Link>
-                        </>
-                        )}
-                    </div>
+            <div className="relative min-h-screen bg-gradient-to-b from-[#0b1e4e] to-black text-white">
+                {/* Header */}
+                <header className="fixed left-0 top-0 z-50 w-full bg-[#0b1e4e] text-white shadow">
+                    <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-2">
+                        <Navbar auth={auth} href={href} />
                     </div>
                 </header>
 
-                <main className="pt-32 bg-black text-white min-h-screen">
-                    <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 px-6 items-center">
+                {/* Hero Section */}
+                <main className="min-h-screen pt-32">
+                    <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-6 md:grid-cols-2">
                         {/* Left side Texts */}
                         <motion.div
-                        initial={{ opacity: 0, y: 100 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 1 }}
+                            initial={{ opacity: 0, y: 100 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 1 }}
+                            className="space-y-4 md:space-y-6"
                         >
-                        <p className="text-blue-400 uppercase font-semibold tracking-wide mb-2">
-                            A Comprehensive Cybersecurity Solution
-                        </p>
-                        <h1 className="text-4xl lg:text-5xl font-extrabold mb-6 leading-tight">
-                            Protects <span className='text-green-400'>Data</span> from cyber <span className="text-yellow-400">security</span> <span className="text-red-400">threats</span> around the world
-                        </h1>
-                        <p className="text-white/80 mb-6">
-                            Threat intelligence provides information about current and emerging cyber threats, allowing organizations to stay ahead of potential attacks.
-                        </p>
-                        <div className="flex space-x-4">
-                            <Link
-                            href="/register"
-                            className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded text-white font-semibold"
-                            >
-                            Get Started
-                            </Link>
-                            <Link
-                            href="/login"
-                            className="bg-transparent border border-white hover:bg-white hover:text-[#0b1e4e] px-6 py-3 rounded text-white font-semibold"
-                            >
-                            Sign In
-                            </Link>
-                        </div>
-                        </motion.div>
-                            
-                        {/* Right side Illustration Image */}
-                        <motion.div
-                        className="flex justify-center items-center h-full"
-                        initial={{ opacity: 0, y: 50 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 1.2, duration: 1 }}
-                        >
-                        <img
-                            src="/images/bluestrike-illustration.png"
-                            alt="Cybersecurity Illustration"
-                            className="object-contain w-full max-w-lg h-[500px] rounded-2xl"
-                        />
+                            <p className="text-sm font-semibold uppercase tracking-wide text-blue-400 md:text-base">
+                                A Comprehensive Cybersecurity Solution
+                            </p>
+
+                            <h1 className="mb-4 text-4xl font-extrabold leading-tight lg:text-5xl">
+                                Protect{' '}
+                                <span className="text-green-400">Data</span>{' '}
+                                from cyber{' '}
+                                <span className="text-yellow-400">
+                                    security
+                                </span>{' '}
+                                <span className="text-red-400">threats</span>{' '}
+                                around the world
+                            </h1>
+
+                            <p className="text-base text-white/80 md:text-lg">
+                                Threat intelligence provides information about
+                                current and emerging cyber threats, allowing
+                                organizations to stay ahead of potential
+                                attacks.
+                            </p>
+
+                            <div className="mt-6 flex flex-col space-y-3 sm:flex-row sm:space-x-4 sm:space-y-0">
+                                <Link
+                                    href="/register"
+                                    className="rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white shadow-md transition-all hover:bg-blue-700 hover:shadow-lg"
+                                >
+                                    Get Started
+                                </Link>
+                                <Link
+                                    href="/login"
+                                    className="rounded-lg border border-white bg-transparent px-6 py-3 font-semibold text-white transition-all hover:bg-white hover:text-[#0b1e4e]"
+                                >
+                                    Sign In
+                                </Link>
+                            </div>
                         </motion.div>
 
+                        {/* Right side Illustration Image */}
+                        <motion.div
+                            className="flex h-full items-center justify-center"
+                            initial={{ opacity: 0, y: 50 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 1.2, duration: 1 }}
+                        >
+                            <img
+                                src="/images/bluestrike-illustration.png"
+                                alt="Cybersecurity Illustration"
+                                className="h-[500px] w-full max-w-lg rounded-2xl object-contain shadow-2xl"
+                            />
+                        </motion.div>
                     </div>
                 </main>
 
-
-
-                <footer className="py-16 text-center text-sm text-white/70">
-                    {/* Footer content */}
-                </footer>
+                {/* Footer */}
+                <Footer />
             </div>
         </>
     );
