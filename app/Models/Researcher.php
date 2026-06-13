@@ -15,21 +15,22 @@ class Researcher extends Model
 
     protected $dates = ['deleted_at'];
 
-    protected $fillable = ['user_id', 'first_name', 'middle_name', 'last_name', 'email',
+    protected $fillable = [
+        'user_id', 'first_name', 'middle_name', 'last_name', 'email',
         'designation', 'address', 'phone_number', 'is_active', 'rank',
+        'reputation_points', 'total_earnings', 'reports_submitted', 'reports_resolved',
+        'country', 'bio', 'image_name', 'image_path',
     ];
 
     protected function casts(): array
     {
         return [
-            'first_name' => 'string',
-            'middle_name' => 'string',
-            'last_name' => 'string',
-            'email' => 'string',
-            'designation' => 'string',
-            'address' => 'string',
-            'phone_number' => 'integer',
+            'is_active' => 'boolean',
             'rank' => 'integer',
+            'reputation_points' => 'integer',
+            'total_earnings' => 'decimal:2',
+            'reports_submitted' => 'integer',
+            'reports_resolved' => 'integer',
         ];
     }
 
@@ -38,8 +39,18 @@ class Researcher extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function getFullNameAttribute(): ?string
+    public function reports()
     {
-        return "{$this->first_name}, {$this->last_name}";
+        return $this->hasMany(Report::class, 'researcher_id');
+    }
+
+    public function bounties()
+    {
+        return $this->hasMany(Bounty::class, 'researcher_id');
+    }
+
+    public function getFullNameAttribute(): string
+    {
+        return trim("{$this->first_name} {$this->last_name}");
     }
 }

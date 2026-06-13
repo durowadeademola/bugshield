@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from '@inertiajs/react';
 import {
   Home, Activity, CreditCard, Users, Settings, Bot, ShieldHalf, Trophy,
-  HelpCircle, FileText, ChevronDown, ChevronRight, Shield, Lock, Key,
+  HelpCircle, FileText, ChevronDown, ChevronRight,
   UserPlus
 } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -51,20 +51,9 @@ export default function Sidebar({ user, isCollapsed, setIsCollapsed }) {
           { name: 'Vulnerability Report', href: '/org/audit-report/vuln-report' }
         ]
       },
-      {
-        name: 'Teams',
-        icon: <Users />,
-        children: [
-          // { name: 'Manage', href: '/org/manage/teams' },
-        ],
-      },
-      {
-        name: 'Subscriptions',
-        icon: <CreditCard />,
-        children: [
-          // { name: 'Manage', href: '/org/manage/subscriptions' },
-        ],
-      },
+      { name: 'Reports', icon: <FileText />, href: '/org/reports' },
+      { name: 'Teams', icon: <Users />, href: '/team/dashboard' },
+      { name: 'Subscriptions', icon: <CreditCard />, href: '/profile' },
       { name: 'Settings', icon: <Settings />, href: '/profile' },
       { 
         name: 'Help & Support', 

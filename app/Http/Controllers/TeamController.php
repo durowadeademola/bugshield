@@ -2,68 +2,45 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreTeamRequest;
-use App\Http\Requests\UpdateTeamRequest;
+use App\Models\Program;
+use App\Models\Report;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class TeamController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
+        $team = Auth::user()->team;
+        $org = $team ? $team->organization : null;
+
+        $stats = [
+            'total_programs' => 0,
+            'total_reports' => 0,
+            'pending_reports' => 0,
+            'resolved_reports' => 0,
+        ];
+
+        $recentReports = [];
+
+        if ($org) {
+            $stats = [
+                'total_programs' => $org->programs()->count(),
+                'total_reports' => $org->reports()->count(),
+                'pending_reports' => $org->reports()->where('reports.status', 'pending')->count(),
+                'resolved_reports' => $org->reports()->where('reports.status', 'resolved')->count(),
+            ];
+
+            $recentReports = $org->reports()
+                ->with(['program:id,title', 'researcher:id,first_name,last_name'])
+                ->latest('reports.created_at')
+                ->take(5)
+                ->get();
+        }
+
         return Inertia::render('Team/Dashboard', [
-            'user' => Auth::user(),
+            'stats' => $stats,
+            'recentReports' => $recentReports,
         ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreTeamRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateTeamRequest $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }
